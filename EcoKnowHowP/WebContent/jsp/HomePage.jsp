@@ -8,19 +8,5 @@
 </head>
 <body>
 	<h1>Benvenuto</h1>
-	<p>ciao sono una prova vediamo se va </p>
-	<h1>Si</h1>
-
-	<h1>Sissss</h1>
-	
-	<h1> nooooooooooo</h1>
-	<h1>Sissss</h1>
-		<p>ciao sono una prova vediamo se va </p>
-	<h1>Si</h1>
-
-	<h1>Sissss</h1>
-	
-	<h1> nooooooooooo</h1>
-	<h1>Sissss</h1>
 </body>
 </html>
