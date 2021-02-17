@@ -8,7 +8,7 @@ CREATE USER 'ekh'@'localhost' IDENTIFIED BY 'adminadmin';
 GRANT ALL ON ecoknowhow.* TO 'ekh'@'localhost';
 
 CREATE TABLE cliente(
-	email char(50) not null,
+	username char(20) not null,
 	nome char(30) not null,
 	cognome char(30) not null, 
 	funzioneAziendale char(50) not null,
@@ -17,24 +17,19 @@ CREATE TABLE cliente(
 	indirizzo char(100) not null,
 	pIva char(11) default null,
 	cf char(16) default null,
-	pec char(50) not null,
+	pec char(50) default null,
 	sdi char(6) not null,
-	PRIMARY KEY(email)
+	email char(50) not null,
+	password char(15) not null,
+	codSicurezza char(6) not null,
+	PRIMARY KEY(username)
 );
 
 CREATE TABLE amministratore(
-	email char(50) not null,
-	PRIMARY KEY(email)
-);
-
-CREATE TABLE account(
 	username char(20) not null,
 	email char(50) not null,
 	password char(15) not null,
 	codSicurezza char(6) not null,
-	tipo char(7) check(tipo in('cliente', 'admin')),
-	FOREIGN KEY(email) REFERENCES cliente(email),
-	FOREIGN KEY(email) REFERENCES amministratore(email),
 	PRIMARY KEY(username)
 );
 

@@ -3,19 +3,22 @@ package ekh.bean;
 public class AccountBean {
 	private String username;
 	private String email;
+	private String password;
 	private String codSicurezza;
 	private String tipo;
-	
+
 	public AccountBean() {
 		username = "";
 		email = "";
+		password = "";
 		codSicurezza = "";
 		tipo = "";
 	}
-	
-	public AccountBean(String username, String email, String codSicurezza, String tipo) {
+
+	public AccountBean(String username, String email, String password, String codSicurezza, String tipo) {
 		this.username = username;
 		this.email = email;
+		this.password = password;
 		this.codSicurezza = codSicurezza;
 		this.tipo = tipo;
 	}
@@ -36,6 +39,14 @@ public class AccountBean {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getCodSicurezza() {
 		return codSicurezza;
 	}
@@ -51,7 +62,7 @@ public class AccountBean {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
+
 	public boolean isEmpty() {
 		if (username.length() < 0) {
 			return true;

@@ -1,7 +1,7 @@
 package ekh.bean;
 
 public class ClienteBean {
-	private String email;
+	private String username;
 	private String nome;
 	private String cognome;
 	private String funzioneAziendale;
@@ -14,7 +14,7 @@ public class ClienteBean {
 	private String sdi;
 
 	public ClienteBean() {
-		email = "";
+		username = "";
 		nome = "";
 		cognome = "";
 		funzioneAziendale = "";
@@ -27,9 +27,9 @@ public class ClienteBean {
 		sdi = "";
 	}
 
-	public ClienteBean(String email, String nome, String cognome, String funzioneAziendale, String telefono,
+	public ClienteBean(String username, String nome, String cognome, String funzioneAziendale, String telefono,
 			String ragioneSociale, String indirizzo, String pIva, String cf, String pec, String sdi) {
-		this.email = email;
+		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.funzioneAziendale = funzioneAziendale;
@@ -43,12 +43,12 @@ public class ClienteBean {
 	}
 
 	
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getNome() {
@@ -132,7 +132,7 @@ public class ClienteBean {
 	}
 
 	public boolean isEmpty() {
-		if (email.length() < 0) {
+		if (username.length() < 0) {
 			return true;
 		}
 		return false;
