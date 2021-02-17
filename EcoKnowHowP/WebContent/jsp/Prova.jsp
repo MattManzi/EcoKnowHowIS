@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Eko Know How</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Benvenuto</h1>
-
-
 
 </body>
 </html>
