@@ -1,11 +1,18 @@
 package ekh.bean;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import ekh.model.PacchettoModelDM;
+import ekh.model.ParametroModelDM;
+
 public class PacchettoBean {
 	private int id;
 	private String nome;
 	private String descrizione;
 	private String tipo;
 	private String username;
+	private ArrayList<ParametroBean> contenuto;
 	private double prezzo;
 
 	public PacchettoBean() {
@@ -14,15 +21,17 @@ public class PacchettoBean {
 		descrizione = "";
 		tipo = "";
 		username = "";
+		contenuto=new ArrayList<ParametroBean>();
 		prezzo = 0;
 	}
 
-	public PacchettoBean(int id, String nome, String descrizione, String tipo, String username, double prezzo) {
+	public PacchettoBean(int id, String nome, String descrizione, String tipo, String username, ArrayList<ParametroBean> contenuto, double prezzo) {
 		this.id = id;
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.tipo = tipo;
 		this.username = username;
+		this.contenuto=contenuto;
 		this.prezzo = prezzo;
 	}
 
@@ -66,6 +75,14 @@ public class PacchettoBean {
 		this.username = username;
 	}
 
+	public ArrayList<ParametroBean> getContenuto() {
+		return contenuto;
+	}
+
+	public void setContenuto(ArrayList<ParametroBean> contenuto) {
+		this.contenuto = contenuto;
+	}
+
 	public double getPrezzo() {
 		return prezzo;
 	}
@@ -79,5 +96,35 @@ public class PacchettoBean {
 			return true;
 		}
 		return false;
+	}
+	
+	public void readContenuto() {
+		ParametroModelDM model=new ParametroModelDM();
+		contenuto.clear();
+		byte[] bt=null;
+		try {
+			bt = PacchettoModelDM.load(id);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		String parametri=new String(bt);
+		String[] param=parametri.split("\n");
+		
+		for(String id:param) {
+			try {
+				contenuto.add(model.doRetrieveByKey(id));
+			} catch (SQLException e) {
+				System.out.println("Errore PacchettoBean readContenuto: "+e.getMessage());
+			}
+		}
+	}
+	
+	public String stampContenuto() {
+		String str="";
+		for(ParametroBean i:contenuto) {
+			str=str+i.getId()+"\n";
+		}
+		return str;
 	}
 }

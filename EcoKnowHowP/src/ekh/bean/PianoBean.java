@@ -62,7 +62,7 @@ public class PianoBean {
 	public void setStato(String stato) {
 		this.stato = stato;
 	}
-	
+		
 	public boolean isEmpty() {
 		if (id == 0) {
 			return true;

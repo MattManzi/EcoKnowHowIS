@@ -63,7 +63,7 @@ CREATE TABLE pacchetto(
 	username char(20) not null,
 	contenuto mediumblob default null,
 	prezzo double default 0,
-	FOREIGN KEY(username) REFERENCES account(username),
+	FOREIGN KEY(username) REFERENCES cliente(username),
 	PRIMARY KEY(id)
 );
 
@@ -73,10 +73,11 @@ CREATE TABLE piano(
 	username char(20) not null,
 	modulo mediumblob default null,
 	referto mediumblob default null,
+	schedaDatiSicurezza mediumblob default null,
 	prezzo double default 0,
 	stato char(9) check(stato in('respinto', 'inAttesa', 'approvato')),	
 	FOREIGN KEY(idPacchetto) REFERENCES pacchetto(id),
-	FOREIGN KEY(username) REFERENCES account(username),
+	FOREIGN KEY(username) REFERENCES cliente(username),
 	PRIMARY KEY(id)
 );
 

@@ -23,10 +23,46 @@ public class ModuloBean {
 	private String quantit‡Campione;
 	private String note;
 	private ArrayList<String> obiettivi;
-	private ArrayList<String> hp;
 	private Date dataConferma;
-	
-	private ModuloBean() {}
+	// moduloAvanzato
+	private ArrayList<String> hp;
+	private String cer;
+	private String statoFisico;
+	private String descrizione;
+
+	private ModuloBean() {
+	}
+
+	public String stampModuloBase() {
+		String str = "";
+		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
+				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
+				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
+				+ cognomeCampionatore + "\n" + norma + "\n" + quantit‡Campione + "\n" + note + "\n" + dataConferma+ "\n";
+
+		for (String i : obiettivi) {
+			str = str +"Obiettivo:"+ i + "\n";
+		}
+		return str;
+	}
+
+	public String stampModuloAvanzato() {
+		String str = "";
+		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
+				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
+				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
+				+ cognomeCampionatore + "\n" + norma + "\n" + quantit‡Campione + "\n" + note + "\n" + dataConferma
+				+ "\n" + cer + "\n" + statoFisico + "\n" + descrizione+ "\n";
+
+		for (String i : obiettivi) {
+			str = str +"Obiettivo:"+ i + "\n";
+		}
+
+		for (String i : hp) {
+			str = str +"HP:"+ i + "\n";
+		}
+		return str;
+	}
 
 	public String getTipo() {
 		return tipo;
@@ -115,13 +151,13 @@ public class ModuloBean {
 	public void setEmailCom(String emailCom) {
 		this.emailCom = emailCom;
 	}
-	
+
 	public void stessaPersona() {
-		ragioneSocialeCom=ragioneSocialeProd;
-		sedeLegaleCom=sedeLegaleProd;
-		pIvaCom=pIvaProd;
-		telefonoCom=telefonoProd;
-		emailCom=emailProd;
+		ragioneSocialeCom = ragioneSocialeProd;
+		sedeLegaleCom = sedeLegaleProd;
+		pIvaCom = pIvaProd;
+		telefonoCom = telefonoProd;
+		emailCom = emailProd;
 	}
 
 	public Date getData() {
@@ -196,6 +232,30 @@ public class ModuloBean {
 		this.hp = hp;
 	}
 
+	public String getCer() {
+		return cer;
+	}
+
+	public void setCer(String cer) {
+		this.cer = cer;
+	}
+
+	public String getStatoFisico() {
+		return statoFisico;
+	}
+
+	public void setStatoFisico(String statoFisico) {
+		this.statoFisico = statoFisico;
+	}
+
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
 	public Date getDataConferma() {
 		return dataConferma;
 	}
@@ -203,7 +263,5 @@ public class ModuloBean {
 	public void setDataConferma(Date dataConferma) {
 		this.dataConferma = dataConferma;
 	};
-	
-		
-	
+
 }

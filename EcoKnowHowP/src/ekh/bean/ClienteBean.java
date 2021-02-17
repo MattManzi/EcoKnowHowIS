@@ -12,6 +12,9 @@ public class ClienteBean {
 	private String cf;
 	private String pec;
 	private String sdi;
+	private String email;
+	private String password;
+	private String codSicurezza;
 
 	public ClienteBean() {
 		username = "";
@@ -25,10 +28,13 @@ public class ClienteBean {
 		cf = "";
 		pec = "";
 		sdi = "";
+		email="";
+		password="";
+		codSicurezza="";
 	}
 
 	public ClienteBean(String username, String nome, String cognome, String funzioneAziendale, String telefono,
-			String ragioneSociale, String indirizzo, String pIva, String cf, String pec, String sdi) {
+			String ragioneSociale, String indirizzo, String pIva, String cf, String pec, String sdi, String email, String password, String codSicurezza) {
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -40,8 +46,10 @@ public class ClienteBean {
 		this.cf = cf;
 		this.pec = pec;
 		this.sdi = sdi;
+		this.email=email;
+		this.password=password;
+		this.codSicurezza=codSicurezza;
 	}
-
 	
 	public String getUsername() {
 		return username;
@@ -129,6 +137,30 @@ public class ClienteBean {
 
 	public void setSdi(String sdi) {
 		this.sdi = sdi;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getCodSicurezza() {
+		return codSicurezza;
+	}
+
+	public void setCodSicurezza(String codSicurezza) {
+		this.codSicurezza = codSicurezza;
 	}
 
 	public boolean isEmpty() {

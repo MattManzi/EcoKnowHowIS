@@ -39,6 +39,9 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setCf(rs.getString("cf"));
 				bean.setPec(rs.getString("pec"));
 				bean.setSdi(rs.getString("sdi"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setCodSicurezza(rs.getString("codSicurezza"));
 			}
 		} finally {
 			try {
@@ -87,6 +90,9 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setCf(rs.getString("cf"));
 				bean.setPec(rs.getString("pec"));
 				bean.setSdi(rs.getString("sdi"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setCodSicurezza(rs.getString("codSicurezza"));
 				clienti.add(bean);
 			}
 
@@ -107,7 +113,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO cliente(email, nome, cognome, funzioneAziendale, telefono, ragioneSociale, indirizzo, pIva, cf, pce, sdi) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String insertSQL="INSERT INTO cliente(email, nome, cognome, funzioneAziendale, telefono, ragioneSociale, indirizzo, pIva, cf, pce, sdi, email, password, codSicurezza) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -124,6 +130,9 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 			preparedStatement.setString(9, bean.getCf());
 			preparedStatement.setString(10, bean.getPec());
 			preparedStatement.setString(11, bean.getSdi());
+			preparedStatement.setString(12, bean.getEmail());
+			preparedStatement.setString(13, bean.getPassword());
+			preparedStatement.setString(14, bean.getCodSicurezza());
 
 			System.out.println("ClienteModelDM: doSave:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -145,7 +154,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE account SET username=?, nome=?, cognome=?, funzioneAziendale=?, telefono=?, ragioneSociale=?, indirizzo=?, pIva=?, cf=?, pec=?, sdi=? WHERE username=?";
+		String updateSQL = "UPDATE cliente SET username=?, nome=?, cognome=?, funzioneAziendale=?, telefono=?, ragioneSociale=?, indirizzo=?, pIva=?, cf=?, pec=?, sdi=?, email=?, password=?, codSicurezza=? WHERE username=?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -155,14 +164,17 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 			preparedStatement.setString(2, bean.getNome());
 			preparedStatement.setString(3, bean.getCognome());
 			preparedStatement.setString(4, bean.getFunzioneAziendale());
-			preparedStatement.setString(3, bean.getTelefono());
-			preparedStatement.setString(4, bean.getRagioneSociale());
-			preparedStatement.setString(1, bean.getIndirizzo());
-			preparedStatement.setString(2, bean.getpIva());
-			preparedStatement.setString(3, bean.getCf());
-			preparedStatement.setString(1, bean.getPec());
-			preparedStatement.setString(2, bean.getSdi());
-			preparedStatement.setString(2, bean.getSdi());
+			preparedStatement.setString(5, bean.getTelefono());
+			preparedStatement.setString(6, bean.getRagioneSociale());
+			preparedStatement.setString(7, bean.getIndirizzo());
+			preparedStatement.setString(8, bean.getpIva());
+			preparedStatement.setString(9, bean.getCf());
+			preparedStatement.setString(10, bean.getPec());
+			preparedStatement.setString(11, bean.getSdi());			
+			preparedStatement.setString(12, bean.getEmail());
+			preparedStatement.setString(13, bean.getPassword());
+			preparedStatement.setString(14, bean.getCodSicurezza());
+			preparedStatement.setString(15, bean.getUsername());
 
 			System.out.println("ClienteModelDM: doUpdate:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -181,7 +193,29 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 
 	@Override
 	public void doDelete(ClienteBean bean) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String deleteSQL = "DELETE FROM cliente WHERE username=?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+
+			preparedStatement.setString(1, bean.getUsername());
+
+			System.out.println("ClienteModelDM: doDelete:" + preparedStatement.toString());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
 	}
 }
