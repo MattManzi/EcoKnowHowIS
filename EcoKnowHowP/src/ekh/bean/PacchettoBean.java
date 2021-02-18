@@ -3,7 +3,7 @@ package ekh.bean;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import ekh.model.ModuloModelDM;
+import ekh.model.ContenutoPacchettoModelDM;
 import ekh.model.ParametroModelDM;
 
 public class PacchettoBean {
@@ -103,7 +103,7 @@ public class PacchettoBean {
 		contenuto.clear();
 		byte[] bt=null;
 		try {
-			bt = ModuloModelDM.load(id);
+			bt = ContenutoPacchettoModelDM.loadFile(id);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}

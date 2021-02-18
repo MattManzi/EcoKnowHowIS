@@ -1,16 +1,10 @@
 package ekh.model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import ekh.bean.PianoBean;
 
@@ -183,106 +177,6 @@ public class PianoModelDM implements ClassModel<PianoBean> {
 				}
 			} finally {
 				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-	}
-
-	public synchronized static byte[] load(String id) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet rs = null;
-
-		byte[] bt = null;
-		String sql = "SELECT modulo FROM piano WHERE id=?";
-
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, id);
-
-			System.out.println("PianoModelDM: loadModulo:" + preparedStatement.toString());
-			rs = preparedStatement.executeQuery();
-
-			if (rs.next()) {
-				bt = rs.getBytes("modulo");
-			}
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} catch (SQLException sqlException) {
-				System.out.println(sqlException);
-			} finally {
-				if (connection != null)
-					DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return bt;
-	}
-
-	public synchronized static void updateFile(String id, String modulo) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		Random r = new Random();
-		int n = r.nextInt(999999);
-		String nomeFile=String.format("%06d", n);
-		
-		// Creo un nuovo File
-		try {
-			File modFile = new File(nomeFile+".txt");
-			if (modFile.createNewFile()) {
-				System.out.println("PianoModelDM: File created: " + modFile.getName());
-			} else {
-				System.out.println("PianoModelDM: File already exists.");
-			}
-		} catch (IOException e) {
-			System.out.println("PianoModelDM: An error occurred.");
-			e.printStackTrace();
-		}
-
-		// Scrivo sul nuovo file
-		try {
-			FileWriter myWriter = new FileWriter(nomeFile+".txt");
-			myWriter.write(modulo);
-			myWriter.close();
-			System.out.println("PianoModelDM: Successfully wrote to the file.");
-		} catch (IOException e) {
-			System.out.println("PianoModelDM: An error occurred.");
-			e.printStackTrace();
-		}
-
-		String sql = "UPDATE piano SET modulo = ? WHERE id = ?";
-
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(sql);
-
-			File file = new File(nomeFile+".txt");
-			try {
-				FileInputStream fis = new FileInputStream(file);
-				preparedStatement.setBinaryStream(1, fis, fis.available());
-				preparedStatement.setString(2, id);
-
-				preparedStatement.executeUpdate();
-				connection.commit();
-			} catch (FileNotFoundException e) {
-				System.out.println(e);
-			} catch (IOException e) {
-				System.out.println(e);
-			}
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} catch (SQLException sqlException) {
-				System.out.println(sqlException);
-			} finally {
-				if (connection != null)
-					DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 	}

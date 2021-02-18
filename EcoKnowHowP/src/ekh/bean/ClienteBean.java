@@ -164,7 +164,7 @@ public class ClienteBean {
 	}
 
 	public boolean isEmpty() {
-		if (username.length() < 0) {
+		if (username.equals("")) {
 			return true;
 		}
 		return false;

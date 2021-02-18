@@ -10,17 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.ClienteBean;
+import ekh.bean.EncryptionPassword;
 import ekh.model.ClienteModelDM;
 
-/**
- * Servlet implementation class LoginUserServlet
- */
 @WebServlet("/LoginUserServlet")
 public class LoginUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	static ClienteModelDM model=new ClienteModelDM();
-	
+
+	ClienteModelDM model = new ClienteModelDM();
+
 	public LoginUserServlet() {
 		super();
 	}
@@ -37,23 +35,22 @@ public class LoginUserServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-
-		String redirectedPage = "/LoginFormUser.jsp";
+		   
+		String redirectedPage = "jsp/LoginFormUser.jsp";
 
 		ClienteBean bean = new ClienteBean();
 
 		try {
 			if (!username.equals("") && username != null && !password.equals("") && password != null) {
-				bean = model.verificaLogin(username, password);
-				if (bean.isEmpty()) {
-					throw new Exception("Utente non trovato.");
-				} else {
+				bean = model.verificaLogin(username, EncryptionPassword.MD5(password));
+				if (!bean.isEmpty()) {
 					request.getSession().setAttribute("userRoles", true);
 					request.getSession().setAttribute("Utente", bean);
-					redirectedPage = "/HomePage.jsp";
-				}
+					redirectedPage = "jsp/HomePage.jsp";
+				} else 
+					throw new Exception("Accesso Negato");
 			} else
-				throw new Exception("Errore con l'inserimento dei dati");
+				throw new Exception("Accesso Negato");
 
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());

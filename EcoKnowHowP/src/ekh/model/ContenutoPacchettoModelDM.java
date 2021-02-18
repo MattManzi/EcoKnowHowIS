@@ -11,25 +11,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
-public class ModuloModelDM {
+public class ContenutoPacchettoModelDM {
 	public synchronized static byte[] loadFile(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 
 		byte[] bt = null;
-		String sql = "SELECT modulo FROM piano WHERE id=?";
+		String sql = "SELECT contenuto FROM pacchetto WHERE id=?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 
-			System.out.println("ModuloModelDM: loadContenuto:" + preparedStatement.toString());
+			System.out.println("ContenutoPacchettoModelDM: loadContenuto:" + preparedStatement.toString());
 			rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				bt = rs.getBytes("modulo");
+				bt = rs.getBytes("contenuto");
 			}
 
 		} catch (SQLException e) {
@@ -60,12 +60,12 @@ public class ModuloModelDM {
 		try {
 			File modFile = new File(nomeFile+".txt");
 			if (modFile.createNewFile()) {
-				System.out.println("ModuloModelDM: File created: " + modFile.getName());
+				System.out.println("ContenutoPacchettoModelDM: File created: " + modFile.getName());
 			} else {
-				System.out.println("ModuloModelDM: File already exists.");
+				System.out.println("ContenutoPacchettoModelDM: File already exists.");
 			}
 		} catch (IOException e) {
-			System.out.println("ModuloModelDM: An error occurred.");
+			System.out.println("ContenutoPacchettoModelDM: An error occurred.");
 			e.printStackTrace();
 		}
 
@@ -74,13 +74,13 @@ public class ModuloModelDM {
 			FileWriter myWriter = new FileWriter(nomeFile+".txt");
 			myWriter.write(contenuto);
 			myWriter.close();
-			System.out.println("ModuloModelDM: Successfully wrote to the file.");
+			System.out.println("ContenutoPacchettoModelDM: Successfully wrote to the file.");
 		} catch (IOException e) {
-			System.out.println("ModuloModelDM: An error occurred.");
+			System.out.println("ContenutoPacchettoModelDM: An error occurred.");
 			e.printStackTrace();
 		}
 
-		String sql = "UPDATE piano SET modulo = ? WHERE id = ?";
+		String sql = "UPDATE pacchetto SET contenuto = ? WHERE id = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();

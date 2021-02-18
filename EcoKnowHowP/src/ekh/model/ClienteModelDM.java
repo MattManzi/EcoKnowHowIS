@@ -263,4 +263,36 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 		}
 		return bean;
 	}
+	
+	public boolean controlloDato(String dato, String str)throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		ClienteBean bean=new ClienteBean();
+		
+		String selectSQL="SELECT username FROM cliente WHERE "+dato+"=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, str);
+
+			System.out.println("ClienteModelDM: doRetrieveByKey:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setUsername(rs.getString("username"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		
+		return bean.isEmpty();
+	}
 }

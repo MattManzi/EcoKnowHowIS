@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,7 +60,7 @@ public class RefertoModelDM {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
 
-			System.out.println("PacchettoModelDM: loadContenuto:" + preparedStatement.toString());
+			System.out.println("RefertoModelDM: loadContenuto:" + preparedStatement.toString());
 			rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {

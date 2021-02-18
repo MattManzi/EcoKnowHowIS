@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ekh.bean.AmministratoreBean;
+import ekh.bean.ClienteBean;
 
 public class AmministratoreModelDM implements ClassModel<AmministratoreBean> {
 
@@ -177,5 +178,40 @@ public class AmministratoreModelDM implements ClassModel<AmministratoreBean> {
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}		
+	}
+	
+	public AmministratoreBean verificaLogin(String username, String password)throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		AmministratoreBean bean=new AmministratoreBean();
+		
+		String selectSQL="SELECT * FROM amministratore WHERE username=? AND password=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+
+			System.out.println("AmministratoreModelDM: doRetrieveByKey:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setUsername(rs.getString("username"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setCodSicurezza(rs.getString("codSicurezza"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bean;
 	}
 }
