@@ -8,5 +8,7 @@
 </head>
 <body>
 	<h1>Benvenuto</h1>
+	<a href="jsp/UploadReferto.jsp">test Upload Referto</a><br>
+	<a href="jsp/DownloadReferto.jsp">test Download Referto</a>
 </body>
 </html>

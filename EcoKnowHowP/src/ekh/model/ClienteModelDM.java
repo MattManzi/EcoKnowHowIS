@@ -218,4 +218,49 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 			}
 		}
 	}
+	
+	public ClienteBean verificaLogin(String username, String password)throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		ClienteBean bean=new ClienteBean();
+		
+		String selectSQL="SELECT * FROM cliente WHERE username=? AND password=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+
+			System.out.println("ClienteModelDM: doRetrieveByKey:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setUsername(rs.getString("username"));
+				bean.setNome(rs.getString("nome"));	
+				bean.setCognome(rs.getString("cognome"));
+				bean.setFunzioneAziendale(rs.getString("funzioneAziendale"));
+				bean.setTelefono(rs.getString("telefono"));
+				bean.setRagioneSociale(rs.getString("ragioneSociale"));
+				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setpIva(rs.getString("pIva"));
+				bean.setCf(rs.getString("cf"));
+				bean.setPec(rs.getString("pec"));
+				bean.setSdi(rs.getString("sdi"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setCodSicurezza(rs.getString("codSicurezza"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bean;
+	}
 }
