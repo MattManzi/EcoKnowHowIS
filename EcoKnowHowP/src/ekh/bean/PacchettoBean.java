@@ -8,6 +8,7 @@ import ekh.model.ParametroModelDM;
 
 public class PacchettoBean {
 	private int id;
+	private int idMatrice;
 	private String nome;
 	private String descrizione;
 	private String tipo;
@@ -17,6 +18,7 @@ public class PacchettoBean {
 
 	public PacchettoBean() {
 		id = 0;
+		idMatrice=0;
 		nome = "";
 		descrizione = "";
 		tipo = "";
@@ -25,8 +27,9 @@ public class PacchettoBean {
 		prezzo = 0;
 	}
 
-	public PacchettoBean(int id, String nome, String descrizione, String tipo, String username, ArrayList<ParametroBean> contenuto, double prezzo) {
+	public PacchettoBean(int id, int idMatrice, String nome, String descrizione, String tipo, String username, ArrayList<ParametroBean> contenuto, double prezzo) {
 		this.id = id;
+		this.idMatrice=idMatrice;
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.tipo = tipo;
@@ -41,6 +44,14 @@ public class PacchettoBean {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getIdMatrice() {
+		return idMatrice;
+	}
+
+	public void setIdMatrice(int idMatrice) {
+		this.idMatrice = idMatrice;
 	}
 
 	public String getNome() {
@@ -98,6 +109,54 @@ public class PacchettoBean {
 		return false;
 	}
 	
+	public void addParametro(ParametroBean bean) {
+		boolean chiave=true;
+		try {
+			if(!bean.isEmpty() && bean!=null) {
+				if(contenuto.size()>0) {
+					for(ParametroBean p:contenuto) {
+						if(p.getId()==bean.getId()) {
+							chiave=false;
+							throw new Exception("ERRORE - PacchettoBean.addParametro:: Parametro già presente nel pacchetto.");
+						}
+					}
+					if(chiave) {
+						contenuto.add(bean);
+					}
+				}else {
+					contenuto.add(bean);
+				}
+			}else
+				throw new Exception("ERRORE - PacchettoBean.addParametro: Parametro non valido");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}	
+	}
+	
+	public void remParametro(ParametroBean bean) {
+		try {
+			if(!bean.isEmpty() && bean!=null) {
+				for(ParametroBean p:contenuto) {
+					if(p.getId()==bean.getId()) {
+						contenuto.remove(p);
+						break;
+					}
+				}
+			}else
+				throw new Exception("ERRORE - PacchettoBean.remParametro: Parametro non valido");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}	
+	}
+	
+	public int getSize() {
+		return contenuto.size();
+	}
+	
+	public void deleteContenuto() {
+		contenuto.clear();		
+	}
+	
 	public void readContenuto() {
 		ParametroModelDM model=new ParametroModelDM();
 		contenuto.clear();
@@ -126,5 +185,15 @@ public class PacchettoBean {
 			str=str+i.getId()+"\n";
 		}
 		return str;
+	}
+	
+	public double calcolaPrezzo() {
+		double prezzo=0;
+		
+		for(ParametroBean bean:contenuto) {
+			prezzo=prezzo+bean.getPrezzo();
+		}	
+		
+		return prezzo;
 	}
 }

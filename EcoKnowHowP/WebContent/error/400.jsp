@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h1>400</h1>
-	<a href="/jsp/HomePage.jsp">Home Page</a>
+	<a href="jsp/HomePage.jsp">Home Page</a>
 </body>
 </html>

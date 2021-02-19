@@ -19,28 +19,27 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>EcoKnowHow</title>
-
 </head>
 <body>
 	<a href="<%=response.encodeURL("HomePage.jsp") %>" class="logo"> EcoKnowHow </a>
 	<div id="main">
+		<fieldset>
 		<form name="formLogin" action="<%=response.encodeURL("LoginUser?action=login") %>" method="post">
-			<fieldset>
-				<label for="username">Username</label> 
-				<input class="normal" id="username" type="text" name="username" placeholder="enter username"><br> 
-				<label for="password">Password</label> 
-				<input class="normal" id="password" type="password" name="password" placeholder="enter password"><br>
-				<label>Non hai un account?  <a id="registra" href="<%=response.encodeURL("Registrazione.jsp") %>">Registrati ora</a></label>
-				<button type="button" onclick="loginUser()">Login</button>
-				<%
-				if(msg!=null){ 
-				%>	
-				<p id="error"><%=msg%></p>
-				<%
-				} 
-				%>
-			</fieldset>
+			<label for="username">Username:</label> 
+			<input type="text" name="username" placeholder="enter username"><br> 
+			<label for="password">Password:</label> 
+			<input type="password" name="password" placeholder="enter password"><br>
+			<a href="<%=response.encodeURL("jsp/Registrazione.jsp") %>">Recupera Password</a><br>
+			<button type="button" onclick="loginUser()">Login</button>
 		</form>
+		<label for="registrati">Non hai un account?</label>
+		<a id="registrati" href="<%=response.encodeURL("RegistrazioneUser.jsp") %>">Registrati ora</a>
+		<%if(msg!=null){%>	
+			<p id="error"><%=msg%></p>
+		<%
+		}
+		%>
+		</fieldset>
 	</div>
 </body>
 </html>

@@ -119,20 +119,18 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 	}
 
 	@Override
-	public void doUpdate(MatriceBean bean) throws SQLException {
+	public void doUpdate(String dato, String str, String key) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE matrice SET nome=?, sottotitolo=?, descrizione=? WHERE id=?";
+		String updateSQL = "UPDATE matrice SET "+dato+"=? WHERE id=?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setString(1, bean.getNome());
-			preparedStatement.setString(2, bean.getSottotitolo());
-			preparedStatement.setString(3, bean.getDescrizione());
-			preparedStatement.setInt(4, bean.getId());
+			preparedStatement.setString(1, str);
+			preparedStatement.setString(2, key);
 
 			System.out.println("MatriceModelDM: doUpdate:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -150,7 +148,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 	}
 
 	@Override
-	public void doDelete(MatriceBean bean) throws SQLException {
+	public void doDelete(String id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -160,7 +158,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 
-			preparedStatement.setInt(1, bean.getId());
+			preparedStatement.setString(1, id);
 
 			System.out.println("MatriceModelDM: doDelete:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();

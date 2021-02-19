@@ -57,13 +57,16 @@ CREATE TABLE parametro(
 
 CREATE TABLE pacchetto(
 	id int not null AUTO_INCREMENT, 
+	idMatrice int not null,
 	nome char(20) not null,
 	descrizione char(250) not null,
 	tipo char(8) check(tipo in('standard', 'analitico')),
 	username char(20) not null,
 	contenuto mediumblob default null,
 	prezzo double default 0,
+	FOREIGN KEY(idMatrice) REFERENCES matrice(id),
 	FOREIGN KEY(username) REFERENCES cliente(username),
+	FOREIGN KEY(username) REFERENCES amministratore(username),
 	PRIMARY KEY(id)
 );
 

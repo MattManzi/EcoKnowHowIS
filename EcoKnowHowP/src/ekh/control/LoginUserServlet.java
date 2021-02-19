@@ -1,7 +1,6 @@
 package ekh.control;
 
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +35,7 @@ public class LoginUserServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		   
-		String redirectedPage = "jsp/LoginFormUser.jsp";
+		String redirectedPage = "/jsp/LoginFormUser.jsp";
 
 		ClienteBean bean = new ClienteBean();
 
@@ -46,7 +45,7 @@ public class LoginUserServlet extends HttpServlet {
 				if (!bean.isEmpty()) {
 					request.getSession().setAttribute("userRoles", true);
 					request.getSession().setAttribute("Utente", bean);
-					redirectedPage = "jsp/HomePage.jsp";
+					redirectedPage = "/jsp/HomePage.jsp";
 				} else 
 					throw new Exception("Accesso Negato");
 			} else

@@ -27,47 +27,92 @@ public class RegistrazioneUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String redirectedPage = "jsp/RegistrazioneUser.jsp";
-
-		String username = request.getParameter("username").trim();
-		String nome = request.getParameter("nome").trim();
-		String cognome = request.getParameter("cognome").trim();
-		String funzioneAziendale = request.getParameter("funzioneAziendale").trim();
-		String telefono = request.getParameter("telefono").trim();
-		String ragioneSociale = request.getParameter("ragioneSociale").trim();
-		String via = request.getParameter("via").trim();
-		String civico = request.getParameter("civico").trim();
-		String cap = request.getParameter("cap").trim();
-		String comune = request.getParameter("comune").trim();
-		String pIva = request.getParameter("pIva").trim();
-		String cf = request.getParameter("cf").trim();
-		String pec = request.getParameter("pec").trim();
-		String sdi = request.getParameter("sdi").trim();
-		String email = request.getParameter("email").trim();
-		String password = request.getParameter("password").trim();
-
+		String redirectedPage = "/jsp/RegistrazioneUser.jsp";
+		
+		String action=request.getParameter("action");
+		
 		try {
-			if (!username.equals("") && username != null && !email.equals("") && email != null
-					&& model.controlloDato("username", username) && model.controlloDato("email", email)
-					&& !nome.equals("") && nome != null && !cognome.equals("") && cognome != null
-					&& !funzioneAziendale.equals("") && funzioneAziendale != null && !telefono.equals("")
-					&& telefono != null && !ragioneSociale.equals("") && ragioneSociale != null && !via.equals("")
-					&& via != null && !civico.equals("") && civico != null && !cap.equals("") && cap != null
-					&& !comune.equals("") && comune != null && ((!pIva.equals("") && pIva != null) || (!cf.equals("")
-					&& cf != null)) && !pec.equals("") && pec != null && !sdi.equals("") && sdi != null
-					&& !email.equals("") && email != null && !password.equals("") && password != null) {
-				
-					SendEmail sm=new SendEmail();
-					String codSicurezza=sm.getRandom();
+			if(action!=null) {
+				if(action.equals("inserimentoDati")) {
+					String username = request.getParameter("username").trim();
+					String nome = request.getParameter("nome").trim();
+					String cognome = request.getParameter("cognome").trim();
+					String funzioneAziendale = request.getParameter("funzioneAziendale").trim();
+					String telefono = request.getParameter("telefono").trim();
+					String ragioneSociale = request.getParameter("ragioneSociale").trim();
+					String via = request.getParameter("via").trim();
+					String civico = request.getParameter("civico").trim();
+					String cap = request.getParameter("cap").trim();
+					String comune = request.getParameter("comune").trim();
+					String pIva = request.getParameter("pIva").trim();
+					String cf = request.getParameter("cf").trim();
+					String pec = request.getParameter("pec").trim();
+					String sdi = request.getParameter("sdi").trim();
+					String email = request.getParameter("email").trim();
+					String password = request.getParameter("password").trim();
+					try {
+						if (!username.equals("") && username != null && !email.equals("") && email != null
+								&& model.controlloDato("username", username) && model.controlloDato("email", email)
+								&& !nome.equals("") && nome != null && !cognome.equals("") && cognome != null
+								&& !funzioneAziendale.equals("") && funzioneAziendale != null && !telefono.equals("")
+								&& telefono != null && !ragioneSociale.equals("") && ragioneSociale != null && !via.equals("")
+								&& via != null && !civico.equals("") && civico != null && !cap.equals("") && cap != null
+								&& !comune.equals("") && comune != null && ((!pIva.equals("") && pIva != null) || (!cf.equals("")
+								&& cf != null)) && !pec.equals("") && pec != null && !sdi.equals("") && sdi != null
+								&& !email.equals("") && email != null && !password.equals("") && password != null) {
+							
+								SendEmail sm=new SendEmail();
+								String codSicurezza=sm.getRandom();
+								
+								String indirizzo=via+", "+civico+", "+comune+", "+cap;
+								
+								ClienteBean bean=new ClienteBean(username, nome, cognome, funzioneAziendale, telefono, ragioneSociale, indirizzo, pIva, cf, pec, sdi, email, password, codSicurezza);
+								request.getSession().setAttribute("ClienteTemp", bean);
+								
+								boolean sendEmail=sm.sendEmail(bean);
+								
+								if(sendEmail) {
+									redirectedPage="jsp/VerificaCodiceRegistrazione.jsp";
+								}else
+									throw new Exception("Errore invio email");
+						}else
+							throw new Exception("Errore inserimento dati");
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+				}else if(action.equals("sendEmail")) {
+					try {
+						SendEmail sm=new SendEmail();
+						String codSicurezza=sm.getRandom();
 					
-					String indirizzo=via+", "+civico+", "+comune+", "+cap;
+						ClienteBean bean=(ClienteBean) request.getSession().getAttribute("ClienteTemp");
+						bean.setCodSicurezza(codSicurezza);
 					
-					ClienteBean bean=new ClienteBean(username, nome, cognome, funzioneAziendale, telefono, ragioneSociale, indirizzo, pIva, cf, pec, sdi, email, password, codSicurezza);
-					request.getSession().setAttribute("ClienteTemp", bean);
+						request.getSession().removeAttribute("ClienteTemp");
+						request.getSession().setAttribute("ClienteTemp", bean);
 					
-					boolean sendEmail=sm.sendEmail(bean);
-			}
-		} catch (SQLException e) {
+						boolean sendEmail=sm.sendEmail(bean);
+						
+						if(sendEmail) {
+							redirectedPage="jsp/VerificaCodice.jsp";
+						}else
+							throw new Exception("Errore invio email");
+					}catch (Exception e) {
+							System.out.println(e.getMessage());
+					}
+				}else if(action.equals("registra")) {
+					ClienteBean bean=(ClienteBean) request.getSession().getAttribute("ClienteTemp");
+					try {
+						model.doSave(bean);
+					}catch(SQLException e) {
+						System.out.println(e.getMessage());
+					}
+					redirectedPage = "/jsp/LoginUser.jsp";
+				}else 
+					throw new Exception("Errore action registrazione");
+			}else 
+				throw new Exception("Errore action registrazione");
+		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 

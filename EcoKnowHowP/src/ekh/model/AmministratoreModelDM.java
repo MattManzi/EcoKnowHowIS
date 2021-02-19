@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ekh.bean.AmministratoreBean;
-import ekh.bean.ClienteBean;
 
 public class AmministratoreModelDM implements ClassModel<AmministratoreBean> {
 
@@ -121,21 +120,18 @@ public class AmministratoreModelDM implements ClassModel<AmministratoreBean> {
 	}
 
 	@Override
-	public void doUpdate(AmministratoreBean bean) throws SQLException {
+	public void doUpdate(String dato, String str, String key) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE amministratore SET username=?, email=?, password=?, codSicurezza=? WHERE username=?";
+		String updateSQL = "UPDATE amministratore SET "+dato+"=? WHERE username=?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setString(1, bean.getUsername());	
-			preparedStatement.setString(2, bean.getEmail());
-			preparedStatement.setString(3, bean.getPassword());
-			preparedStatement.setString(4, bean.getCodSicurezza());
-			preparedStatement.setString(5, bean.getUsername());
+			preparedStatement.setString(1, str);	
+			preparedStatement.setString(2, key);
 
 			System.out.println("AmministratoreModelDM: doUpdate:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -153,7 +149,7 @@ public class AmministratoreModelDM implements ClassModel<AmministratoreBean> {
 	}
 
 	@Override
-	public void doDelete(AmministratoreBean bean) throws SQLException {
+	public void doDelete(String username) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -163,7 +159,7 @@ public class AmministratoreModelDM implements ClassModel<AmministratoreBean> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 
-			preparedStatement.setString(1, bean.getUsername());
+			preparedStatement.setString(1, username);
 
 			System.out.println("AmministratoreModelDM: doDelete:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();

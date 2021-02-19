@@ -31,7 +31,7 @@ public class LoginAdminServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		String redirectedPage = "jsp/LoginFormAdmin.jsp";
+		String redirectedPage = "/jsp/LoginFormAdmin.jsp";
 		
 		AmministratoreBean bean=new AmministratoreBean();
 		try {
@@ -42,7 +42,7 @@ public class LoginAdminServlet extends HttpServlet {
 				} else {
 					request.getSession().setAttribute("adminRoles", true);
 					request.getSession().setAttribute("Admin", bean);
-					redirectedPage = "jsp/HomePage.jsp";
+					redirectedPage = "/jsp/HomePage.jsp";
 				}
 			} else
 				throw new Exception("Errore con l'inserimento dei dati");

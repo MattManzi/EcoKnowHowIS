@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h1>Errore</h1>
-	<a href="/jsp/HomePage.jsp">Home Page</a>
+	<a href="jsp/HomePage.jsp">Home Page</a>
 </body>
 </html>

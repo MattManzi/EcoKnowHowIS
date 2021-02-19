@@ -150,31 +150,18 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 	}
 
 	@Override
-	public void doUpdate(ClienteBean bean) throws SQLException {
+	public void doUpdate(String dato, String str, String key) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE cliente SET username=?, nome=?, cognome=?, funzioneAziendale=?, telefono=?, ragioneSociale=?, indirizzo=?, pIva=?, cf=?, pec=?, sdi=?, email=?, password=?, codSicurezza=? WHERE username=?";
+		String updateSQL = "UPDATE cliente SET "+dato+"=? WHERE username=?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setString(1, bean.getUsername());
-			preparedStatement.setString(2, bean.getNome());
-			preparedStatement.setString(3, bean.getCognome());
-			preparedStatement.setString(4, bean.getFunzioneAziendale());
-			preparedStatement.setString(5, bean.getTelefono());
-			preparedStatement.setString(6, bean.getRagioneSociale());
-			preparedStatement.setString(7, bean.getIndirizzo());
-			preparedStatement.setString(8, bean.getpIva());
-			preparedStatement.setString(9, bean.getCf());
-			preparedStatement.setString(10, bean.getPec());
-			preparedStatement.setString(11, bean.getSdi());			
-			preparedStatement.setString(12, bean.getEmail());
-			preparedStatement.setString(13, bean.getPassword());
-			preparedStatement.setString(14, bean.getCodSicurezza());
-			preparedStatement.setString(15, bean.getUsername());
+			preparedStatement.setString(1, str);
+			preparedStatement.setString(2, key);
 
 			System.out.println("ClienteModelDM: doUpdate:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -192,7 +179,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 	}
 
 	@Override
-	public void doDelete(ClienteBean bean) throws SQLException {
+	public void doDelete(String username) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -202,7 +189,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 
-			preparedStatement.setString(1, bean.getUsername());
+			preparedStatement.setString(1, username);
 
 			System.out.println("ClienteModelDM: doDelete:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();

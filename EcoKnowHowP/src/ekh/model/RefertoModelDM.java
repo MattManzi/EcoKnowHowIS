@@ -60,7 +60,7 @@ public class RefertoModelDM {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
 
-			System.out.println("RefertoModelDM: loadContenuto:" + preparedStatement.toString());
+			System.out.println("RefertoModelDM: downloadFile:" + preparedStatement.toString());
 			rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {

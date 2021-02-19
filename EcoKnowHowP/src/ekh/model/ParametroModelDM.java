@@ -134,25 +134,18 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 	}
 
 	@Override
-	public void doUpdate(ParametroBean bean) throws SQLException {
+	public void doUpdate(String dato, String str, String key) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE parametro SET idMatrice=?, nome=?, sku=?, campione=?, campionamento=?, limiteEmissione=?, uMisura=?, prezzo=? WHERE id=?";
+		String updateSQL = "UPDATE parametro SET "+dato+"=? WHERE id=?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setInt(1, bean.getIdMatrice());
-			preparedStatement.setString(2, bean.getNome());
-			preparedStatement.setString(3, bean.getSku());
-			preparedStatement.setString(4, bean.getCampione());
-			preparedStatement.setString(5, bean.getCampionamento());
-			preparedStatement.setString(6, bean.getLimiteEmissione());
-			preparedStatement.setString(7, bean.getuMisura());
-			preparedStatement.setDouble(8, bean.getPrezzo());
-			preparedStatement.setInt(9, bean.getId());
+			preparedStatement.setString(1, str);
+			preparedStatement.setString(2, key);
 
 			System.out.println("ParametroModelDM: doUpdate:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -170,7 +163,7 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 	}
 
 	@Override
-	public void doDelete(ParametroBean bean) throws SQLException {
+	public void doDelete(String id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -180,7 +173,7 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 
-			preparedStatement.setInt(1, bean.getId());
+			preparedStatement.setString(1, id);
 
 			System.out.println("ParametroModelDM: doDelete:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -196,4 +189,51 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 			}
 		}
 	}
+	
+	public ArrayList<ParametroBean> doRetrieveByMatrix(String idMatrice) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();
+
+		String selectSQL = "SELECT * FROM parametro WHERE idMatrice=?";
+
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			preparedStatement.setString(1, idMatrice);
+			
+			System.out.println("ParametroModelDM: doRetrieveAll:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+
+			while (rs.next()) {
+				ParametroBean bean=new ParametroBean();
+				
+				bean.setId(rs.getInt("id"));	
+				bean.setIdMatrice(rs.getInt("idMatrice"));	
+				bean.setNome(rs.getString("nome"));	
+				bean.setSku(rs.getString("sku"));	
+				bean.setCampione(rs.getString("campione"));	
+				bean.setCampionamento(rs.getString("campionamento"));	
+				bean.setLimiteEmissione(rs.getString("limiteEmissione"));	
+				bean.setuMisura(rs.getString("uMisura"));	
+				bean.setPrezzo(rs.getDouble("prezzo"));	
+				parametri.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return parametri;
+	}
+
 }

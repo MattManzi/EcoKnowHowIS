@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import ekh.bean.AmministratoreBean;
 import ekh.model.RefertoModelDM;
 
 @WebServlet("/UploadRefertoServlet")
@@ -25,7 +26,6 @@ public class UploadRefertoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("entro");
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/plain");
 
@@ -35,32 +35,42 @@ public class UploadRefertoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("entro");
-		String SAVE_DIR = "uploadTemp";
-		String codice = request.getParameter("codice");
+		String redirectedPage = "/jsp/HomePageAdmin.jsp";
+		
+		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
+		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 
-		String appPath = request.getServletContext().getRealPath("");
-		String savePath = appPath + SAVE_DIR;
-
-		File fileSaveDir = new File(savePath);
-		if (!fileSaveDir.exists()) {
-			fileSaveDir.mkdir();
-		}
-
-		for (Part part : request.getParts()) {
-			String fileName = extractFileName(part);
-			System.out.println(fileName);
-			if (fileName != null && fileName.length() > 0) {
-				part.write(savePath + File.separator + fileName);
-				try {
-					RefertoModelDM.uploadReferto(codice, savePath + File.separator + fileName);
-				} catch (SQLException sqlException) {
-					System.out.println(sqlException);
+		if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+			redirectedPage = "/jsp/LoginAdmin.jsp";
+		}else {	
+			String SAVE_DIR = "uploadTemp";
+			String codice = request.getParameter("codice");
+	
+			String appPath = request.getServletContext().getRealPath("");
+			String savePath = appPath + SAVE_DIR;
+	
+			File fileSaveDir = new File(savePath);
+			if (!fileSaveDir.exists()) {
+				fileSaveDir.mkdir();
+			}
+	
+			for (Part part : request.getParts()) {
+				String fileName = extractFileName(part);
+				System.out.println(fileName);
+				if (fileName != null && fileName.length() > 0) {
+					part.write(savePath + File.separator + fileName);
+					try {
+						RefertoModelDM.uploadReferto(codice, savePath + File.separator + fileName);
+					} catch (SQLException sqlException) {
+						System.out.println(sqlException);
+					}
 				}
 			}
+			redirectedPage = "/jsp/GestionePianiAdmin.jsp";
 		}
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/HomePage.jsp");
+		
+		redirectedPage = response.encodeURL(redirectedPage);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(redirectedPage);
 		dispatcher.forward(request, response);
 	}
 

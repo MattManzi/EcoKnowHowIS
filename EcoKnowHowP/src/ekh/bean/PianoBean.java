@@ -6,6 +6,8 @@ public class PianoBean {
 	private String username;
 	private double prezzo;
 	private String stato;
+	boolean referto;
+	boolean schedaDS;
 	
 	public PianoBean() {
 		id = 0;
@@ -13,6 +15,8 @@ public class PianoBean {
 		username =  "";
 		prezzo = 0;
 		stato =  "";
+		referto=false;
+		schedaDS=false;
 	}
 	
 	public PianoBean(int id, int idPacchetto, String username, double prezzo, String stato) {
@@ -63,6 +67,22 @@ public class PianoBean {
 		this.stato = stato;
 	}
 		
+	public boolean isReferto() {
+		return referto;
+	}
+
+	public void setReferto(boolean referto) {
+		this.referto = referto;
+	}
+
+	public boolean isSchedaDS() {
+		return schedaDS;
+	}
+
+	public void setSchedaDS(boolean schedaDS) {
+		this.schedaDS = schedaDS;
+	}
+
 	public boolean isEmpty() {
 		if (id == 0) {
 			return true;
