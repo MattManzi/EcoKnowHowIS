@@ -2,6 +2,8 @@ package ekh.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.ClienteBean;
 import ekh.model.ClienteModelDM;
-import ekh.bean.SendEmail;
+import ekh.strategy.RegistrazioneValidator;
+import ekh.support.SendEmail;
 
 @WebServlet("/RegistrazioneUserServlet")
 public class RegistrazioneUserServlet extends HttpServlet {
@@ -26,93 +29,99 @@ public class RegistrazioneUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String redirectedPage = "/jsp/RegistrazioneUser.jsp";
-		
-		String action=request.getParameter("action");
-		
+
+		String action = request.getParameter("action");
 		try {
-			if(action!=null) {
-				if(action.equals("inserimentoDati")) {
-					String username = request.getParameter("username").trim();
-					String nome = request.getParameter("nome").trim();
-					String cognome = request.getParameter("cognome").trim();
-					String funzioneAziendale = request.getParameter("funzioneAziendale").trim();
-					String telefono = request.getParameter("telefono").trim();
-					String ragioneSociale = request.getParameter("ragioneSociale").trim();
-					String via = request.getParameter("via").trim();
-					String civico = request.getParameter("civico").trim();
-					String cap = request.getParameter("cap").trim();
-					String comune = request.getParameter("comune").trim();
-					String pIva = request.getParameter("pIva").trim();
-					String cf = request.getParameter("cf").trim();
-					String pec = request.getParameter("pec").trim();
-					String sdi = request.getParameter("sdi").trim();
-					String email = request.getParameter("email").trim();
-					String password = request.getParameter("password").trim();
-					try {
-						if (!username.equals("") && username != null && !email.equals("") && email != null
-								&& model.controlloDato("username", username) && model.controlloDato("email", email)
-								&& !nome.equals("") && nome != null && !cognome.equals("") && cognome != null
-								&& !funzioneAziendale.equals("") && funzioneAziendale != null && !telefono.equals("")
-								&& telefono != null && !ragioneSociale.equals("") && ragioneSociale != null && !via.equals("")
-								&& via != null && !civico.equals("") && civico != null && !cap.equals("") && cap != null
-								&& !comune.equals("") && comune != null && ((!pIva.equals("") && pIva != null) || (!cf.equals("")
-								&& cf != null)) && !pec.equals("") && pec != null && !sdi.equals("") && sdi != null
-								&& !email.equals("") && email != null && !password.equals("") && password != null) {
-							
-								SendEmail sm=new SendEmail();
-								String codSicurezza=sm.getRandom();
-								
-								String indirizzo=via+", "+civico+", "+comune+", "+cap;
-								
-								ClienteBean bean=new ClienteBean(username, nome, cognome, funzioneAziendale, telefono, ragioneSociale, indirizzo, pIva, cf, pec, sdi, email, password, codSicurezza);
-								request.getSession().setAttribute("ClienteTemp", bean);
-								
-								boolean sendEmail=sm.sendEmail(bean);
-								
-								if(sendEmail) {
-									redirectedPage="jsp/VerificaCodiceRegistrazione.jsp";
-								}else
-									throw new Exception("Errore invio email");
-						}else
-							throw new Exception("Errore inserimento dati");
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
-					}
-				}else if(action.equals("sendEmail")) {
-					try {
-						SendEmail sm=new SendEmail();
-						String codSicurezza=sm.getRandom();
+			if (action != null) {
+				if (action.equals("inserimentoDati")) {
+					String nome = request.getParameter("nome");
+					String cognome = request.getParameter("cognome");
+					String funzioneAziendale = request.getParameter("funzioneAziendale");
+					String telefono = request.getParameter("telefono");
+					String ragioneSociale = request.getParameter("ragioneSociale");
+					String via = request.getParameter("via");
+					String civico = request.getParameter("civico");
+					String cap = request.getParameter("cap");
+					String comune = request.getParameter("comune");
+					String pIva = request.getParameter("pIva");
+					String cf = request.getParameter("cf");
+					String pec = request.getParameter("pec");
+					String sdi = request.getParameter("sdi");
+					String email = request.getParameter("email");
+					String username = request.getParameter("username");
+					String password = request.getParameter("password");
+					String password2 = request.getParameter("password2");
+
+					ArrayList<String> inputs=new ArrayList<String>();
+					inputs.add(nome);
+					inputs.add(cognome);
+					inputs.add(funzioneAziendale);
+					inputs.add(ragioneSociale);
+					inputs.add(comune);
+					inputs.add(via);
+					inputs.add(civico);
+					inputs.add(pIva);
+					inputs.add(cf);
+					inputs.add(sdi);
+					inputs.add(cap);
+					inputs.add(telefono);
+					inputs.add(pec);
+					inputs.add(email);
+					inputs.add(username);
+					inputs.add(password);
+					inputs.add(password2);
 					
-						ClienteBean bean=(ClienteBean) request.getSession().getAttribute("ClienteTemp");
-						bean.setCodSicurezza(codSicurezza);
+					RegistrazioneValidator rv=new RegistrazioneValidator();
 					
-						request.getSession().removeAttribute("ClienteTemp");
+					if(rv.validazione(inputs)) {
+						SendEmail sm = new SendEmail();
+						String codSicurezza = sm.getRandom();
+
+						String indirizzo = via + ", " + civico + ", " + comune + ", " + cap;
+
+						ClienteBean bean = new ClienteBean(username, nome, cognome, funzioneAziendale, telefono,
+								ragioneSociale, indirizzo, pIva, cf, pec, sdi, email, password, codSicurezza);
 						request.getSession().setAttribute("ClienteTemp", bean);
-					
-						boolean sendEmail=sm.sendEmail(bean);
-						
-						if(sendEmail) {
-							redirectedPage="jsp/VerificaCodice.jsp";
-						}else
-							throw new Exception("Errore invio email");
-					}catch (Exception e) {
-							System.out.println(e.getMessage());
-					}
-				}else if(action.equals("registra")) {
-					ClienteBean bean=(ClienteBean) request.getSession().getAttribute("ClienteTemp");
+
+						boolean sendEmail = sm.sendEmail(bean);
+
+						if (sendEmail) {
+							redirectedPage = "/jsp/VerificaCodiceRegistrazione.jsp";
+						} else
+							throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mMail");
+					} else
+							throw new Exception("ERRORE-RegistrazioneUserServlet: inserimento dati");
+				} else if (action.equals("sendEmail")) {
+					SendEmail sm = new SendEmail();
+					String codSicurezza = sm.getRandom();
+
+					ClienteBean bean = (ClienteBean) request.getSession().getAttribute("ClienteTemp");
+					bean.setCodSicurezza(codSicurezza);
+
+					request.getSession().removeAttribute("ClienteTemp");
+					request.getSession().setAttribute("ClienteTemp", bean);
+
+					boolean sendEmail = sm.sendEmail(bean);
+
+					if (sendEmail) {
+						redirectedPage = "/jsp/VerificaCodice.jsp";
+					} else
+						throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mail");
+				} else if (action.equals("registra")) {
+					ClienteBean bean = (ClienteBean) request.getSession().getAttribute("ClienteTemp");
 					try {
 						model.doSave(bean);
-					}catch(SQLException e) {
-						System.out.println(e.getMessage());
+					} catch (SQLException e) {
+						System.out.println(e.toString());
 					}
 					redirectedPage = "/jsp/LoginUser.jsp";
-				}else 
-					throw new Exception("Errore action registrazione");
-			}else 
-				throw new Exception("Errore action registrazione");
-		}catch(Exception e) {
+				} else
+					throw new Exception("ERRORE-RegistrazioneUserServlet: invalid action");
+			} else
+				throw new Exception("ERRORE-RegistrazioneUserServlet: action null");
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -126,4 +135,10 @@ public class RegistrazioneUserServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+	public boolean valEmail(String str) {
+		if(str!=null && !str.equals("") && str.length()<=50) {
+			return Pattern.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$", str);
+		}
+		return false;
+	}
 }

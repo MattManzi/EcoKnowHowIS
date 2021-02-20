@@ -17,11 +17,11 @@ ClienteBean cliente = (ClienteBean) request.getSession().getAttribute("Cliente")
 	<header class="header clearfix fixed">
 		<a href="<%=response.encodeURL("HomePage.jsp")%>"  class="header__logo">EcoKnowHow</a>
 			<ul class="header__menu ">    
-		    	<li class="header__menu__item"> <a href="<%=response.encodeURL("jsp/CreaPiano.jsp")%>">Crea il tuo Piano</a> </li>
-				<li class="header__menu__item"> <a href="<%=response.encodeURL("jsp/Pacchetti.jsp")%>">I nostri Pacchetti</a></li> 
-				<li class="header__menu__item"><a href="<%=response.encodeURL("jsp/ChiSiamo.jsp")%>">Chi Siamo?</a></li>
+		    	<li class="header__menu__item"><a href="${pageContext.request.contextPath}/jsp/CreaPiano.jsp">Crea il tuo Piano</a> </li>
+				<li class="header__menu__item"><a href="${pageContext.request.contextPath}/jsp/Pacchetti.jsp">I nostri Pacchetti</a></li> 
+				<li class="header__menu__item"><a href="${pageContext.request.contextPath}/jsp/ChiSiamo.jsp">Chi Siamo?</a></li>
 				<%if (cliente == null){ %>
-					<li class="header__menu__item"><a href="<%=response.encodeURL("jsp/LoginUser.jsp")%>">Login</a>					
+					<li class="header__menu__item"><a href="${pageContext.request.contextPath}/jsp/LoginUser.jsp">Login</a>					
 				<%}else{%>				 
 					<a href=><%=cliente.getUsername()%></a> 	
 				<%
@@ -37,21 +37,21 @@ ClienteBean cliente = (ClienteBean) request.getSession().getAttribute("Cliente")
 		<div class="contenitore_card">
 			<div class="table-cell">
 				<div class="card">
-					<a href="<%=response.encodeURL("jsp/CreaPiano.jsp")%>">Crea il Piano</a>
+					<a href="${pageContext.request.contextPath}/jsp/CreaPiano.jsp">Crea il Piano</a>
 					<p>Some text</p>
 					<p>Some text</p>
 				</div>
 			</div>
 			<div class="table-cell">
 				<div class="card">
-			    	<a href="<%=response.encodeURL("jsp/RecuperaPiano.jsp")%>">Recupare il Piano</a>
+			    	<a href="${pageContext.request.contextPath}/jsp/RecuperaPiano.jsp">Recupare il Piano</a>
 			   		<p>Some text</p>
 			  		<p>Some text</p>
 				</div>
 			</div>
 			<div class="table-cell">
 				<div class="card">
-					<a href="<%=response.encodeURL("jsp/Pacchetti.jsp")%>">I Pacchetti</a>
+					<a href="${pageContext.request.contextPath}/jsp/Pacchetti.jsp">I Pacchetti</a>
 					<p>Some text</p>
 					<p>Some text</p>
 				</div>

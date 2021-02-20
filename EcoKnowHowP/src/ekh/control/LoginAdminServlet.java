@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.AmministratoreBean;
-import ekh.bean.EncryptionPassword;
+import ekh.support.EncryptionPassword;
 import ekh.model.AmministratoreModelDM;
 
 @WebServlet("/LoginAdminServlet")

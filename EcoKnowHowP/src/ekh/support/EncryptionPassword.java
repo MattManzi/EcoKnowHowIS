@@ -1,4 +1,4 @@
-package ekh.bean;
+package ekh.support;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

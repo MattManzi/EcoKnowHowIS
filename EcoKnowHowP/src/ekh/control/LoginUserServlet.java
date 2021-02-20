@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.ClienteBean;
-import ekh.bean.EncryptionPassword;
+import ekh.support.EncryptionPassword;
 import ekh.model.ClienteModelDM;
 
 @WebServlet("/LoginUserServlet")

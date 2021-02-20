@@ -1,0 +1,49 @@
+body{
+	width: 35%;
+	margin-top:50px;
+	margin-left:auto;	
+	margin-right:auto;
+}
+.logo{
+	display: block;
+	color: #333; 
+	font-size: 40px; 
+	text-decoration: none;
+	width:auto; 
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+table{
+	width: 100%;
+}
+
+tr{
+	height: 30px;
+}
+
+td{
+	width: 50%;
+	height: 100%;
+	padding-right: 20px;
+}
+
+input, select{
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type=submit] {
+  background-color: #333;
+  color:white;
+}
+
+#formRegistrazioneUser label.error{
+	color: #f33;
+}
