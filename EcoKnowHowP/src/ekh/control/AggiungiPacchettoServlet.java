@@ -74,7 +74,7 @@ public class AggiungiPacchettoServlet extends HttpServlet {
 
 							request.getSession().setAttribute("pacchettoTemp", bean);
 
-							redirectedPage = "/jsp/CompiniPacchetto.jsp";
+							redirectedPage = "/jsp/ComponiPacchetto.jsp";
 						}
 					} else if (action.equals("salva")) {
 						PacchettoBean pacchettoTemp = (PacchettoBean) request.getSession().getAttribute("pacchettoTemp");

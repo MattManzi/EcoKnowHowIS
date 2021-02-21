@@ -264,7 +264,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, str);
 
-			System.out.println("ClienteModelDM: doRetrieveByKey:" + preparedStatement.toString());
+			System.out.println("ClienteModelDM: controlloDato:" + preparedStatement.toString());
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {

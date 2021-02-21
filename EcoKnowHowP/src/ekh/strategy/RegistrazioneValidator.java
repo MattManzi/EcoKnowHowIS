@@ -12,7 +12,7 @@ public class RegistrazioneValidator {
 			validator.setValidatorStrategy(new ValidatorAllLetter());			
 			validator.setString(inputs.get(0)); //Nome
 			if(!validator.validator(30))
-					throw new Exception("ERRORE-RegistrazioneValidator: Nome");
+				throw new Exception("ERRORE-RegistrazioneValidator: Nome");
 			
 			validator.setString(inputs.get(1)); //Cognome
 			if(!validator.validator(30))
