@@ -17,7 +17,7 @@ ClienteBean cliente = (ClienteBean) request.getSession().getAttribute("Cliente")
 	<header class="header clearfix fixed">
 		<a href="<%=response.encodeURL("HomePage.jsp")%>"  class="header__logo">EcoKnowHow</a>
 			<ul class="header__menu ">    
-		    	<li class="header__menu__item"><a href="${pageContext.request.contextPath}/jsp/CreaPiano.jsp">Crea il tuo Piano</a> </li>
+		    	<li class="header__menu__item"><a href="<%=response.encodeURL("SceltaMatriceUser.jsp")%>">Crea il tuo Piano</a> </li>
 				<li class="header__menu__item"><a href="${pageContext.request.contextPath}/jsp/Pacchetti.jsp">I nostri Pacchetti</a></li> 
 				<li class="header__menu__item"><a href="${pageContext.request.contextPath}/jsp/ChiSiamo.jsp">Chi Siamo?</a></li>
 				<%if (cliente == null){ %>

@@ -1,0 +1,25 @@
+#main{
+	width: 70%;
+	margin: auto;
+}
+
+
+
+.card {
+	display:inline-block;
+  	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+ 	transition: 0.3s;
+  	border-radius: 4px;
+	width:300px;
+ 	height: 250px;
+ 	margin:50px;
+ 	text-align: center;
+}
+
+.card:hover {
+  	box-shadow: 0 10px 20px 0 #C0C0C0;
+}
+
+.container {
+ 	padding: 2px 16px;
+}

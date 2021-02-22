@@ -27,19 +27,18 @@ public class VisualizzaMatriciServlet extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String redirectedPage="jsp/HomePage.jsp";
+		String redirectedPage="/HomePage.jsp";
 	
-		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
+		/*Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 		Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
 		ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
 		
 		if ((admin == null || adminRoles == null || !adminRoles.booleanValue()) && (user == null || userRoles == null || !userRoles.booleanValue()) ) {
-			redirectedPage = "jsp/HomePage.jsp";
-		}else {
+			redirectedPage = "/jsp/HomePage.jsp";
+		}else {*/
 		
 			String action=request.getParameter("action");
-			
 			ArrayList<MatriceBean> matrici=new ArrayList<MatriceBean>();	
 			
 			try {
@@ -50,18 +49,18 @@ public class VisualizzaMatriciServlet extends HttpServlet {
 						System.out.println(e.getMessage());
 					}
 					if(action.equals("admin")) {
-						redirectedPage="jsp/GestioneMatriciAdmin.jsp";
+						redirectedPage="/GestioneMatriciAdmin.jsp";
 					}else if(action.equals("user")) {
-						redirectedPage="jsp/SceltaMatrice.jsp";
+						redirectedPage="/SceltaMatriceUser.jsp";
 					}else
 						throw new Exception("Errore action Visualizza Matrici");
 				}else 
 					throw new Exception("Errore action Visualizza Matrici");			
 			}catch (Exception e) {
 				System.out.println(e.getMessage());
-			}			
+			}	
 			request.setAttribute("matrici", matrici);
-		}
+		
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
 		dispatcher.forward(request, response);	
