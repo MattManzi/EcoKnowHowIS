@@ -18,7 +18,7 @@
 				<input type="submit" value="Login">
 			</fieldset>
 		</form>
-		<a href="<%=response.encodeURL("HomePage.jsp") %>" class="logo"> EcoKnowHow </a>
+		<a href="<%=response.encodeURL("RecuperaPassword.jsp") %>" class="logo"> Recupera Password </a>
 	</div>
 </body>
 </html>

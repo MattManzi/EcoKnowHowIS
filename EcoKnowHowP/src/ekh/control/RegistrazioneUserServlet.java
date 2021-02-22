@@ -134,11 +134,4 @@ public class RegistrazioneUserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
-	public boolean valEmail(String str) {
-		if(str!=null && !str.equals("") && str.length()<=50) {
-			return Pattern.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$", str);
-		}
-		return false;
-	}
 }
