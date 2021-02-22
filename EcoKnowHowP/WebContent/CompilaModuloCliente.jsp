@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- Il cliente dopo aver scelto o creato il suo pacchetto procede con la compilazione del form modulo -->
+
+
+
+
+		<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </body>
 </html>

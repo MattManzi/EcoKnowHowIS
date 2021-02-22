@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- In questa pagina il cliente e l'admin visualizzano i dettagli sul pacchetto e sul modulo di un piano. L'admin ha la possibilità di cambiare il prezzo e lo stato -->
+		<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </body>
 </html>

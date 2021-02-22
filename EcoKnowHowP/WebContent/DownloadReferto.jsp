@@ -13,5 +13,9 @@
 		<input type="text" name="codice">	
 		<input type="submit" value="Conferma">
 	</form>	
+	
+		<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </body>
 </html>

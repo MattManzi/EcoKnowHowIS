@@ -87,9 +87,9 @@ CREATE TABLE piano(
 insert into amministratore(username, email, password, codSicurezza) values('admin1', 'ptksfn@hotmail.com', 'a722c63db8ec8625af6cf71cb8c2d939', '336548');
 
 
-
-
-
+insert into matrice(nome, sottotitolo, descrizione) values('Acque', 'Analisi Acque', 'descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1');
+insert into matrice(nome, sottotitolo, descrizione) values('Terra', 'Analisi Terra', 'descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 ');
+insert into matrice(nome, sottotitolo, descrizione) values('Rifiuti', 'Analisi Rifiuti', 'descrizione3 descrizione3 descrizione3 descrizione3 descrizione3 descrizione3 ');
 
 
 

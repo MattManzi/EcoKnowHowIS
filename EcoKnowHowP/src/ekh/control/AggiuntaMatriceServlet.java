@@ -29,14 +29,14 @@ public class AggiuntaMatriceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String redirectedPage = "/jsp/HomePageAdmin.jsp";
+		String redirectedPage = "/HomePageAdmin.jsp";
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 
-		if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
-			redirectedPage = "/jsp/LoginAdmin.jsp";
-		} else {
+//		if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+//			redirectedPage = "/LoginAdmin.jsp";
+//		} else {
 			String nome = request.getParameter("nome");
 			String sottotitolo = request.getParameter("sottotitolo");
 			String descrizione = request.getParameter("descrizione");
@@ -53,13 +53,12 @@ public class AggiuntaMatriceServlet extends HttpServlet {
 					} catch (SQLException e) {
 						System.out.println(e.getMessage());
 					}
-					redirectedPage = "/jsp/GestioneMatriciAdmin.jsp";
+					redirectedPage = "/GestioneMatriciAdmin.jsp";
 				} else
 					throw new Exception("Errore inserimento dati Aggiunta Matrice");
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}			
-		}
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
 		dispatcher.forward(request, response);

@@ -37,7 +37,7 @@ public class SceltaMatriceUser extends HttpServlet {
 					MatriceBean bean = model.doRetrieveByKey(idMatrice);
 					if (!bean.isEmpty()) {
 						request.getSession().setAttribute("SelectMatrice", bean);
-						redirectedPage= "/SceltaTipoPacchettoUser.jsp";
+						redirectedPage= "/SceltaTipoPacchettoCliente.jsp";
 					}else
 						throw new Exception("ERRORE-SceltaMatriceUser: matrice non trovata.");
 				} else

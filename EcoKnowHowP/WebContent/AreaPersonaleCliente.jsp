@@ -9,4 +9,10 @@
 <body>
 	<!-- Il cliente visualizza tutti i suoi dati e avrà la possibilità di modificarli -->
 </body>
+
+
+
+	<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </html>

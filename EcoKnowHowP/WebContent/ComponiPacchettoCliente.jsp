@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- Il cliente compone il suo pacchetto -->
+		<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </body>
 </html>

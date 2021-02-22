@@ -8,9 +8,9 @@ ClienteBean cliente = (ClienteBean) request.getSession().getAttribute("Cliente")
 <head>
 <meta charset="ISO-8859-1">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link href="css/HomePage.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="css/HomePage.css" rel="stylesheet">
 <title>EcoKnowHow</title>
 </head>
 <body>
@@ -19,7 +19,8 @@ ClienteBean cliente = (ClienteBean) request.getSession().getAttribute("Cliente")
 			<ul class="header__menu ">    
 		    	<li class="header__menu__item"><a href="<%=response.encodeURL("SceltaMatriceUser.jsp")%>">Crea il tuo Piano</a> </li>
 				<li class="header__menu__item"><a href="${pageContext.request.contextPath}/Pacchetti.jsp">I nostri Pacchetti</a></li> 
-				<li class="header__menu__item"><a href="${pageContext.request.contextPath}/ChiSiamo.jsp">Chi Siamo?</a></li>
+				<li class="header__menu__item"><a href="${pageContext.request.contextPath}/jsp/ChiSiamo.jsp">Chi Siamo?</a></li>
+				
 				<%if (cliente == null){ %>
 					<li class="header__menu__item"><a href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a>					
 				<%}else{%>				 

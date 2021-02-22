@@ -8,5 +8,11 @@
 </head>
 <body>
 	<!-- In questa pagina verrà chiesto all'utente di inserire la propria email -->
+	<h1>Recupero Password</h1>
+	
+	<form name="formEmail" action="<%=response.encodeURL("LoginAdminServlet") %>" method="post"> 
+		<input type="text" name="email">
+		<input type="submit" value="Invia Email">	
+	</form>
 </body>
 </html>

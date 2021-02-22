@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- L'admin seleziona un pacchetto standard e procede con l'aggiunta e la rimozione dei parametri -->
+		<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </body>
 </html>
