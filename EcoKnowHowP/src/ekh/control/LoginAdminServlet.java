@@ -17,7 +17,7 @@ import ekh.model.AmministratoreModelDM;
 public class LoginAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static AmministratoreModelDM model = new AmministratoreModelDM();
+	AmministratoreModelDM model = new AmministratoreModelDM();
 	
     public LoginAdminServlet() {
         super();
@@ -31,22 +31,20 @@ public class LoginAdminServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		String redirectedPage = "/jsp/LoginFormAdmin.jsp";
-		
-		AmministratoreBean bean=new AmministratoreBean();
+		String redirectedPage = "/LoginAdmin.jsp";
+		System.out.println("1");
 		try {
 			if (!username.equals("") && username != null && !password.equals("") && password != null) {
+				AmministratoreBean bean=new AmministratoreBean();
 				bean = model.verificaLogin(username, EncryptionPassword.MD5(password));
-				if (bean.isEmpty()) {
-					throw new Exception("Utente non trovato.");
-				} else {
+				if (!bean.isEmpty()) {
 					request.getSession().setAttribute("adminRoles", true);
 					request.getSession().setAttribute("Admin", bean);
-					redirectedPage = "/jsp/HomePage.jsp";
-				}
+					redirectedPage = "/HomePageAdmin.jsp";
+				} else 
+					throw new Exception("ERRORE-LoginAdmin: Utente non trovato.");				
 			} else
-				throw new Exception("Errore con l'inserimento dei dati");
-
+				throw new Exception("ERRORE-LoginAdmi: Dati Errati");
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 			request.getSession().setAttribute("adminRoles", false);

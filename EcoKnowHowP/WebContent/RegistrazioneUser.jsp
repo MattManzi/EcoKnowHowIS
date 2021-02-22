@@ -9,7 +9,7 @@
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/script/RegistrazioneUser.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/script/funzioniAjax.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/RegistrazioneUser.css" type="text/css">
+<link rel="stylesheet" href="/css/RegistrazioneUser.css" type="text/css">
 </head>
 <body>
 	<a href="${pageContext.request.contextPath}/jsp/HomePage.jsp" class="logo">EcoKnowHow</a>

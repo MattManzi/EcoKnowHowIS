@@ -28,7 +28,7 @@ CREATE TABLE cliente(
 CREATE TABLE amministratore(
 	username char(20) not null,
 	email char(50) not null,
-	password char(15) not null,
+	password char(35) not null,
 	codSicurezza char(6) not null,
 	PRIMARY KEY(username)
 );
@@ -86,11 +86,11 @@ CREATE TABLE piano(
 
 
 
+insert into matrice(nome, sottotitolo, descrizione) values('Acque', 'Analisi Acque', 'descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1');
+insert into matrice(nome, sottotitolo, descrizione) values('Terra', 'Analisi Terra', 'descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 ');
+insert into matrice(nome, sottotitolo, descrizione) values('Rifiuti', 'Analisi Rifiuti', 'descrizione3 descrizione3 descrizione3 descrizione3 descrizione3 descrizione3 ');
 
-
-
-
-
+insert into amministratore(username, email, password, codSicurezza) values('admin1', 'ptksfn@hotmail.com', 'a722c63db8ec8625af6cf71cb8c2d939', '336548');
 
 
 
