@@ -28,7 +28,7 @@ CREATE TABLE cliente(
 CREATE TABLE amministratore(
 	username char(20) not null,
 	email char(50) not null,
-	password char(15) not null,
+	password char(35) not null,
 	codSicurezza char(6) not null,
 	PRIMARY KEY(username)
 );
@@ -84,6 +84,7 @@ CREATE TABLE piano(
 	PRIMARY KEY(id)
 );
 
+insert into amministratore(username, email, password, codSicurezza) values('admin1', 'ptksfn@hotmail.com', 'a722c63db8ec8625af6cf71cb8c2d939', '336548');
 
 
 

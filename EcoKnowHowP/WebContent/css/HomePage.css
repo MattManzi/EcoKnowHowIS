@@ -1,0 +1,63 @@
+html,body{height: 100%;}
+
+body{
+  background: #F0F8FF;
+}
+
+
+
+
+.header{position: fixed;background: #ADD8E6; width: 100%; height:87px }
+.header__logo{margin:18px; ;color: #fff; float: left; font-size: 40px; text-decoration: none; }
+.header__menu{float: right;margin-top: 30px;}
+.header__menu__item{display: inline-block;}
+.header__menu__item a{font-size: 15px;color: #ffffff; display: block; padding: 20px;text-decoration: none;}
+.header__menu__item a:hover{background: #c7f3ff; color: #000000;}
+
+.img_HomePage{
+	height: 70%;
+ 	background-image: url("https://source.unsplash.com/collection/11475887/homepage");
+	background-size: cover;
+	-o-background-size: cover;
+	-moz-background-size:
+	cover;background-position: center center;
+}
+.imgg{width: 60%;}
+
+.banner{width: 80%;  display: table; border-spacing: 1em; margin: 50px auto;}
+
+.contenitore_card{display: table-row; }
+
+.table-cell{width: auto; height:auto ;display: table-cell; margin:0 5.5%;}
+
+.card{width:80%; padding:1px 0 50px 0; background:  #ADD8E6; text-align: center; border-radius:10%;}
+.card a:link{margin-top:20px;  text-decoration: none; font-size: 40px;}
+.card a:visited{color:#ffffff;}
+.card p{font-size: 30px;color: #ffffff}
+.card a{color: #000000; display: block; padding: 20px;}
+.card a:hover{ color: #000000;} 
+
+
+
+.footer{background: #ADD8E6; padding: 10px; color: #000; margin-top: 5px; color:white; text-align: center;}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; }
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+        
+}

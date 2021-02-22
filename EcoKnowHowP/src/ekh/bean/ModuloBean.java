@@ -20,7 +20,7 @@ public class ModuloBean {
 	private String nomeCampionatore;
 	private String cognomeCampionatore;
 	private String norma;
-	private String quantit‡Campione;
+	private String quantit√†Campione;
 	private String note;
 	private ArrayList<String> obiettivi;
 	private Date dataConferma;
@@ -38,7 +38,7 @@ public class ModuloBean {
 		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
 				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
 				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
-				+ cognomeCampionatore + "\n" + norma + "\n" + quantit‡Campione + "\n" + note + "\n" + dataConferma+ "\n";
+				+ cognomeCampionatore + "\n" + norma + "\n" + quantit√†Campione + "\n" + note + "\n" + dataConferma+ "\n";
 
 		for (String i : obiettivi) {
 			str = str +"Obiettivo:"+ i + "\n";
@@ -51,7 +51,7 @@ public class ModuloBean {
 		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
 				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
 				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
-				+ cognomeCampionatore + "\n" + norma + "\n" + quantit‡Campione + "\n" + note + "\n" + dataConferma
+				+ cognomeCampionatore + "\n" + norma + "\n" + quantit√†Campione + "\n" + note + "\n" + dataConferma
 				+ "\n" + cer + "\n" + statoFisico + "\n" + descrizione+ "\n";
 
 		for (String i : obiettivi) {
@@ -200,12 +200,12 @@ public class ModuloBean {
 		this.norma = norma;
 	}
 
-	public String getQuantit‡Campione() {
-		return quantit‡Campione;
+	public String getQuantit√†Campione() {
+		return quantit√†Campione;
 	}
 
-	public void setQuantit‡Campione(String quantit‡Campione) {
-		this.quantit‡Campione = quantit‡Campione;
+	public void setQuantit√†Campione(String quantit√†Campione) {
+		this.quantit√†Campione = quantit√†Campione;
 	}
 
 	public String getNote() {
