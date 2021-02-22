@@ -51,7 +51,7 @@ public class VisualizzaMatriciServlet extends HttpServlet {
 					if(action.equals("admin")) {
 						redirectedPage="/GestioneMatriciAdmin.jsp";
 					}else if(action.equals("user")) {
-						redirectedPage="/SceltaMatriceUser.jsp";
+						redirectedPage="/SceltaMatriceCliente.jsp";
 					}else
 						throw new Exception("Errore action Visualizza Matrici");
 				}else 
