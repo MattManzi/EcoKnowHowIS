@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
 import ekh.model.MatriceModelDM;
 
