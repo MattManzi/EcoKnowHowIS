@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- In questa pagina il cliente e l'admin compilano il form un nuovo pacchetto -->
+		<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </body>
 </html>

@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- Qui il cliente avrà una lista di pacchetti corrispondendi al suo username e alla matrice scelta -->
+		<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </body>
 </html>

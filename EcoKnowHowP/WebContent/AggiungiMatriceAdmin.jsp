@@ -1,36 +1,27 @@
 <%@page import="ekh.bean.MatriceBean"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.Collection"%>
 <%@page import="ekh.bean.AmministratoreBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
-Collection<?> matrici=(Collection<?>) request.getAttribute("matrici");
-
-
-if(matrici==null){
-	response.sendRedirect(response.encodeRedirectURL("./VisualizzaMatriciServlet?action=admin"));
-	return;
-}
+MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Admin");
 %>
-
-
 
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/HomePage.css" rel="stylesheet">
 <link href="css/GestioneMatriceAdmin.css" rel="stylesheet">
-<title>Gestione Matrice Admin</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-
 	<header class="header">
 		<a href="<%=response.encodeURL("HomePage.jsp")%>" class="header__logo">EcoKnowHow</a>
 		<ul class="header__menu ">
@@ -50,53 +41,43 @@ if(matrici==null){
 			<li class="header__menu__item"><a
 				href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a> <%
  				} else {
-			 %>
-				<a href=><%=admin.getUsername()%></a> <%
-				 }
-				 %>
- </li>
+				 %> <a href=><%=admin.getUsername()%></a> <%
+ 			}%>
+ 			</li>
 		</ul>
 	</header>
-
-	
 	<div class="canvas">
-	
-	<button class="clearfix fixed"> <a  href="${pageContext.request.contextPath}/AggiungiMatriceAdmin.jsp"> Aggiungi</a></button>
+			<h1>Aggiungi Matrice </h1>
+			<form action="AggiuntaMatriceServlet" method="post">
 	<table id="tableMatriciAdmin">
 		<tr>
-			<td>ID</td>
-			<td>Nome </td> 
-			<td>Sotto Titolo</td>
-			<td>Modifica </td>
-			<td>Cancella </td>
+			<td>Nome </td>	
+			<td><input type="text" name="nome" maxlength="30"></td>		
 		</tr>
 		
-		<% if(matrici != null && matrici.size()>0){
-			Iterator<?> it=matrici.iterator();
-			while(it.hasNext()){
-				MatriceBean matrice=(MatriceBean) it.next();
-		%>
-		<tr> 
-			<td > <%=matrice.getId()%> </td>
-			<td > <%=matrice.getNome()%> </td>	
-			<td > <%=matrice.getSottotitolo()%> </td>	
-			<td> <button class="bott_modifica">M</button></td>
-			<td> <button class="bott_rimuovi">X</button></td>		
+		
+		<tr>
+			<td>Sottotitolo </td>
+			<td><input type="text" name="sottotitolo" maxlength="30"></td>
 		</tr>
-		<%	
-			}
-		}
-		 %>
+		
+		
+		<tr>
+			<td>Descrizione </td>	
+			<td><input type="text" name="descrizione" maxlength="30"></td>			
+		</tr>
 	
-	
-	
-	</div>
+		<tr> 
+			<td colspan="2"><input type="submit" value="CONFERMA">
+		</tr>
 	</table>
-	
-		<footer class="footer">
+	</form>
+	</div>
+
+
+	<footer class="footer">
 		<p>2020 Prova&copy;</p>
 	</footer>
-	
 
 </body>
 </html>

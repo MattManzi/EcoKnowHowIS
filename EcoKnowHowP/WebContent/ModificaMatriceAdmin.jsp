@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- L'admin seleziona una matrice e modifica le sue info e il suo contenuto -->
+	
+	
+		<footer class="footer">
+		<p>2020 Prova&copy;</p>
+	</footer>
 </body>
 </html>
