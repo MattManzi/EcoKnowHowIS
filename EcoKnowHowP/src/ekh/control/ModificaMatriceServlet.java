@@ -32,13 +32,14 @@ public class ModificaMatriceServlet extends HttpServlet {
 		try {
 			if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
 				String action = request.getParameter("action");
-				String id = request.getParameter("id");
-				String dato = request.getParameter("dato");
 				if (action != null) {
 					if (action.equals("nome") || action.equals("sottotitolo") || action.equals("descrizione")) {
+						String id = request.getParameter("id");
+						String dato = request.getParameter("dato");
 						model.doUpdate(action, dato, id);
-						request.setAttribute("id", id);
 						redirectedPage = "/ModificaMatriceAdmin.jsp";
+						request.getSession().removeAttribute("matrice"); 
+						request.getSession().setAttribute("matrice", model.doRetrieveByKey(id));						
 					} else
 						throw new Exception("ERRORE-ModificaMatriceServlet: invalid action");
 				} else
