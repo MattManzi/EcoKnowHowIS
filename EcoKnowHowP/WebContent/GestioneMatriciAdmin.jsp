@@ -26,6 +26,7 @@ if(matrici==null){
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/HomePage.css" rel="stylesheet">
 <link href="css/GestioneMatriceAdmin.css" rel="stylesheet">
+<script type="text/javascript" src="./script/alert.js"></script>
 <title>Gestione Matrice Admin</title>
 </head>
 <body>
@@ -54,49 +55,44 @@ if(matrici==null){
 				<a href=><%=admin.getUsername()%></a> <%
 				 }
 				 %>
- </li>
+ 			</li>
 		</ul>
 	</header>
 
 	
-	<div class="canvas">
-	
-	<button class="clearfix fixed"> <a  href="${pageContext.request.contextPath}/AggiungiMatriceAdmin.jsp"> Aggiungi</a></button>
-	<table id="tableMatriciAdmin">
-		<tr>
-			<td>ID</td>
-			<td>Nome </td> 
-			<td>Sotto Titolo</td>
-			<td>Modifica </td>
-			<td>Cancella </td>
-		</tr>
-		
-		<% if(matrici != null && matrici.size()>0){
-			Iterator<?> it=matrici.iterator();
-			while(it.hasNext()){
-				MatriceBean matrice=(MatriceBean) it.next();
-		%>
-		<tr> 
-			<td > <%=matrice.getId()%> </td>
-			<td > <%=matrice.getNome()%> </td>	
-			<td > <%=matrice.getSottotitolo()%> </td>	
-			<td> <button class="bott_modifica">M</button></td>
-			<td> <button class="bott_rimuovi">X</button></td>		
-		</tr>
-		<%	
+	<div class="canvas">	
+		<button class="clearfix fixed"> <a  href="${pageContext.request.contextPath}/AggiungiMatriceAdmin.jsp"> Aggiungi</a></button>
+		<table id="tableMatriciAdmin">
+			<tr>
+				<td>ID</td>
+				<td>Nome </td> 
+				<td>Sotto Titolo</td>
+				<td>Modifica </td>
+				<td>Cancella </td>
+			</tr>
+			
+			<% if(matrici != null && matrici.size()>0){
+				Iterator<?> it=matrici.iterator();
+				while(it.hasNext()){
+					MatriceBean bean=(MatriceBean) it.next();
+			%>
+			<tr> 
+				<td > <%=bean.getId()%> </td>
+				<td > <%=bean.getNome()%> </td>	
+				<td > <%=bean.getSottotitolo()%> </td>	
+				<td> <button class="bott_modifica" id="modifica" onclick="selectMatriceMod(<%=bean.getId()%>)">M</button></td>
+				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaMatrice(<%=bean.getId()%>)">X</button></td>	
+			</tr>
+			<%	
+				}
 			}
-		}
-		 %>
-	
-	
-	
+			 %>
+		</table>
 	</div>
-	</table>
 	
-		<footer class="footer">
+		
+	<footer class="footer">
 		<p>2020 Prova&copy;</p>
 	</footer>
-	
-
 </body>
 </html>

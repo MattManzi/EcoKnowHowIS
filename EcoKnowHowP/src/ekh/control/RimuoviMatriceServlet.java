@@ -1,7 +1,6 @@
 package ekh.control;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,28 +24,25 @@ public class RimuoviMatriceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String redirectedPage = "/jsp/HomePageAdmin.jsp";
+		String redirectedPage = "/HomePageAdmin.jsp";
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
+		try {
+			if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
 
-		if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
-			redirectedPage = "/jsp/LoginAdmin.jsp";
-		} else {
-			try {
 				String id = request.getParameter("id");
-				if (!id.equals("") && id != null) {
-					try {
-						model.doDelete(id);
-					} catch (SQLException e) {
-						System.out.println(e.getMessage());
-					}
-					redirectedPage = "GestioneMatriciAdmin.jsp";
+				if (id != null) {
+					model.doDelete(id);
+					redirectedPage = "/GestioneMatriciAdmin.jsp";
 				} else
-					throw new Exception("Errore id Rimuovi Matrice");
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
+					throw new Exception("ERRORE-RimuoviMatriceServlet: id null");
+			} else {
+				redirectedPage = "/LoginAdmin.jsp";
+				throw new Exception("ERRORE-RimuoviMatriceServlet: Admin non loggato");
 			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);

@@ -53,9 +53,6 @@ public class AmministratoreBean {
 	}
 
 	public boolean isEmpty() {
-		if (email.length() < 0) {
-			return true;
-		}
-		return false;
+		return username.equals("");
 	}
 }

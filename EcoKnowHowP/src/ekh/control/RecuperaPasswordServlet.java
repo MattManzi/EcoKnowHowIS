@@ -48,7 +48,7 @@ public class RecuperaPasswordServlet extends HttpServlet {
 								request.setAttribute("user", "admin");
 								request.getSession().setAttribute("adminRP", admin);
 							}else
-								throw new Exception("ERRORE-RecuperoPasswordServlet: action admin.");			
+								throw new Exception("ERRORE-RecuperaPasswordServlet: email admin non inviata");			
 						}else if(!cliente.isEmpty()) {		
 							cliente.setCodSicurezza(sm.getRandom()+"P");
 							boolean sendEmail = sm.recuperaPassword(cliente, null);
@@ -56,11 +56,11 @@ public class RecuperaPasswordServlet extends HttpServlet {
 								request.setAttribute("user", "cliente");
 								request.getSession().setAttribute("clienteRP", cliente);
 							}else
-								throw new Exception("ERRORE-RecuperoPasswordServlet: action admin.");			
+								throw new Exception("ERRORE-RecuperaPasswordServlet: email cliente non inviata");			
 						}else 
-							throw new Exception("ERRORE-RecuperoPasswordServlet: email inesistente.");
+							throw new Exception("ERRORE-RecuperaPasswordServlet: email inesistente.");
 					}else
-						throw new Exception("ERRORE-RecuperoPasswordServlet: email null.");	
+						throw new Exception("ERRORE-RecuperaPasswordServlet: email null.");	
 					
 					redirectedPage = "/VerificaCodiceSicurezzaRP.jsp";
 				}else if (action.equals("sendEmail")) {
@@ -80,10 +80,10 @@ public class RecuperaPasswordServlet extends HttpServlet {
 									request.setAttribute("user", "admin");
 									redirectedPage = "/VerificaCodiceSicurezzaRP.jsp";
 								} else
-									throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mail");
+									throw new Exception("ERRORE-RecuperaPassowrdServlet: invio e-mail");
 							}else {
 								redirectedPage = "/RecuperaPassword.jsp";
-								throw new Exception("ERRORE-RegistrazioneUserServlet: utente null");
+								throw new Exception("ERRORE-RecuperaPassowrdServlet: utente null");
 							}
 						}else if(user.equals("cliente")) {
 							ClienteBean bean = (ClienteBean) request.getSession().getAttribute("clienteRP");
@@ -99,29 +99,30 @@ public class RecuperaPasswordServlet extends HttpServlet {
 									request.setAttribute("user", "cliente");
 									redirectedPage = "/VerificaCodiceSicurezzaRP.jsp";
 								} else
-									throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mail");
+									throw new Exception("ERRORE-RecuperaPassowrdServlet: invio e-mail");
 							}else {
 								redirectedPage = "/RecuperaPassword.jsp";
-								throw new Exception("ERRORE-RegistrazioneUserServlet: utente null");
+								throw new Exception("ERRORE-RecuperaPassowrdServlet: utente null");
 							}
 						}else
-							throw new Exception("ERRORE-RecuperoPasswordServlet: invalid user.");	
+							throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid user.");	
 					}else
-						throw new Exception("ERRORE-RecuperoPasswordServlet: user null.");		
+						throw new Exception("ERRORE-RecuperaPassowrdServlet: user null.");		
 				}else if(action.equals("codice")) {
 					String user=request.getParameter("user");					
 					if(user!=null) {
 						String codice=request.getParameter("codice");
 						if(user.equals("admin")) {
 							AmministratoreBean bean=(AmministratoreBean) request.getSession().getAttribute("adminRP");
+							System.out.println(bean.getCodSicurezza());
 							if(!bean.isEmpty()) {
 								if(codice.equals(bean.getCodSicurezza()) && codice.substring(6).equals("P")) {
 									request.setAttribute("user", "admin");
 									redirectedPage="/ModificaPassword.jsp";
 								}else 
-									throw new Exception("ERRORE-VerificaCodiceSicurezzaServlet: invalid codice");
+									throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid codice");
 							}else
-								throw new Exception("ERRORE-VerificaCodiceSicurezzaServlet: admin empty.");
+								throw new Exception("ERRORE-RecuperaPassowrdServlet: admin empty.");
 						}else if(user.equals("cliente")) {
 							ClienteBean bean=(ClienteBean) request.getSession().getAttribute("clienteRP");
 							if(!bean.isEmpty()) {
@@ -129,17 +130,17 @@ public class RecuperaPasswordServlet extends HttpServlet {
 									request.setAttribute("user", "cliente");
 									redirectedPage="/ModificaPassword.jsp";
 								}else 
-									throw new Exception("ERRORE-VerificaCodiceSicurezzaServlet: invalid codice");
+									throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid codice");
 							}else
-								throw new Exception("ERRORE-VerificaCodiceSicurezzaServlet: cliente empty.");
+								throw new Exception("ERRORE-RecuperaPassowrdServlet: cliente empty.");
 						}else
-							throw new Exception("ERRORE-RecuperoPasswordServlet: invalid user.");	
+							throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid user.");	
 					}else
-						throw new Exception("ERRORE-RecuperoPasswordServlet: user null.");		
+						throw new Exception("ERRORE-RecuperaPassowrdServlet: user null.");		
 				}else
-					throw new Exception("ERRORE-RecuperoPasswordServlet: invalid action.");		
+					throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid action.");		
 			}else
-				throw new Exception("ERRORE-RecuperoPasswordServlet: action null.");			
+				throw new Exception("ERRORE-RecuperaPassowrdServlet: action null.");			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}   

@@ -36,8 +36,8 @@ public class ModificaProfiloServlet extends HttpServlet {
 				if(action.equals("password")) {
 					String user=request.getParameter("user");
 					if(user!=null) {
-						String password=request.getParameter("user");
-						String password2=request.getParameter("user");
+						String password=request.getParameter("password");
+						String password2=request.getParameter("password2");
 						//validazione
 						
 						if(user.equals("admin")) {

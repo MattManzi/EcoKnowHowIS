@@ -32,7 +32,6 @@ public class LoginAdminServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		String redirectedPage = "/LoginAdmin.jsp";
-		System.out.println("1");
 		try {
 			if (!username.equals("") && username != null && !password.equals("") && password != null) {
 				AmministratoreBean bean=new AmministratoreBean();

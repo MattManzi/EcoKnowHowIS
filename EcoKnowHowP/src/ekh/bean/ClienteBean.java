@@ -176,9 +176,6 @@ public class ClienteBean {
 	}
 
 	public boolean isEmpty() {
-		if (username.equals("")) {
-			return true;
-		}
-		return false;
+		return username.equals("");
 	}
 }

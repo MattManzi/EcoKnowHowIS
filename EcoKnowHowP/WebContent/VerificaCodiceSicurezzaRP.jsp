@@ -3,7 +3,7 @@
 <%
 	String user= (String) request.getAttribute("user");
 	if(user==null || user.equals("")){
-		response.sendRedirect(response.encodeRedirectURL("./RecuperPassword.jsp"));
+		response.sendRedirect(response.encodeRedirectURL("./RecuperaPassword.jsp"));
 	}
 %>
 <!DOCTYPE html>
@@ -15,11 +15,11 @@
 <body>
 <h1>VerificaCodice</h1>
 	<p>Inserire il codice ricevuto via email.</p>
-	<form name="formVerificaCodiceRP" action="<%=response.encodeURL("RecuperoPasswordServlet?action=codice&user="+user) %>" method="post">
+	<form name="formVerificaCodiceRP" action="<%=response.encodeURL("RecuperaPasswordServlet?action=codice&user="+user) %>" method="post">
 		<input type="text" name="codice">
 		<input type="submit" value="verifica">
 	</form>	
-	<p>Non hai ricevuto l'e-mail? <a href="<%=response.encodeURL("RecuperoPasswordServlet?action=sendEmail&user="+user) %>">Invia codice</a></p>
+	<p>Non hai ricevuto l'e-mail? <a href="<%=response.encodeURL("RecuperaPasswordServlet?action=sendEmail&user="+user) %>">Invia codice</a></p>
 	
 </body>
 </html>
