@@ -1,0 +1,11 @@
+.hidden{
+	visibility: hidden;
+}
+
+.show{
+	visibility:visible;
+}
+
+#formName{
+	display: inline-block;
+}

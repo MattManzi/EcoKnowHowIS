@@ -13,43 +13,57 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link href="css/HomePage.css" rel="stylesheet">
+<link href="css/HomePage2.css" rel="stylesheet">
+<link href="css/ModificaMatriceAdmin.css" rel="stylesheet">
 <title>Insert title here</title>
+<script>
+function myFunction() {
+  var x = document.getElementById("formName");
+  if (x.className === "hidden") {
+    x.className = "show";
+  } else {
+    x.className = "hidden";
+  }
+  var x = document.getElementById("modNome");
+  if(x.value=="Modifica") {
+	  x.value="Annulla";
+  } else {
+	  x.value="Modifica"
+  }
+}
+
+</script>
 </head>
 <body>
-	<header class="header clearfix fixed">
-		<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"  class="header__logo">EcoKnowHow</a>
-			<ul class="header__menu ">    
-		    	<li class="header__menu__item"><a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a> </li>
-				<li class="header__menu__item"><a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a></li> 
-				<li class="header__menu__item"><a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a></li>
-				
-				<%if (admin == null){ %>
-					<li class="header__menu__item"><a href="<%=response.encodeURL("LoginAdmin.jsp")%>">Login</a>					
-				<%}else{%>				 
-					<a href=><%=admin.getUsername()%></a> 	
-				<%
-				}
-				%>
-				</li>
-			</ul> 								
+	<header class="header" id="header">
+		<div class="logo">
+			<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"><img src="./img/logo.png"></a>
+		</div>
+		<div class="nav" id="nav">		
+			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
+			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
+			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
+			<%if (admin == null){ %>
+				<a href="<%=response.encodeURL("LoginAdmin.jsp")%>" class="active">Login</a>					
+			<%}else{%>				
+				<a href="<%=response.encodeURL("")%>" class="active"><%=admin.getUsername() %></a>	
+			<%
+			}
+			%>
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+		</div>	
 	</header>
 	
 	<h1>ModificaMatrice</h1>
 	
-	<table>
-		<tr>
-			<td><label for="nome">Nome:</label></td>
-			<td><%=bean.getNome() %></td>
-			<td><button>modifica</button></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	
-	</table>
+	<div id="nome">
+		<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
+		<input id="modNome" onclick="myFunction()" type="button" value="Modifica"></input>		
+		<form id="formName" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=nome&id="+bean.getId()) %>" method="post">
+			<input type="text" name="dato">			
+			<input type="submit" value="Salva">
+		</form>
+	</div>
 	
 	
 	
