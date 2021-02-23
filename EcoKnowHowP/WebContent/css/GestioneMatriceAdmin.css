@@ -17,18 +17,35 @@
     padding-right: 30px;
 
 }
+
+
+#descrizione{
+	width: 80%;
+}
+
 table{
-	width: 100%;
+	width: 80%;
 }
 
 tr{
-	height: 10%;
+	height: 20%;
 }
 
 td{
 	width: 20%;
 	height: 100%;
+	vertical-align: baseline;
 
+}
+th{
+	vertical-align: baseline;
+}
+
+.contenitore{
+	width: 20%;
+	height: 80%;
+	padding: 10% 10% 90% 15%;
+	
 }
 
 

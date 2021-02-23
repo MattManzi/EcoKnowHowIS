@@ -13,12 +13,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
+<link rel="stylesheet"	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/HomePage.css" rel="stylesheet">
+<link href="css/ModificaMatriceAdmin.css" rel="stylesheet">
+
 <title>Insert title here</title>
 </head>
 <body>
 	<header class="header clearfix fixed">
-		<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"  class="header__logo">EcoKnowHow</a>
+		<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"  class="header__logo"><img alt="" src="logo1.png">EcoKnowHow</a>
 			<ul class="header__menu ">    
 		    	<li class="header__menu__item"><a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a> </li>
 				<li class="header__menu__item"><a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a></li> 
@@ -34,23 +39,14 @@
 				</li>
 			</ul> 								
 	</header>
+	<div class="contenitore">
+
+
 	
-	<h1>ModificaMatrice</h1>
 	
-	<table>
-		<tr>
-			<td><label for="nome">Nome:</label></td>
-			<td><%=bean.getNome() %></td>
-			<td><button>modifica</button></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
 	
-	</table>
 	
+	</div>
 	
 	
 	<footer class="footer">

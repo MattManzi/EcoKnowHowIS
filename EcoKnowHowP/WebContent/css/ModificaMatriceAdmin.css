@@ -1,0 +1,26 @@
+@charset "ISO-8859-1";
+
+#tableMatriciAdmin{
+	
+	border:3px solid #CCCCCC;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    border-radius: 10px;
+    border-spacing: 10px;
+    text-align: center;
+    padding-right: 30px;
+
+}
+
+
+#descrizione{
+	width: 80%;
+}
+
+
+.contenitore{
+	width: 20%;
+	height: 80%;
+	padding: 10% 10% 90% 15%;
+	
+}
