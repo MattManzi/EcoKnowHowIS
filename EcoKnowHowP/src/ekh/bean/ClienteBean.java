@@ -15,7 +15,8 @@ public class ClienteBean {
 	private String email;
 	private String password;
 	private String codSicurezza;
-
+	private int attivo;
+	
 	public ClienteBean() {
 		username = "";
 		nome = "";
@@ -31,6 +32,7 @@ public class ClienteBean {
 		email="";
 		password="";
 		codSicurezza="";
+		attivo=0;
 	}
 
 	public ClienteBean(String username, String nome, String cognome, String funzioneAziendale, String telefono,
@@ -49,6 +51,7 @@ public class ClienteBean {
 		this.email=email;
 		this.password=password;
 		this.codSicurezza=codSicurezza;
+		attivo=0;
 	}
 	
 	public String getUsername() {
@@ -161,6 +164,15 @@ public class ClienteBean {
 
 	public void setCodSicurezza(String codSicurezza) {
 		this.codSicurezza = codSicurezza;
+	}
+
+	
+	public int getAttivo() {
+		return attivo;
+	}
+
+	public void setAttivo(int attivo) {
+		this.attivo = attivo;
 	}
 
 	public boolean isEmpty() {

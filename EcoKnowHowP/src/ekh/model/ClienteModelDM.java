@@ -42,6 +42,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setEmail(rs.getString("email"));
 				bean.setPassword(rs.getString("password"));
 				bean.setCodSicurezza(rs.getString("codSicurezza"));
+				bean.setAttivo(rs.getInt("attivo"));
 			}
 		} finally {
 			try {
@@ -93,6 +94,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setEmail(rs.getString("email"));
 				bean.setPassword(rs.getString("password"));
 				bean.setCodSicurezza(rs.getString("codSicurezza"));
+				bean.setAttivo(rs.getInt("attivo"));
 				clienti.add(bean);
 			}
 
@@ -113,7 +115,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO cliente(email, nome, cognome, funzioneAziendale, telefono, ragioneSociale, indirizzo, pIva, cf, pce, sdi, email, password, codSicurezza) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String insertSQL="INSERT INTO cliente(email, nome, cognome, funzioneAziendale, telefono, ragioneSociale, indirizzo, pIva, cf, pce, sdi, email, password, codSicurezza, attivo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -133,6 +135,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 			preparedStatement.setString(12, bean.getEmail());
 			preparedStatement.setString(13, bean.getPassword());
 			preparedStatement.setString(14, bean.getCodSicurezza());
+			preparedStatement.setInt(15, bean.getAttivo());
 
 			System.out.println("ClienteModelDM: doSave:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -238,6 +241,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setEmail(rs.getString("email"));
 				bean.setPassword(rs.getString("password"));
 				bean.setCodSicurezza(rs.getString("codSicurezza"));
+				bean.setAttivo(rs.getInt("attivo"));
 			}
 		} finally {
 			try {
@@ -281,5 +285,50 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 		}
 		
 		return bean.isEmpty();
+	}
+	
+	public ClienteBean doRetrieveByEmail(String email) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		ClienteBean bean=new ClienteBean();
+		
+		String selectSQL="SELECT * FROM cliente WHERE email=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+
+			System.out.println("ClienteModelDM: doRetrieveByKey:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setUsername(rs.getString("username"));
+				bean.setNome(rs.getString("nome"));	
+				bean.setCognome(rs.getString("cognome"));
+				bean.setFunzioneAziendale(rs.getString("funzioneAziendale"));
+				bean.setTelefono(rs.getString("telefono"));
+				bean.setRagioneSociale(rs.getString("ragioneSociale"));
+				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setpIva(rs.getString("pIva"));
+				bean.setCf(rs.getString("cf"));
+				bean.setPec(rs.getString("pec"));
+				bean.setSdi(rs.getString("sdi"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setCodSicurezza(rs.getString("codSicurezza"));
+				bean.setAttivo(rs.getInt("attivo"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bean;
 	}
 }

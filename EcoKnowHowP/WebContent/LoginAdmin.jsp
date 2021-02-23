@@ -18,7 +18,7 @@
 				<input type="submit" value="Login">
 			</fieldset>
 		</form>
-		<a href="<%=response.encodeURL("RecuperaPassword.jsp") %>" class="logo"> Recupera Password </a>
+		<a href="<%=response.encodeURL("RecuperaPasswor.jsp") %>"> Recupera Password </a>
 	</div>
 </body>
 </html>

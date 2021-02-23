@@ -1,9 +1,7 @@
 package ekh.control;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.ClienteBean;
+import ekh.model.AmministratoreModelDM;
 import ekh.model.ClienteModelDM;
 import ekh.strategy.RegistrazioneValidator;
 import ekh.support.SendEmail;
@@ -21,7 +20,8 @@ import ekh.support.SendEmail;
 public class RegistrazioneUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	ClienteModelDM model = new ClienteModelDM();
+	ClienteModelDM modelCliente = new ClienteModelDM();
+	AmministratoreModelDM modelAdmin = new AmministratoreModelDM();
 
 	public RegistrazioneUserServlet() {
 		super();
@@ -30,7 +30,7 @@ public class RegistrazioneUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String redirectedPage = "/jsp/RegistrazioneUser.jsp";
+		String redirectedPage = "/RegistrazioneUser.jsp";
 
 		String action = request.getParameter("action");
 		try {
@@ -54,7 +54,7 @@ public class RegistrazioneUserServlet extends HttpServlet {
 					String password = request.getParameter("password");
 					String password2 = request.getParameter("password2");
 
-					ArrayList<String> inputs=new ArrayList<String>();
+					ArrayList<String> inputs = new ArrayList<String>();
 					inputs.add(nome);
 					inputs.add(cognome);
 					inputs.add(funzioneAziendale);
@@ -72,51 +72,72 @@ public class RegistrazioneUserServlet extends HttpServlet {
 					inputs.add(username);
 					inputs.add(password);
 					inputs.add(password2);
-					
-					RegistrazioneValidator rv=new RegistrazioneValidator();
-					
-					if(rv.validazione(inputs)) {
-						SendEmail sm = new SendEmail();
-						String codSicurezza = sm.getRandom();
 
-						String indirizzo = via + ", " + civico + ", " + comune + ", " + cap;
+					RegistrazioneValidator rv = new RegistrazioneValidator();
 
-						ClienteBean bean = new ClienteBean(username, nome, cognome, funzioneAziendale, telefono,
-								ragioneSociale, indirizzo, pIva, cf, pec, sdi, email, password, codSicurezza);
+					if (rv.validazione(inputs)) {
+						if (modelCliente.controlloDato("email", email)
+								&& modelCliente.controlloDato("username", username)
+								&& modelAdmin.controlloDato("email", email)
+								&& modelAdmin.controlloDato("username", username)) {
+							
+							SendEmail sm = new SendEmail();
+							String codSicurezza = sm.getRandom();
+
+							String indirizzo = via + ", " + civico + ", " + comune + ", " + cap;
+
+							ClienteBean bean = new ClienteBean(username, nome, cognome, funzioneAziendale, telefono,
+									ragioneSociale, indirizzo, pIva, cf, pec, sdi, email, password, codSicurezza);
+							
+							request.getSession().setAttribute("ClienteTemp", bean);
+
+							boolean sendEmail = sm.sendEmail(bean);
+
+							if (sendEmail) {
+								redirectedPage = "/VerificaCodiceSicurezzaRegistrazione.jsp";
+							} else
+								throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mMail");
+						}else
+							throw new Exception("ERRORE-RegistrazioneUserServlet: email/username esistente.");
+					} else
+						throw new Exception("ERRORE-RegistrazioneUserServlet: inserimento dati");
+				} else if (action.equals("sendEmail")) {
+					ClienteBean bean = (ClienteBean) request.getSession().getAttribute("ClienteTemp");
+					if(bean!=null) {
+						SendEmail sm = new SendEmail();						
+						bean.setCodSicurezza(sm.getRandom());
+
+						request.getSession().removeAttribute("ClienteTemp");
 						request.getSession().setAttribute("ClienteTemp", bean);
-
 						boolean sendEmail = sm.sendEmail(bean);
 
 						if (sendEmail) {
-							redirectedPage = "/jsp/VerificaCodiceRegistrazione.jsp";
+							redirectedPage = "/VerificaCodiceSicurezzaRegistrazione.jsp";
 						} else
-							throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mMail");
-					} else
-							throw new Exception("ERRORE-RegistrazioneUserServlet: inserimento dati");
-				} else if (action.equals("sendEmail")) {
-					SendEmail sm = new SendEmail();
-					String codSicurezza = sm.getRandom();
-
-					ClienteBean bean = (ClienteBean) request.getSession().getAttribute("ClienteTemp");
-					bean.setCodSicurezza(codSicurezza);
-
-					request.getSession().removeAttribute("ClienteTemp");
-					request.getSession().setAttribute("ClienteTemp", bean);
-
-					boolean sendEmail = sm.sendEmail(bean);
-
-					if (sendEmail) {
-						redirectedPage = "/jsp/VerificaCodice.jsp";
-					} else
-						throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mail");
-				} else if (action.equals("registra")) {
-					ClienteBean bean = (ClienteBean) request.getSession().getAttribute("ClienteTemp");
-					try {
-						model.doSave(bean);
-					} catch (SQLException e) {
-						System.out.println(e.toString());
+							throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mail");
+					}else {
+						redirectedPage = "/RegistrazioneUser.jsp";
+						throw new Exception("ERRORE-RegistrazioneUserServlet: utente null");
 					}
-					redirectedPage = "/jsp/LoginUser.jsp";
+				} else if (action.equals("registra")) {
+					String codice=request.getParameter("codice");
+					if(codice!=null) {
+						ClienteBean bean = (ClienteBean) request.getSession().getAttribute("ClienteTemp");
+						if(bean!=null) {
+							if(codice.equals(bean.getCodSicurezza()) && bean.getAttivo()==0) {
+								bean.setAttivo(1);
+								modelCliente.doSave(bean);
+								redirectedPage = "/LoginUser.jsp";
+							}else {
+								redirectedPage = "/VerificaCodiceSicurezzaRegistrazione.jsp";
+								throw new Exception("ERRORE-RegistrazioneUserServlet: codice errato");
+							}
+						}else {
+							redirectedPage = "/RegistrazioneUser.jsp";
+							throw new Exception("ERRORE-RegistrazioneUserServlet: codice null");
+						}							
+					}else
+						throw new Exception("ERRORE-RegistrazioneUserServlet: codice null");
 				} else
 					throw new Exception("ERRORE-RegistrazioneUserServlet: invalid action");
 			} else

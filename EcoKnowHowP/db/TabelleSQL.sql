@@ -21,7 +21,8 @@ CREATE TABLE cliente(
 	sdi char(6) not null,
 	email char(50) not null,
 	password char(15) not null,
-	codSicurezza char(6) not null,
+	codSicurezza char(7) not null,
+	attivo int check(attivo in(0,1)),
 	PRIMARY KEY(username)
 );
 
@@ -29,7 +30,7 @@ CREATE TABLE amministratore(
 	username char(20) not null,
 	email char(50) not null,
 	password char(35) not null,
-	codSicurezza char(6) not null,
+	codSicurezza char(7) not null,
 	PRIMARY KEY(username)
 );
 

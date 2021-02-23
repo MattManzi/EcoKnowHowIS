@@ -210,4 +210,70 @@ public class AmministratoreModelDM implements ClassModel<AmministratoreBean> {
 		}
 		return bean;
 	}
+	
+	public boolean controlloDato(String dato, String str)throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		AmministratoreBean bean=new AmministratoreBean();
+		
+		String selectSQL="SELECT username FROM amministratore WHERE "+dato+"=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, str);
+
+			System.out.println("AmministratoreModelDM: controlloDato:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setUsername(rs.getString("username"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		
+		return bean.isEmpty();
+	}
+	
+	public AmministratoreBean doRetrieveByEmail(String email) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		AmministratoreBean bean=new AmministratoreBean();
+		
+		String selectSQL="SELECT * FROM amministratore WHERE email=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+
+			System.out.println("AmministratoreModelDM: doRetrieveByKey:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setUsername(rs.getString("username"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+				bean.setCodSicurezza(rs.getString("codSicurezza"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bean;
+	}
 }
