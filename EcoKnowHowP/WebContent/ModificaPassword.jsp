@@ -15,7 +15,7 @@
 <body>
 	<!-- Questa pagina viene usata per il cambio password dall'area personale e per il cambio password in seguito ad un recupera password  -->
 	<h1>ModificaPassword</h1>
-	<form name="formModificaPassword" action="<%=response.encodeURL("ModificaProfiloServlet?action=password&user="+user) %>" method="post">
+	<form name="formModificaPassword" action="<%=response.encodeURL("ModificaProfiloRPServlet?action=password&user="+user) %>" method="post">
 		<input type="password" name="password">
 		<input type="password" name="password2">
 		<input type="submit" value="Conferma">

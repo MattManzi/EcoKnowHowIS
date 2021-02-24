@@ -62,18 +62,18 @@ function myFunction() {
 			<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
 		</div>	
 	</header>
-	
-	<h1>ModificaMatrice</h1>
-	
-	<div id="nome">
-		<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
-		<input id="modNome" onclick="myFunction()" type="button" value="Modifica"></input>		
-		<form id="formName" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=nome&id="+bean.getId()) %>" method="post">
-			<input type="text" name="dato">			
-			<input type="submit" value="Salva">
-		</form>
+	<div id="main">
+		<h1>ModificaMatrice</h1>
+		
+		<div id="nome">
+			<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
+			<input id="modNome" onclick="myFunction()" type="button" value="Modifica"></input>		
+			<form id="formName" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=nome") %>" method="post">
+				<input type="text" name="dato">			
+				<input type="submit" value="Salva">
+			</form>
+		</div>
 	</div>
-	
 	
 	
 	<footer class="footer">

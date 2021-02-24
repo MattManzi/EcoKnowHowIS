@@ -274,7 +274,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 		return bt;
 	}
 
-	public synchronized static void updateContenuto(String id, String contenuto) throws SQLException {
+	public synchronized static void updateContenuto(int id, String contenuto) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -305,18 +305,18 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			System.out.println("PacchettoModelDM: An error occurred.");
 			e.printStackTrace();
 		}
-		
+
 		String sql = "UPDATE pacchetto SET contenuto = ? WHERE id = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 
-			File file = new File(nomeFile+".txt");
+			File file = new File(nomeFile + ".txt");
 			try {
 				FileInputStream fis = new FileInputStream(file);
 				preparedStatement.setBinaryStream(1, fis, fis.available());
-				preparedStatement.setString(2, id);
+				preparedStatement.setInt(2, id);
 
 				preparedStatement.executeUpdate();
 				connection.commit();
@@ -335,6 +335,13 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 				if (connection != null)
 					DriverManagerConnectionPool.releaseConnection(connection);
 			}
+		}
+		// Elimino il file
+		File modFile = new File(nomeFile + ".txt");
+		if (modFile.delete()) {
+			System.out.println("Deleted the file: " + modFile.getName());
+		} else {
+			System.out.println("Failed to delete the file.");
 		}
 	}
 }

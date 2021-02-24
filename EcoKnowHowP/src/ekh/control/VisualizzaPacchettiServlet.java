@@ -19,63 +19,67 @@ import ekh.model.PacchettoModelDM;
 @WebServlet("/VisualizzaPacchettiServlet")
 public class VisualizzaPacchettiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
-	PacchettoModelDM model=new PacchettoModelDM();
 
-    public VisualizzaPacchettiServlet() {
-        super();
-    }
+	PacchettoModelDM model = new PacchettoModelDM();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String redirectedPage="/HomePage.jsp";
-		
-		/*Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
+	public VisualizzaPacchettiServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String redirectedPage = "/HomePage.jsp";
+
+		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 		Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
-		ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");*/
-		
+		ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
+
 		try {
-			/*if ((admin != null && adminRoles != null && adminRoles.booleanValue()) || (user != null && userRoles != null && userRoles.booleanValue()) ) {
+			if ((admin != null && adminRoles != null && adminRoles.booleanValue())
+					|| (user != null && userRoles != null && userRoles.booleanValue())) {
 				String log = "";
 				if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
 					log = "admin";
 				} else {
 					log = "user";
-				}*/
-				
-			String log="user";
-				ArrayList<PacchettoBean> pacchetti=new ArrayList<PacchettoBean>();
-				
-					//if(log!=null) {
-						if(log.equals("admin")) {
-							pacchetti=model.doRetrieveAll("id");
-							redirectedPage="GestionePacchettiAdmin.jsp";
-						}else if(log.equals("user")) {
-							MatriceBean bean=(MatriceBean) request.getSession().getAttribute("SelectMatrice");
-							String idMatrice=String.valueOf(bean.getId());
-							String tipo=request.getParameter("tipo");
-							if(tipo.equals("standard")) {
-								pacchetti=model.doRetrieveForUser("", tipo, idMatrice);
-							}else {
-								//String username=user.getUsername();
-								//pacchetti=model.doRetrieveForUser(username, tipo, idMatrice);
-							}						
-							redirectedPage="/SceltaPacchetto.jsp";
-							request.setAttribute("pacchetti", pacchetti);		
+				}
+
+				ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
+				if (log.equals("admin")) {
+					pacchetti = model.doRetrieveAll("id");
+					redirectedPage = "/GestionePacchettiAdmin.jsp";
+				} else {
+					MatriceBean bean = (MatriceBean) request.getSession().getAttribute("SelectMatrice");
+					if (bean != null) {
+						String tipo = request.getParameter("tipo");
+						if(tipo!=null) {
+							if (tipo.equals("standard")) {
+								pacchetti = model.doRetrieveForUser("", tipo, String.valueOf(bean.getId()));
+							} else {
+								String username = user.getUsername();
+								pacchetti = model.doRetrieveForUser(username, tipo, String.valueOf(bean.getId()));
+							}
+							redirectedPage = "/SceltaPacchetto.jsp";
 						}else
-							throw new Exception("Errore action Visualizza Pacchetti");
-					/*}else 
-						throw new Exception("Errore action Visualizza Pacchetti");		*/	
-		}catch (Exception e) {
+							throw new Exception("ERRORE-VisualizzaPacchettiServlet: tipo null");
+					} else
+						throw new Exception("ERRORE-VisualizzaPacchettiServlet: matrice null");
+				}
+				request.setAttribute("pacchetti", pacchetti);	
+			} else
+				throw new Exception("ERRORE-VisualizzaPacchettiServlet: nessun utente loggato.");
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}				
-		
+		}
+
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
-		dispatcher.forward(request, response);	
+		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

@@ -12,21 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
-import ekh.bean.MatriceBean;
-import ekh.model.MatriceModelDM;
+import ekh.bean.PianoBean;
+import ekh.model.PianoModelDM;
 
-@WebServlet("/VisualizzaMatriciServlet")
-public class VisualizzaMatriciServlet extends HttpServlet {
+@WebServlet("/VisualizzaPianiClienteServlet")
+public class VisualizzaPianiClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	MatriceModelDM model = new MatriceModelDM();
-
-	public VisualizzaMatriciServlet() {
+	PianoModelDM model=new PianoModelDM();
+	
+	public VisualizzaPianiClienteServlet() {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String redirectedPage = "/HomePage.jsp";
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
@@ -37,31 +36,24 @@ public class VisualizzaMatriciServlet extends HttpServlet {
 		try {
 			if ((admin != null && adminRoles != null && adminRoles.booleanValue())
 					|| (user != null && userRoles != null && userRoles.booleanValue())) {
-				String log = "";
-				if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
-					log = "admin";
-				} else {
-					log = "user";
-				}
-
-				ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
-
-				matrici = model.doRetrieveAll("id");
-				request.setAttribute("matrici", matrici);
-				if (log.equals("admin")) {
-					redirectedPage = "/GestioneMatriciAdmin.jsp";
-				} else {
-					redirectedPage = "/SceltaMatriceCliente.jsp";
-				}
-			} else
-				throw new Exception("ERRORE-VisualizzaMatriciServlet: nessun utente loggato.");
+				
+				String username = request.getParameter("username");
+				if(username!=null) {
+					ArrayList<PianoBean> piani = new ArrayList<PianoBean>();
+					piani=model.doRetrieveByUsername(username);
+					request.setAttribute("piani", piani);
+					redirectedPage = "/StoricoCliente.jsp";
+				}else
+					throw new Exception("ERRORE-VisualizzaPianiClienteServlet: username null.");				
+			}else
+				throw new Exception("ERRORE-VisualizzaPianiClienteServlet: nessun utente loggato.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		redirectedPage = response.encodeURL(redirectedPage);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
-		dispatcher.forward(request, response);
+			redirectedPage = response.encodeURL(redirectedPage);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
+			dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

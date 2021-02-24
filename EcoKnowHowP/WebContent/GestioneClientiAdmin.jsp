@@ -1,11 +1,14 @@
-<%@page import="com.mysql.cj.x.protobuf.MysqlxCrud.Collection"%>
-<%@page import="ekh.bean.MatriceBean"%>
-<%@page import="ekh.bean.AmministratoreBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*" %>
 <!DOCTYPE html>
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
+
+Collection<?> clienti=(Collection<?>)request.getAttribute("clienti");
+
+if(clienti==null){
+	response.sendRedirect(response.encodeRedirectURL("./VisualizzaClientiServlet"));
+}
 
 %>
 <html>

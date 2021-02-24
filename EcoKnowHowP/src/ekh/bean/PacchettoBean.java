@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ekh.model.ContenutoPacchettoModelDM;
+import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
 
 public class PacchettoBean {
@@ -179,12 +180,12 @@ public class PacchettoBean {
 		}
 	}
 	
-	public String stampContenuto() {
+	public void stampContenuto() throws SQLException {
 		String str="";
 		for(ParametroBean i:contenuto) {
 			str=str+i.getId()+"\n";
 		}
-		return str;
+		PacchettoModelDM.updateContenuto(id,str);
 	}
 	
 	public double calcolaPrezzo() {

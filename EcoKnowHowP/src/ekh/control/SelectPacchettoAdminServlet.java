@@ -10,43 +10,42 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.AmministratoreBean;
-import ekh.bean.MatriceBean;
-import ekh.model.MatriceModelDM;
+import ekh.bean.PacchettoBean;
+import ekh.model.PacchettoModelDM;
 
-@WebServlet("/SelectMatriceAdminServlet")
-public class SelectMatriceAdminServlet extends HttpServlet {
+@WebServlet("/SelectPacchettoAdminServlet")
+public class SelectPacchettoAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+	PacchettoModelDM model=new PacchettoModelDM();
+	
+	public SelectPacchettoAdminServlet() {
+        super();
+    }
 
-	MatriceModelDM model = new MatriceModelDM();
-
-	public SelectMatriceAdminServlet() {
-		super();
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String redirectedPage = "/HomePage.jsp";
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
-
 		try {
 			if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
-				request.getSession().removeAttribute("matrice");
+				request.getSession().removeAttribute("pacchetto");
 				String id = request.getParameter("id");
 				if (id != null) {
-					MatriceBean bean = new MatriceBean();
+					PacchettoBean bean = new PacchettoBean();
 					bean = model.doRetrieveByKey(id);
 					if (!bean.isEmpty()) {
-						redirectedPage = "/ModificaMatriceAdmin.jsp";
-						request.getSession().setAttribute("matrice", bean);
+						bean.readContenuto();
+						redirectedPage = "/ModificaPacchettoAdmin.jsp";
+						request.getSession().setAttribute("pacchetto", bean);
 					} else
-						throw new Exception("ERRORE-SelectMatriceAdminServlet: Matrice non trovata.");
+						throw new Exception("ERRORE-SelectPacchettoAdminServlet: Pacchetto non trovata.");
 				} else
-					throw new Exception("ERRORE-SelectMatriceAdminServlet: id null.");
+					throw new Exception("ERRORE-SelectPacchettoAdminServlet: id null.");
 			} else {
 				redirectedPage = "/LoginAdmin.jsp";
-				throw new Exception("ERRORE-SelectMatriceAdminServlet: Admin non loggato.");
+				throw new Exception("ERRORE-SelectPacchettoAdminServlet: Admin non loggato.");
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -56,8 +55,7 @@ public class SelectMatriceAdminServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

@@ -31,7 +31,6 @@ ClienteBean cliente = (ClienteBean) request.getSession().getAttribute("Cliente")
 				</li>
 			</ul> 								
 	</header>
-	
 	<section class="img_HomePage"></section>		
 	
 	<section class="banner clearfix">	
@@ -59,7 +58,6 @@ ClienteBean cliente = (ClienteBean) request.getSession().getAttribute("Cliente")
 			</div>
 		</div>
 	</section>
-	
 	<footer class="footer">
 		<p>2020 Prova&copy;</p>
 	</footer>

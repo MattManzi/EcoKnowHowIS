@@ -1,7 +1,7 @@
 package ekh.control;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,39 +14,37 @@ import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.bean.PacchettoBean;
 import ekh.model.PacchettoModelDM;
+import ekh.strategy.AggiungiPacchettoValidator;
 
 @WebServlet("/AggiungiPacchettoServlet")
-public class AggiungiPacchettoServlet extends HttpServlet {
+public class AggiuntaPacchettoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	PacchettoModelDM model=new PacchettoModelDM();
-	
-	public AggiungiPacchettoServlet() {
+	PacchettoModelDM model = new PacchettoModelDM();
+
+	public AggiuntaPacchettoServlet() {
 		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String redirectedPage = "/jsp/HomePage.jsp";
+		String redirectedPage = "/HomePage.jsp";
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 		Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
 		ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
 
-		if ((admin == null || adminRoles == null || !adminRoles.booleanValue())
-				&& (user == null || userRoles == null || !userRoles.booleanValue())) {
-			redirectedPage = "/jsp/HomePage.jsp";
-		} else {
-			String log = "";
-			if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
-				log = "admin";
-			} else {
-				log = "user";
-			}
-
-			String action = request.getParameter("action");
-			try {
+		try {
+			if ((admin != null && adminRoles != null && adminRoles.booleanValue())
+					|| (user != null || userRoles != null && !userRoles.booleanValue())) {
+				String log = "";
+				if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
+					log = "admin";
+				} else {
+					log = "user";
+				}
+				String action = request.getParameter("action");
 				if (action != null) {
 					if (action.equals("crea")) {
 						String idMatrice = request.getParameter("idMatrice");
@@ -55,16 +53,21 @@ public class AggiungiPacchettoServlet extends HttpServlet {
 						String tipo = "";
 						String username = "";
 						if (log.equals("admin")) {
-							tipo = "Standard";
+							tipo = "standard";
 							username = admin.getUsername();
 						} else {
 							tipo = "analitico";
 							username = user.getUsername();
 						}
 
-						if (!idMatrice.equals("") && idMatrice != null && !nome.equals("") && nome != null
-								&& !descrizione.equals("") && descrizione != null && !tipo.equals("") && tipo != null
-								&& !username.equals("") && username != null) {
+						ArrayList<String> inputs = new ArrayList<String>();
+						inputs.add(idMatrice);
+						inputs.add(nome);
+						inputs.add(descrizione);
+
+						AggiungiPacchettoValidator pv = new AggiungiPacchettoValidator();
+
+						if (pv.validazione(inputs)) {
 							PacchettoBean bean = new PacchettoBean();
 							bean.setIdMatrice(Integer.parseInt(idMatrice));
 							bean.setNome(nome);
@@ -74,27 +77,33 @@ public class AggiungiPacchettoServlet extends HttpServlet {
 
 							request.getSession().setAttribute("pacchettoTemp", bean);
 
-							redirectedPage = "/jsp/ComponiPacchetto.jsp";
-						}
+							redirectedPage = "/ComponiPacchetto.jsp";
+						} else
+							throw new Exception("ERRORE-AggiuntaPacchettoServlet: inserimento dati.");
 					} else if (action.equals("salva")) {
-						PacchettoBean pacchettoTemp = (PacchettoBean) request.getSession().getAttribute("pacchettoTemp");
-						if(pacchettoTemp!=null) {
-							try {
+						PacchettoBean pacchettoTemp = (PacchettoBean) request.getSession()
+								.getAttribute("pacchettoTemp");
+						if (pacchettoTemp != null) {
+							if(pacchettoTemp.getContenuto().size()>0) {
 								pacchettoTemp.setPrezzo(pacchettoTemp.calcolaPrezzo());
 								model.doSave(pacchettoTemp);
-								PacchettoModelDM.updateContenuto(String.valueOf(pacchettoTemp.getId()), pacchettoTemp.stampContenuto());
-							}catch(SQLException e) {
-								System.out.println(e.getMessage());
+								pacchettoTemp.stampContenuto();
+							}else {
+								redirectedPage = "/ComponiPacchetto.jsp";
+								throw new Exception("ERRORE-AggiuntaPacchettoServlet: pacchetto vuoto.");	
 							}
+						} else {
+							redirectedPage = "/CreaPacchetto.jsp";
+							throw new Exception("ERRORE-AggiuntaPacchettoServlet: pacchetto null.");
 						}
 					} else
-						throw new Exception("ERRORE - AggiuntaPacchettoServlet: action non valida.");
+						throw new Exception("ERRORE-AggiuntaPacchettoServlet: action non valida.");
 				} else
-					throw new Exception("ERRORE - AggiuntaPacchettoServlet: action vuota o null.");
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-
+					throw new Exception("ERRORE-AggiuntaPacchettoServlet: action vuota o null.");
+			} else
+				throw new Exception("ERRORE-AggiuntaMatriceServlet: nessun utente loggato.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
