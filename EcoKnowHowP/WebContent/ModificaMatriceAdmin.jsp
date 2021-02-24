@@ -1,22 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="ekh.bean.*"%>
+    pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
 <%
 	AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
 	MatriceBean bean=(MatriceBean)request.getSession().getAttribute("matrice");
+	Collection<?> parametri=(Collection<?>) request.getAttribute("parametri");
+	
 	
 	if(bean==null){
 		response.sendRedirect(response.encodeRedirectURL("GestioneMatriciAdmin.jsp"));
+		return;
+	}
+	
+	if(parametri==null){
+		response.sendRedirect(response.encodeRedirectURL("VisualizzaParametriServlet?action=matrice&idMatrice="+bean.getId()));
+		return;
 	}
 	
 %>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/HomePage2.css" rel="stylesheet">
 <link href="css/ModificaMatriceAdmin.css" rel="stylesheet">
+
 <title>Insert title here</title>
 <script>
 function myFunction() {
@@ -64,6 +75,22 @@ function myFunction() {
 			<input type="submit" value="Salva">
 		</form>
 	</div>	
+		<div id="Sottotitoli">
+		<p style="display: inline-block;">Sottotitolo: <%=bean.getSottotitolo() %></p>
+		<input id="modSottotitolo" onclick="myFunction()" type="button" value="Modifica"></input>		
+		<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=Sottotitolo&id="+bean.getId()) %>" method="post">
+			<input type="text" name="dato">			
+			<input type="submit" value="Salva">
+		</form>
+	</div>
+		<div id="Descrizioni">
+		<p style="display: inline-block;">Descrizione: <%=bean.getDescrizione()%></p>
+		<input id="modDescrizione" onclick="myFunction()" type="button" value="Modifica"></input>		
+		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=Descrizione&id="+bean.getId()) %>" method="post">
+			<input type="text" name="dato">			
+			<input type="submit" value="Salva">
+		</form>
+	</div>
 
 	
 	<footer class="footer">

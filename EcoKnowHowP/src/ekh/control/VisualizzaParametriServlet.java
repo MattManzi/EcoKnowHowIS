@@ -35,45 +35,41 @@ public class VisualizzaParametriServlet extends HttpServlet {
 		Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
 		ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
 
-		if ((admin == null || adminRoles == null || !adminRoles.booleanValue())
-				&& (user == null || userRoles == null || !userRoles.booleanValue())) {
-			redirectedPage = "/jsp/HomePage.jsp";
-		} else {
-			String log = "";
-			if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
-				log = "admin";
-			} else {
-				log = "user";
-			}
-			ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();
-
-			String idMatrice = request.getParameter("idMatrice");
-			try {
-				parametri = model.doRetrieveByMatrix(idMatrice);
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-			if (log.equals("admin")) {
-				String action = request.getParameter("action");
-				try {
-					if (!action.equals("") && action != null) {
-						if (action.equals("matrice")) {
-							redirectedPage = "/jsp/PaginaMatriceAdmin.jsp";
-						} else if (action.equals("pacchetto")) {
-							redirectedPage = "/jsp/ComponiPacchetto.jsp";
-						}else
-							throw new Exception("ERRORE - VisualizzaParametriServlet: action non valida.");
-					} else
-						throw new Exception("ERRORE - VisualizzaParametriServlet: action vuota o null.");
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
+		try {
+			if ((admin != null && adminRoles != null && adminRoles.booleanValue())
+					|| (user != null && userRoles != null && userRoles.booleanValue())) {	
+				String log="";
+				if(admin!=null) {
+					log="admin";
+				}else {
+					log="cliente";
 				}
-			} else {
-				redirectedPage = "/jsp/ComponiPacchetto.jsp";
-			}
-			request.setAttribute("parametri", parametri);
+				ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();				
 
-		}
+				String idMatrice = request.getParameter("idMatrice");
+				
+				parametri = model.doRetrieveByMatrix(idMatrice);
+				
+				if (log.equals("admin")) {
+					String action = request.getParameter("action");					
+					if (action != null) {
+						request.setAttribute("parametri", parametri);
+						if (action.equals("matrice")) {
+							redirectedPage = "/ModificaMatriceAdmin.jsp";
+						} else if (action.equals("pacchetto")) {
+							redirectedPage = "/ComponiPacchetto.jsp";
+						} else
+							throw new Exception("ERRORE - VisualizzaParametriServlet: invalid action.");
+					} else
+						throw new Exception("ERRORE - VisualizzaParametriServlet: action null.");
+				} else {
+					redirectedPage = "/ComponiPacchetto.jsp";
+				}
+			}else
+				throw new Exception("ERRORE-VisualizzaParametriServlet: nessun utente loggato");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}		
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
 		dispatcher.forward(request, response);
