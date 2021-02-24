@@ -3,11 +3,13 @@ package ekh.bean;
 public class PianoBean {
 	private int id;
 	private int idPacchetto;
+	private PacchettoBean pacchetto;
 	private String username;
 	private double prezzo;
 	private String stato;
-	boolean referto;
-	boolean schedaDS;
+	private boolean referto;
+	private boolean schedaDS;
+	private ModuloBean modulo;
 	
 	public PianoBean() {
 		id = 0;
@@ -81,6 +83,22 @@ public class PianoBean {
 
 	public void setSchedaDS(boolean schedaDS) {
 		this.schedaDS = schedaDS;
+	}
+
+	public PacchettoBean getPacchetto() {
+		return pacchetto;
+	}
+
+	public void setPacchetto(PacchettoBean pacchetto) {
+		this.pacchetto = pacchetto;
+	}
+
+	public ModuloBean getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(ModuloBean modulo) {
+		this.modulo = modulo;
 	}
 
 	public boolean isEmpty() {

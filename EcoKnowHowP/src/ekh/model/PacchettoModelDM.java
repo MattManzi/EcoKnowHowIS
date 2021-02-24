@@ -237,7 +237,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 		return pacchetti;
 	}
 
-	public synchronized static byte[] loadContenuto(String id) throws SQLException {
+	public synchronized static byte[] loadContenuto(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
@@ -249,7 +249,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 
-			preparedStatement.setString(1, id);
+			preparedStatement.setInt(1, id);
 
 			System.out.println("PacchettoModelDM: loadContenuto" + preparedStatement.toString());
 			rs = preparedStatement.executeQuery();

@@ -1,7 +1,9 @@
 package ekh.bean;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+
+import ekh.model.ModuloModelDM;
 
 public class ModuloBean {
 	private String tipo;
@@ -15,7 +17,7 @@ public class ModuloBean {
 	private String pIvaCom;
 	private String telefonoCom;
 	private String emailCom;
-	private Date data;
+	private String data;
 	private String luogo;
 	private String nomeCampionatore;
 	private String cognomeCampionatore;
@@ -23,45 +25,14 @@ public class ModuloBean {
 	private String quantitaCampione;
 	private String note;
 	private ArrayList<String> obiettivi;
-	private Date dataConferma;
+	private String dataConferma;
 	// moduloAvanzato
 	private ArrayList<String> hp;
 	private String cer;
 	private String statoFisico;
 	private String descrizione;
 
-	private ModuloBean() {
-	}
-
-	public String stampModuloBase() {
-		String str = "";
-		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
-				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
-				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
-				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n" + note + "\n" + dataConferma+ "\n";
-
-		for (String i : obiettivi) {
-			str = str +"Obiettivo:"+ i + "\n";
-		}
-		return str;
-	}
-
-	public String stampModuloAvanzato() {
-		String str = "";
-		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
-				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
-				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
-				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n" + note + "\n" + dataConferma
-				+ "\n" + cer + "\n" + statoFisico + "\n" + descrizione+ "\n";
-
-		for (String i : obiettivi) {
-			str = str +"Obiettivo:"+ i + "\n";
-		}
-
-		for (String i : hp) {
-			str = str +"HP:"+ i + "\n";
-		}
-		return str;
+	public ModuloBean() {
 	}
 
 	public String getTipo() {
@@ -160,11 +131,11 @@ public class ModuloBean {
 		emailCom = emailProd;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
@@ -256,12 +227,107 @@ public class ModuloBean {
 		this.descrizione = descrizione;
 	}
 
-	public Date getDataConferma() {
+	public String getDataConferma() {
 		return dataConferma;
 	}
 
-	public void setDataConferma(Date dataConferma) {
+	public void setDataConferma(String dataConferma) {
 		this.dataConferma = dataConferma;
 	};
+
+	public void stampModuloBase(int id) {
+		String str = "";
+		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
+				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
+				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
+				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n" + note + "\n" + dataConferma
+				+ "\n" + " \n" + " \n" + " \n";
+
+		for (String i : obiettivi) {
+			str = str + "Obiettivo:" + i + "\n";
+		}
+		try {
+			ModuloModelDM.updateFile(id, str);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void stampModuloAvanzato(int id) {
+		String str = "";
+		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
+				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
+				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
+				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n" + note + "\n" + dataConferma
+				+ "\n" + cer + "\n" + statoFisico + "\n" + descrizione + "\n";
+
+		for (String i : obiettivi) {
+			str = str + i + ";";
+		}
+		str = str + "\n";
+
+		for (String i : hp) {
+			str = str + i + ";";
+		}
+		str = str + "\n";
+		try {
+			ModuloModelDM.updateFile(id, str);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void readModulo(int id) {
+		byte[] bt = null;
+
+		try {
+			bt = ModuloModelDM.loadFile(id);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		String str = new String(bt);
+		String[] dati = str.split("\n");
+
+		tipo = dati[0];
+		ragioneSocialeProd = dati[1];
+		ragioneSocialeCom = dati[2];
+		sedeLegaleProd = dati[3];
+		sedeLegaleCom = dati[4];
+		pIvaProd = dati[5];
+		pIvaCom = dati[6];
+		telefonoProd = dati[7];
+		telefonoCom = dati[8];
+		emailProd = dati[9];
+		emailCom = dati[10];
+		data = dati[11];
+		luogo = dati[12];
+		nomeCampionatore = dati[13];
+		cognomeCampionatore = dati[14];
+		norma = dati[15];
+		quantitaCampione = dati[16];
+		note = dati[17];
+		dataConferma = dati[18];
+		cer = dati[19];
+		statoFisico = dati[20];
+		descrizione = dati[21];
+		String oStr=dati[22];
+		String hStr=dati[23];
+		
+		String[] o=oStr.split(";");
+		String[] h=hStr.split(";");
+		
+		if(o.length>0) {
+			for(String x:o) {
+				obiettivi.add(x);
+			}
+		}
+		
+		if(h.length>0) {
+			for(String x:h) {
+				hp.add(x);
+			}
+		}
+	}
 
 }
