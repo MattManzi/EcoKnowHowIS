@@ -54,8 +54,7 @@ MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Admin");
 			<td>Nome </td>	
 			<td><input type="text" name="nome" maxlength="30"></td>		
 		</tr>
-		
-		
+
 		<tr>
 			<td>Sottotitolo </td>
 			<td><input type="text" name="sottotitolo" maxlength="30"></td>

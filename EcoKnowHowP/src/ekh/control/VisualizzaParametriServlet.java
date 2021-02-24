@@ -1,7 +1,6 @@
 package ekh.control;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -43,28 +42,29 @@ public class VisualizzaParametriServlet extends HttpServlet {
 					log="admin";
 				}else {
 					log="cliente";
-				}
-				ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();				
+				}			
 
 				String idMatrice = request.getParameter("idMatrice");
-				
-				parametri = model.doRetrieveByMatrix(idMatrice);
-				
-				if (log.equals("admin")) {
-					String action = request.getParameter("action");					
-					if (action != null) {
-						request.setAttribute("parametri", parametri);
-						if (action.equals("matrice")) {
-							redirectedPage = "/ModificaMatriceAdmin.jsp";
-						} else if (action.equals("pacchetto")) {
-							redirectedPage = "/ComponiPacchetto.jsp";
+				if(idMatrice!=null) {
+					ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();	
+					parametri = model.doRetrieveByMatrix(idMatrice);					
+					if (log.equals("admin")) {
+						String action = request.getParameter("action");					
+						if (action != null) {
+							request.setAttribute("parametri", parametri);
+							if (action.equals("matrice")) {
+								redirectedPage = "/ModificaMatriceAdmin.jsp";
+							} else if (action.equals("pacchetto")) {
+								redirectedPage = "/ComponiPacchetto.jsp";
+							} else
+								throw new Exception("ERRORE - VisualizzaParametriServlet: invalid action.");
 						} else
-							throw new Exception("ERRORE - VisualizzaParametriServlet: invalid action.");
-					} else
-						throw new Exception("ERRORE - VisualizzaParametriServlet: action null.");
-				} else {
-					redirectedPage = "/ComponiPacchetto.jsp";
-				}
+							throw new Exception("ERRORE - VisualizzaParametriServlet: action null.");
+					} else {
+						redirectedPage = "/ComponiPacchetto.jsp";
+					}	
+				}else
+					throw new Exception("ERRORE-VisualizzaParametriServlet: idMatrice null");
 			}else
 				throw new Exception("ERRORE-VisualizzaParametriServlet: nessun utente loggato");
 		} catch (Exception e) {

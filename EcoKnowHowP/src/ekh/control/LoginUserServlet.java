@@ -29,27 +29,30 @@ public class LoginUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String redirectedPage = "/LoginFormUser.jsp";
+		
 		request.getSession().removeAttribute("adminRoles");
 		request.getSession().removeAttribute("Admin");
-
+		request.getSession().invalidate();
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		   
-		String redirectedPage = "/jsp/LoginFormUser.jsp";
 
+		
+		
 		ClienteBean bean = new ClienteBean();
 
 		try {
-			if (!username.equals("") && username != null && !password.equals("") && password != null) {
+			if (username != null && password != null) {
 				bean = model.verificaLogin(username, EncryptionPassword.MD5(password));
 				if (!bean.isEmpty()) {
 					request.getSession().setAttribute("userRoles", true);
 					request.getSession().setAttribute("Utente", bean);
-					redirectedPage = "/jsp/HomePage.jsp";
+					redirectedPage = "/HomePage.jsp";
 				} else 
-					throw new Exception("Accesso Negato");
+					throw new Exception("ERRORE-LoginUserServlet-Account non trovato.");
 			} else
-				throw new Exception("Accesso Negato");
+				throw new Exception("ERRORE-LoginUserServlet-Dati null.");
 
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());

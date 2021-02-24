@@ -30,7 +30,8 @@
 
 <title>Insert title here</title>
 <script>
-function myFunction() {
+
+function myFunctionNome() {
   var x = document.getElementById("formName");
   if (x.className === "hidden") {
     x.className = "show";
@@ -38,6 +39,42 @@ function myFunction() {
     x.className = "hidden";
   }
   var x = document.getElementById("modNome");
+  if(x.value=="Modifica") {
+	  x.value="Annulla";
+  } else {
+	  x.value="Modifica"
+  }
+}
+</script>
+
+<script>
+
+function myFunctionDescrizione() {
+  var x = document.getElementById("formDescrizione");
+  if (x.className === "hidden") {
+    x.className = "show";
+  } else {
+    x.className = "hidden";
+  }
+  var x = document.getElementById("modDescrizione");
+  if(x.value=="Modifica") {
+	  x.value="Annulla";
+  } else {
+	  x.value="Modifica"
+  }
+}
+</script>
+
+<script>
+
+function myFunctionSottotitolo() {
+  var x = document.getElementById("formSottotitolo");
+  if (x.className === "hidden") {
+    x.className = "show";
+  } else {
+    x.className = "hidden";
+  }
+  var x = document.getElementById("modSottotitolo");
   if(x.value=="Modifica") {
 	  x.value="Annulla";
   } else {
@@ -65,32 +102,40 @@ function myFunction() {
 			<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
 		</div>	
 	</header>
-	<h1> Ciao</h1>
 
-	<div id="nome">
-		<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
-		<input id="modNome" onclick="myFunction()" type="button" value="Modifica"></input>		
-		<form id="formName" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=nome&id="+bean.getId()) %>" method="post">
-			<input type="text" name="dato">			
-			<input type="submit" value="Salva">
-		</form>
-	</div>	
-		<div id="Sottotitoli">
-		<p style="display: inline-block;">Sottotitolo: <%=bean.getSottotitolo() %></p>
-		<input id="modSottotitolo" onclick="myFunction()" type="button" value="Modifica"></input>		
-		<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=Sottotitolo&id="+bean.getId()) %>" method="post">
-			<input type="text" name="dato">			
-			<input type="submit" value="Salva">
-		</form>
-	</div>
+
+	<div class="contenitore">
+
+		<h1>ModificaMatrice</h1>
+		
+		<div id="nome">
+			<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
+			<input id="modNome" onclick="myFunctionNome()" type="button" value="Modifica"></input>		
+			<form id="formName" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=nome") %>" method="post">
+				<input type="text" name="dato">			
+				<input type="submit" value="Salva">
+			</form>
+		</div>
+		
+		<div id="sottotitolo">
+			<p style="display: inline-block;">Sottotitolo: <%=bean.getSottotitolo()%></p>
+			<input id="modSottotitolo" onclick="myFunctionSottotitolo(" type="button" value="Modifica"></input>		
+			<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=sottotitolo") %>" method="post">
+				<input type="text" name="dato">			
+				<input type="submit" value="Salva">
+			</form>
+		</div>		
+
+
 		<div id="Descrizioni">
 		<p style="display: inline-block;">Descrizione: <%=bean.getDescrizione()%></p>
-		<input id="modDescrizione" onclick="myFunction()" type="button" value="Modifica"></input>		
-		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=Descrizione&id="+bean.getId()) %>" method="post">
+		<input id="modDescrizione" onclick="myFunctionDescrizione()" type="button" value="Modifica"></input>		
+		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=descrizione") %>" method="post">
 			<input type="text" name="dato">			
 			<input type="submit" value="Salva">
 		</form>
 	</div>
+</div>
 
 	
 	<footer class="footer">

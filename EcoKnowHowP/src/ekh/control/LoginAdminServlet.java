@@ -33,7 +33,7 @@ public class LoginAdminServlet extends HttpServlet {
 		
 		String redirectedPage = "/LoginAdmin.jsp";
 		try {
-			if (!username.equals("") && username != null && !password.equals("") && password != null) {
+			if (username != null && password != null) {
 				AmministratoreBean bean=new AmministratoreBean();
 				bean = model.verificaLogin(username, EncryptionPassword.MD5(password));
 				if (!bean.isEmpty()) {
@@ -41,11 +41,11 @@ public class LoginAdminServlet extends HttpServlet {
 					request.getSession().setAttribute("Admin", bean);
 					redirectedPage = "/HomePageAdmin.jsp";
 				} else 
-					throw new Exception("ERRORE-LoginAdmin: Utente non trovato.");				
+					throw new Exception("ERRORE-LoginAdmin: Account non trovato.");				
 			} else
-				throw new Exception("ERRORE-LoginAdmi: Dati Errati");
+				throw new Exception("ERRORE-LoginAdmi: Dati null");
 		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
+			System.out.println(e.getMessage());
 			request.getSession().setAttribute("adminRoles", false);
 		}
 		redirectedPage = response.encodeURL(redirectedPage);

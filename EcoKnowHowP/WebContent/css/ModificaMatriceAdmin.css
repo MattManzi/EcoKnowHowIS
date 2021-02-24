@@ -8,6 +8,9 @@
 .show{
 	visibility:visible;
 }
+.contenitore{
+	padding-top: 15px;
+}
 
 #formName{
 	display: inline-block;

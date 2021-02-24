@@ -1,7 +1,6 @@
 package ekh.control;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,17 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.AmministratoreBean;
-import ekh.bean.MatriceBean;
-import ekh.model.MatriceModelDM;
-import ekh.strategy.AggiungiMatriceValidator;
+import ekh.model.PacchettoModelDM;
 
-@WebServlet("/AggiuntaMatriceServlet")
-public class AggiuntaMatriceServlet extends HttpServlet {
+@WebServlet("/ModificaPacchettoAdminServlet")
+public class ModificaPacchettoAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	MatriceModelDM model = new MatriceModelDM();
+	PacchettoModelDM model = new PacchettoModelDM();
 
-	public AggiuntaMatriceServlet() {
+	public ModificaPacchettoAdminServlet() {
 		super();
 	}
 
@@ -31,30 +28,29 @@ public class AggiuntaMatriceServlet extends HttpServlet {
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
+
 		try {
 			if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
-				String nome = request.getParameter("nome");
-				String sottotitolo = request.getParameter("sottotitolo");
-				String descrizione = request.getParameter("descrizione");
-				
-				ArrayList<String> inputs = new ArrayList<String>();
-				inputs.add(nome);
-				inputs.add(sottotitolo);
-				inputs.add(descrizione);
-				
-				AggiungiMatriceValidator mv = new AggiungiMatriceValidator();
-				
-				if(mv.validazione(inputs)) {
-					MatriceBean bean = new MatriceBean();
-					bean.setNome(nome);
-					bean.setSottotitolo(sottotitolo);
-					bean.setDescrizione(descrizione);
-					model.doSave(bean);
-					redirectedPage = "/GestioneMatriciAdmin.jsp";						
+				String action = request.getParameter("action");
+				if (action != null) {
+					if (action.equals("nome") || action.equals("prezzo") || action.equals("descrizione")) {
+						String id = request.getParameter("id");
+						String dato = request.getParameter("dato");
+						if (id != null && dato != null) {
+							model.doUpdate(action, dato, id);
+							redirectedPage = "/ModificaPacchettoAdmin.jsp";
+							request.getSession().removeAttribute("pacchetto");
+							request.getSession().setAttribute("pacchetto", model.doRetrieveByKey(id));
+						} else
+							throw new Exception("ERRORE-ModificaMatriceServlet: dati null.");
+					} else
+						throw new Exception("ERRORE-ModificaMatriceServlet: invalid action.");
 				} else
-					throw new Exception("ERRORE-AggiuntaMatriceServlet: inserimento dati.");
-			} else
-				throw new Exception("ERRORE-AggiuntaMatriceServlet: Admin non loggato.");
+					throw new Exception("ERRORE-ModificaMatriceServlet: action null.");
+			} else {
+				redirectedPage = "/LoginAdmin.jsp";
+				throw new Exception("ERRORE-SelectMatriceAdminServlet: Admin non loggato.");
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

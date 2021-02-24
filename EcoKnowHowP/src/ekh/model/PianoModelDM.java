@@ -203,4 +203,59 @@ public class PianoModelDM implements ClassModel<PianoBean> {
 			}
 		}
 	}
+	
+	public ArrayList<PianoBean> doRetrieveByUsername(String username) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<PianoBean> piani = new ArrayList<PianoBean>();
+
+		String selectSQL = "SELECT * FROM piano WHERE username=?";
+
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, username);
+			
+			System.out.println("PianoModelDM: doRetrieveByUsername:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+
+			while (rs.next()) {
+				PianoBean bean=new PianoBean();
+
+				bean.setId(rs.getInt("id"));
+				bean.setIdPacchetto(rs.getInt("id"));
+				bean.setUsername(rs.getString("username"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setStato(rs.getString("stato"));
+				byte[] bt = rs.getBytes("referto");
+				byte[] bt2 = rs.getBytes("schedaDatiSicurezza");
+				
+				if (bt == null) {
+					bean.setReferto(false);
+				} else {
+					bean.setReferto(true);
+				}
+				if (bt2 == null) {
+					bean.setSchedaDS(false);
+				} else {
+					bean.setSchedaDS(true);
+				}
+				piani.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return piani;
+	}
+
 }

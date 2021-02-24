@@ -1,7 +1,6 @@
 package ekh.control;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,17 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.AmministratoreBean;
-import ekh.bean.MatriceBean;
-import ekh.model.MatriceModelDM;
-import ekh.strategy.AggiungiMatriceValidator;
+import ekh.bean.ClienteBean;
+import ekh.model.ClienteModelDM;
 
-@WebServlet("/AggiuntaMatriceServlet")
-public class AggiuntaMatriceServlet extends HttpServlet {
+@WebServlet("/SelectClienteAdminServlet")
+public class SelectClienteAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	MatriceModelDM model = new MatriceModelDM();
-
-	public AggiuntaMatriceServlet() {
+	ClienteModelDM model=new ClienteModelDM();
+	
+	public SelectClienteAdminServlet() {
 		super();
 	}
 
@@ -33,31 +31,25 @@ public class AggiuntaMatriceServlet extends HttpServlet {
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 		try {
 			if (admin != null && adminRoles != null && adminRoles.booleanValue()) {
-				String nome = request.getParameter("nome");
-				String sottotitolo = request.getParameter("sottotitolo");
-				String descrizione = request.getParameter("descrizione");
-				
-				ArrayList<String> inputs = new ArrayList<String>();
-				inputs.add(nome);
-				inputs.add(sottotitolo);
-				inputs.add(descrizione);
-				
-				AggiungiMatriceValidator mv = new AggiungiMatriceValidator();
-				
-				if(mv.validazione(inputs)) {
-					MatriceBean bean = new MatriceBean();
-					bean.setNome(nome);
-					bean.setSottotitolo(sottotitolo);
-					bean.setDescrizione(descrizione);
-					model.doSave(bean);
-					redirectedPage = "/GestioneMatriciAdmin.jsp";						
+				request.getSession().removeAttribute("cliente");
+				String username = request.getParameter("username");
+				if (username != null) {
+					ClienteBean bean = new ClienteBean();
+					bean = model.doRetrieveByKey(username);
+					if (!bean.isEmpty()) {
+						redirectedPage = "/StoricoCliente.jsp";
+						request.getSession().setAttribute("cliente", bean);
+					} else
+						throw new Exception("ERRORE-SelectClienteAdminServlet: Cliente non trovato");
 				} else
-					throw new Exception("ERRORE-AggiuntaMatriceServlet: inserimento dati.");
-			} else
-				throw new Exception("ERRORE-AggiuntaMatriceServlet: Admin non loggato.");
+					throw new Exception("ERRORE-SelectClienteAdminServlet: username null");
+			} else {
+				redirectedPage = "/LoginAdmin.jsp";
+				throw new Exception("ERRORE-SelectClienteAdminServlet: Admin non loggato");
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
+		}		
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);
 		dispatcher.forward(request, response);
