@@ -11,15 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
+import ekh.bean.ModuloBean;
+import ekh.bean.PacchettoBean;
 import ekh.bean.PianoBean;
+import ekh.model.PacchettoModelDM;
 import ekh.model.PianoModelDM;
 
 @WebServlet("/SelectPianoClienteServlet")
 public class SelectPianoClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	PianoModelDM model = new PianoModelDM();
-
+	PianoModelDM modelPiano = new PianoModelDM();
+	PacchettoModelDM modelPacchetto=new PacchettoModelDM();
+	
 	public SelectPianoClienteServlet() {
 		super();
 	}
@@ -39,14 +43,27 @@ public class SelectPianoClienteServlet extends HttpServlet {
 				String id = request.getParameter("id");
 				if(id!=null) {
 					PianoBean piano = new PianoBean();
-					piano=model.doRetrieveByKey(id);
+					piano=modelPiano.doRetrieveByKey(id);
 					if(!piano.isEmpty()) {
-						request.setAttribute("piano", piano);
-						redirectedPage = "/DettagliPianoCliente.jsp";
+						PacchettoBean pacchetto=new PacchettoBean();
+						pacchetto=modelPacchetto.doRetrieveByKey(String.valueOf(piano.getIdPacchetto()));
+						if(!pacchetto.isEmpty()) {
+							pacchetto.readContenuto();
+							piano.setPacchetto(pacchetto);
+							ModuloBean modulo=new ModuloBean();
+							modulo.readModulo(piano.getId());
+							piano.setModulo(modulo);
+							request.setAttribute("piano", piano);
+							request.getSession().setAttribute("pianoAdmin", piano);
+							redirectedPage = "/DettagliPianoCliente.jsp";
+						}else					
+							throw new Exception("ERRORE-SelectPianoClienteServlet: pacchetto non trovato.");	
 					}else					
 						throw new Exception("ERRORE-SelectPianoClienteServlet: piano non trovato.");	
-				}else
-					throw new Exception("ERRORE-SelectPianoClienteServlet: id null.");				
+				}else {
+					redirectedPage = "/StoricoCliente.jsp";
+					throw new Exception("ERRORE-SelectPianoClienteServlet: id null.");			
+				}		
 			} else
 				throw new Exception("ERRORE-SelectPianoClienteServlet: nessun utente loggato.");
 		} catch (Exception e) {

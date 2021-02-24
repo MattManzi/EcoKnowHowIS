@@ -48,7 +48,7 @@ public class ModuloModelDM {
 		return bt;
 	}
 
-	public synchronized static void updateFile(String id, String contenuto) throws SQLException {
+	public synchronized static void updateFile(int id, String contenuto) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -90,7 +90,7 @@ public class ModuloModelDM {
 			try {
 				FileInputStream fis = new FileInputStream(file);
 				preparedStatement.setBinaryStream(1, fis, fis.available());
-				preparedStatement.setString(2, id);
+				preparedStatement.setInt(2, id);
 
 				preparedStatement.executeUpdate();
 				connection.commit();
@@ -110,5 +110,12 @@ public class ModuloModelDM {
 					DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
+		// Elimino il file
+				File modFile = new File(nomeFile + ".txt");
+				if (modFile.delete()) {
+					System.out.println("Deleted the file: " + modFile.getName());
+				} else {
+					System.out.println("Failed to delete the file.");
+				}
 	}
 }

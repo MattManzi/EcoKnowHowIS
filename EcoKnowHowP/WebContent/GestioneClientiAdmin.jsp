@@ -3,12 +3,29 @@
 <!DOCTYPE html>
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
+Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
+if ((admin == null) || (adminRoles == null) || (!adminRoles.booleanValue())) {
+	response.sendRedirect("./LoginAdmin.jsp");
+	return;
+}
 
-Collection<?> clienti=(Collection<?>)request.getAttribute("clienti");
+Collection<?> clienti=(Collection<?>)request.getAttribute("clienti"); 
 
 if(clienti==null){
 	response.sendRedirect(response.encodeRedirectURL("./VisualizzaClientiServlet"));
+	return;
 }
+
+/*
+Lista con tutti i clienti.
+In questa pagina sarà possibile rimuovere i clienti dal db.
+Cliccare su un cliente per accedere al suo storico piani.
+
+Servlet Necessarie:
+	VisualizzaClientiServlet - OK
+	SelectClientiAdminServlet - OK
+	RimuoviClienteAdminServlet - X
+*/
 
 %>
 <html>

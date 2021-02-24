@@ -3,7 +3,6 @@ package ekh.bean;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import ekh.model.ContenutoPacchettoModelDM;
 import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
 
@@ -163,7 +162,7 @@ public class PacchettoBean {
 		contenuto.clear();
 		byte[] bt=null;
 		try {
-			bt = ContenutoPacchettoModelDM.loadFile(id);
+			bt = PacchettoModelDM.loadContenuto(id);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -180,12 +179,16 @@ public class PacchettoBean {
 		}
 	}
 	
-	public void stampContenuto() throws SQLException {
+	public void stampContenuto(){
 		String str="";
 		for(ParametroBean i:contenuto) {
 			str=str+i.getId()+"\n";
 		}
-		PacchettoModelDM.updateContenuto(id,str);
+		try {
+			PacchettoModelDM.updateContenuto(id,str);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public double calcolaPrezzo() {
