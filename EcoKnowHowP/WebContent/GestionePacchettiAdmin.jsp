@@ -1,9 +1,17 @@
+<%@page import="java.util.Collection"%>
 <%@page import="ekh.bean.AmministratoreBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
+Collection<?> matrici=(Collection<?>) request.getAttribute("matrici");
+
+
+if(matrici==null){
+	response.sendRedirect(response.encodeRedirectURL("./VisualizzaMatriciServlet"));
+	return;
+}
 %>
 <html>
 <head>
@@ -38,8 +46,15 @@ AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribut
 				<a href=><%=admin.getUsername()%></a> <%
 				 }
 				 %>
- </li>
+			 </li>
 		</ul>
 	</header>
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>

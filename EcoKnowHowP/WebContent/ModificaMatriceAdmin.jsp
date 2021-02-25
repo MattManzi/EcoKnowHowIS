@@ -199,11 +199,13 @@ function myFunction(String form,String mod) {
 	<div class="canvas">	
 		<table id="tableMatriciAdmin">
 			<tr>
-				<td>ID</td>
-				<td>Nome </td> 
-				<td>Sotto Titolo</td>
-				<td>Modifica </td>
-				<td>Cancella </td>
+				<th>ID</th>
+				<th>Nome </th> 
+				<th>Sku</th>
+				<th>Campione </th>
+				<th>Campionamento </th>
+				<th>Misura </th>
+				<th>Prezzo </th>
 			</tr>
 			
 			<% if(parametri != null && parametri.size()>0){
@@ -219,7 +221,6 @@ function myFunction(String form,String mod) {
 				<td > <%=parametro.getCampionamento()%> </td>
 				<td > <%=parametro.getuMisura()%> </td>
 				<td > <%=parametro.getPrezzo()%> </td>
-								<td> <button class="bott_modifica" id="modifica" onclick="selectMatriceMod(<%=bean.getId()%>)">M</button></td>
 				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaMatrice(<%=bean.getId()%>)">X</button></td>			
 			</tr>
 			<%	
