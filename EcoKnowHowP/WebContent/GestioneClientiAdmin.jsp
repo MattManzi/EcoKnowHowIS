@@ -4,7 +4,7 @@
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
 Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
-if ((admin == null) || (adminRoles == null) || (!adminRoles.booleanValue())) {
+if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 	response.sendRedirect("./LoginAdmin.jsp");
 	return;
 }
@@ -58,11 +58,11 @@ Servlet Necessarie:
 			if (admin == null) {
 			%>
 			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a> <%
+				href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a></li> <%
  } else {
  %> <a href=><%=admin.getUsername()%></a> <%
  }
- %></li>
+ %>
 		</ul>
 	</header>
 
