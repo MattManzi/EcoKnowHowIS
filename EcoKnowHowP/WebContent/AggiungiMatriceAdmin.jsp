@@ -3,9 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
+
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
-MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Admin");
+MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Matrice");
 %>
 
 <html>
@@ -48,7 +49,8 @@ MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Admin");
 	</header>
 	<div class="canvas">
 			<h1>Aggiungi Matrice </h1>
-			<form action="AggiuntaMatriceServlet" method="post">
+	
+	<form action="AggiuntaMatriceServlet" method="post">
 	<table id="tableMatriciAdmin">
 		<tr>
 			<td>Nome </td>	

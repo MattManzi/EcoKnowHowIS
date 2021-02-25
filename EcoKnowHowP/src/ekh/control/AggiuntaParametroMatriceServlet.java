@@ -55,7 +55,6 @@ public class AggiuntaParametroMatriceServlet extends HttpServlet {
 
 					AggiungiParametroValidator ps = new AggiungiParametroValidator();
 					if (ps.validazione(inputs)) {
-
 						ParametroBean bean = new ParametroBean();
 						bean.setIdMatrice(matrice.getId());
 						bean.setNome(nome);

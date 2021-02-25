@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
 <%
-	AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
+	AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("admin"); 
 	MatriceBean bean=(MatriceBean)request.getSession().getAttribute("matrice");
 	Collection<?> parametri=(Collection<?>) request.getAttribute("parametri");
-	
 	
 	if(bean==null){
 		response.sendRedirect(response.encodeRedirectURL("GestioneMatriciAdmin.jsp"));
@@ -82,6 +81,25 @@ function myFunctionSottotitolo() {
   }
 }
 </script>
+
+
+<script>
+
+function myFunction(String form,String mod) {
+  var x = document.getElementById(form);
+  if (x.className === "hidden") {
+    x.className = "show";
+  } else {
+    x.className = "hidden";
+  }
+  var x = document.getElementById(mod);
+  if(x.value=="Modifica") {
+	  x.value="Annulla";
+  } else {
+	  x.value="Modifica"
+  }
+}
+</script>
 </head>
 <body>
 	<header class="header" id="header">
@@ -119,7 +137,7 @@ function myFunctionSottotitolo() {
 		
 		<div id="sottotitolo">
 			<p style="display: inline-block;">Sottotitolo: <%=bean.getSottotitolo()%></p>
-			<input id="modSottotitolo" onclick="myFunctionSottotitolo(" type="button" value="Modifica"></input>		
+			<input id="modSottotitolo" onclick="myFunctionSottotitolo()" type="button" value="Modifica"></input>		
 			<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=sottotitolo") %>" method="post">
 				<input type="text" name="dato">			
 				<input type="submit" value="Salva">
@@ -137,6 +155,98 @@ function myFunctionSottotitolo() {
 	</div>
 </div>
 
+<div>
+	<form action="AggiungiParametroMatriceServlet" method="post">
+		<table>
+		
+			<tr>
+				<td>Nome parametro: </td> 
+				<td><input type="text" name="nome" maxlength="30"></td>
+			</tr>
+			<tr>	
+				<td>Sku: </td>
+				<td><input type="text" name="sku" maxlength="30"></td>
+			</tr>
+			<tr>
+				<td>Capione: </td>
+				<td><input type="text" name="campione" maxlength="30"></td>
+			</tr>
+			<tr>
+				<td>Campionamento </td>
+				<td><input type="text" name="campionamento" maxlength="30"></td>
+			</tr>
+			<tr>
+				<td>Limite Emissione: </td>
+				<td><input type="text" name="limiteEmissione" maxlength="30"></td>
+			</tr>
+			<tr>
+				<td>Unità di Misura </td>
+				<td><input type="text" name="uMisura" maxlength="30"></td>
+			</tr>
+			<tr>
+				<td>Prezzo: </td>
+				<td><input type="text" name="prezzo" maxlength="30"></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"><input type="submit" value="CONFERMA">
+			</tr>
+			
+		</table>
+	</form>	
+</div>
+
+	<div class="canvas">	
+		<table id="tableMatriciAdmin">
+			<tr>
+				<td>ID</td>
+				<td>Nome </td> 
+				<td>Sotto Titolo</td>
+				<td>Modifica </td>
+				<td>Cancella </td>
+			</tr>
+			
+			<% if(parametri != null && parametri.size()>0){
+				Iterator<?> it=parametri.iterator();
+				while(it.hasNext()){
+					ParametroBean parametro=(ParametroBean) it.next();
+			%>
+			<tr> 
+				<td > <%=parametro.getId()%> </td>
+				<td > <%=parametro.getNome()%> </td>	
+				<td > <%=parametro.getSku()%> </td>
+				<td > <%=parametro.getCampione()%> </td>
+				<td > <%=parametro.getCampionamento()%> </td>
+				<td > <%=parametro.getuMisura()%> </td>
+				<td > <%=parametro.getPrezzo()%> </td>		
+			</tr>
+			<%	
+				}
+			}
+			 %>
+		</table>
+	</div>
+
+
+
+
+<div>
+<table>
+
+	<tr>
+		<th>
+		<th>
+		<th>
+	</tr>
+	
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+	
+	</tr>
+</table>
+</div>
 	
 	<footer class="footer">
 		<p>2020 Prova&copy;</p>
