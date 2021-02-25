@@ -27,7 +27,7 @@ public class VisualizzaParametriServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String redirectedPage = "/jsp/HomePage.jsp";
+		String redirectedPage = "/HomePage.jsp";
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");

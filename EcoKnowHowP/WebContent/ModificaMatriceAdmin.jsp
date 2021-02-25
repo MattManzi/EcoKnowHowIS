@@ -123,48 +123,43 @@ function myFunction(String form,String mod) {
 
 
 	<div class="contenitore">
-
-		<h1>ModificaMatrice</h1>
-		
+		<h1>ModificaMatrice</h1>		
 		<div id="nome">
 			<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
-			<input id="modNome" onclick="myFunctionNome()" type="button" value="Modifica"></input>		
+			<input id="modNome" onclick="funzioneModifica(this.id, formName)" type="button" value="Modifica"></input>		
 			<form id="formName" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=nome") %>" method="post">
 				<input type="text" name="dato">			
 				<input type="submit" value="Salva">
 			</form>
-		</div>
-		
+		</div>		
 		<div id="sottotitolo">
 			<p style="display: inline-block;">Sottotitolo: <%=bean.getSottotitolo()%></p>
-			<input id="modSottotitolo" onclick="myFunctionSottotitolo()" type="button" value="Modifica"></input>		
+			<input id="modSottotitolo" onclick="funzioneModifica(this.id, formSottotitolo)" type="button" value="Modifica"></input>		
 			<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=sottotitolo") %>" method="post">
 				<input type="text" name="dato">			
 				<input type="submit" value="Salva">
 			</form>
-		</div>		
-
-
+		</div>
 		<div id="Descrizioni">
 		<p style="display: inline-block;">Descrizione: <%=bean.getDescrizione()%></p>
-		<input id="modDescrizione" onclick="myFunctionDescrizione()" type="button" value="Modifica"></input>		
+		<input id="modDescrizione" onclick="funzioneModifica(this.id, formDescrizione)" type="button" value="Modifica"></input>		
 		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=descrizione") %>" method="post">
 			<input type="text" name="dato">			
 			<input type="submit" value="Salva">
 		</form>
 	</div>
-</div>
+	</div>
 
 <div>
-	<form action="AggiungiParametroMatriceServlet" method="post">
+	<form action="<%=response.encodeURL("AggiungiParametroMatriceServlet")%>" method="post">
 		<table>
 		
 			<tr>
-				<td>Nome parametro: </td> 
+				<td>Nome parametro:</td> 
 				<td><input type="text" name="nome" maxlength="30"></td>
 			</tr>
 			<tr>	
-				<td>Sku: </td>
+				<td>Sku:</td>
 				<td><input type="text" name="sku" maxlength="30"></td>
 			</tr>
 			<tr>
@@ -199,11 +194,11 @@ function myFunction(String form,String mod) {
 	<div class="canvas">	
 		<table id="tableMatriciAdmin">
 			<tr>
-				<td>ID</td>
-				<td>Nome </td> 
-				<td>Sotto Titolo</td>
-				<td>Modifica </td>
-				<td>Cancella </td>
+				<th>ID</th>
+				<th>Nome </th>
+				<th>Sotto Titolo</th>
+				<th>Modifica</th>
+				<th>Cancella </th>
 			</tr>
 			
 			<% if(parametri != null && parametri.size()>0){
@@ -226,28 +221,6 @@ function myFunction(String form,String mod) {
 			 %>
 		</table>
 	</div>
-
-
-
-
-<div>
-<table>
-
-	<tr>
-		<th>
-		<th>
-		<th>
-	</tr>
-	
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-	
-	</tr>
-</table>
-</div>
-	
 	<footer class="footer">
 		<p>2020 Prova&copy;</p>
 	</footer>

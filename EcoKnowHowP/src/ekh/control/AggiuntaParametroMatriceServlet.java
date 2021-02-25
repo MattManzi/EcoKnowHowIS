@@ -1,7 +1,6 @@
 package ekh.control;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,7 +43,7 @@ public class AggiuntaParametroMatriceServlet extends HttpServlet {
 					String uMisura = request.getParameter("uMisura");
 					String prezzo = request.getParameter("prezzo");
 
-					ArrayList<String> inputs = new ArrayList<String>();
+				/*	ArrayList<String> inputs = new ArrayList<String>();
 					inputs.add(nome);
 					inputs.add(sku);
 					inputs.add(campione);
@@ -54,7 +53,7 @@ public class AggiuntaParametroMatriceServlet extends HttpServlet {
 					inputs.add(prezzo);
 
 					AggiungiParametroValidator ps = new AggiungiParametroValidator();
-					if (ps.validazione(inputs)) {
+					if (ps.validazione(inputs)) {*/
 						ParametroBean bean = new ParametroBean();
 						bean.setIdMatrice(matrice.getId());
 						bean.setNome(nome);
@@ -67,8 +66,8 @@ public class AggiuntaParametroMatriceServlet extends HttpServlet {
 
 						model.doSave(bean);
 						redirectedPage = "/ModificaMatriceAdmin.jsp";
-					} else
-						throw new Exception("ERRORE-AggiuntaParametroServlet: inseriemento Dati.");
+					/*} else
+						throw new Exception("ERRORE-AggiuntaParametroServlet: inseriemento Dati.");*/
 				}else {
 					redirectedPage = "/GestioneMatriciAdmin.jsp";
 					throw new Exception("ERRORE-AggiuntaParametroServlet: Matrice null");
