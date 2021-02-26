@@ -67,7 +67,6 @@ MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Matrice");
 			<td>Descrizione </td>	
 			<td><input type="text" name="descrizione" maxlength="30"></td>			
 		</tr>
-	
 		<tr> 
 			<td colspan="2"><input type="submit" value="CONFERMA">
 		</tr>
