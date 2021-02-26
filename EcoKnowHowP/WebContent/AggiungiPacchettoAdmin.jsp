@@ -1,5 +1,3 @@
-<%@page import="java.util.Iterator"%>
-<%@page import="ekh.bean.PacchettoBean"%>
 <%@page import="java.util.Collection"%>
 <%@page import="ekh.bean.AmministratoreBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -7,18 +5,10 @@
 <!DOCTYPE html>
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
-Collection<?> pacchetti=(Collection<?>) request.getAttribute("pacchetti");
-
-
-if(pacchetti==null){
-	response.sendRedirect(response.encodeRedirectURL("./VisualizzaPacchettiServlet"));
-	return;
 }
 
 
 %>
-
-
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -30,10 +20,11 @@ if(pacchetti==null){
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/HomePage.css" rel="stylesheet">
 <link href="css/GestioneMatriceAdmin.css" rel="stylesheet">
-<title>Gestione Pacchetti Admin</title>
+<title>Insert title here</title>
 </head>
 <body>
-		<header class="header clearfix fixed">
+
+	<header class="header">
 		<a href="<%=response.encodeURL("HomePage.jsp")%>" class="header__logo">EcoKnowHow</a>
 		<ul class="header__menu ">
 			<li class="header__menu__item"><a
@@ -52,50 +43,38 @@ if(pacchetti==null){
 			<li class="header__menu__item"><a
 				href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a> <%
  				} else {
-			 %>
-				<a href=><%=admin.getUsername()%></a> <%
-				 }
-				 %>
-			 </li>
+				 %> <a href=><%=admin.getUsername()%></a> <%
+ 			}%>
+ 			</li>
 		</ul>
 	</header>
+	<div class="canvas">
+			<h1>Aggiungi Pacchetto </h1>
 	
+	<form action="AggiuntaMatriceServlet" method="post">
+	<table id="tableMatriciAdmin">
+		<tr>
+			<td>Nome </td>	
+			<td><input type="text" name="nome" maxlength="30"></td>		
+		</tr>
+
+		<tr>
+			<td>Sottotitolo </td>
+			<td><input type="text" name="sottotitolo" maxlength="30"></td>
+		</tr>
+		
+		
+		<tr>
+			<td>Descrizione </td>	
+			<td><input type="text" name="descrizione" maxlength="30"></td>			
+		</tr>
 	
-	<div class="canvas">	
-		<button class="clearfix fixed"> <a  href="${pageContext.request.contextPath}/AggiungiPacchettoAdmin.jsp"> Aggiungi</a></button>
-		<table id="tableMatriciAdmin">
-			<tr>
-				<td>ID</td>
-				<td>Nome </td> 
-				<td>Sotto Titolo</td>
-				<td>Modifica </td>
-				<td>Cancella </td>
-			</tr>
-			
-			<% if(pacchetti!= null && pacchetti.size()>0){
-				Iterator<?> it=pacchetti.iterator();
-				while(it.hasNext()){
-					PacchettoBean bean=(PacchettoBean) it.next();
-			%>
-			<tr> 
-				<td > <%=bean.getId()%> </td>
-				<td > <%=bean.getNome()%> </td>	
-				<td > <%=bean.getDescrizione()%> </td>	
-				<td> <button class="bott_modifica" id="modifica" onclick="selectMatriceMod(<%=bean.getId()%>)">M</button></td>
-				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaMatrice(<%=bean.getId()%>)">X</button></td>	
-			</tr>
-			<%	
-				}
-			}
-			 %>
-		</table>
+		<tr> 
+			<td colspan="2"><input type="submit" value="CONFERMA">
+		</tr>
+	</table>
+	</form>
 	</div>
-	
-	
-	
-	
-	
-	
-	
+
 </body>
 </html>
