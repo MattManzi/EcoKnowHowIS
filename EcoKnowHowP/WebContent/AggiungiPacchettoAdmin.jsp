@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
-}
+
 
 
 %>
