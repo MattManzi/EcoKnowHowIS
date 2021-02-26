@@ -7,6 +7,8 @@
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Admin");
+
+
 %>
 
 <html>
