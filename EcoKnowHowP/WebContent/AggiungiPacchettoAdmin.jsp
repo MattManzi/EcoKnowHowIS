@@ -4,6 +4,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%
+
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
 
 
@@ -51,24 +52,20 @@ AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribut
 	<div class="canvas">
 			<h1>Aggiungi Pacchetto </h1>
 	
-	<form action="AggiuntaMatriceServlet" method="post">
+	<form action="AggiungiPacchettoServlet" method="post">
 	<table id="tableMatriciAdmin">
 		<tr>
 			<td>Nome </td>	
 			<td><input type="text" name="nome" maxlength="30"></td>		
 		</tr>
-
-		<tr>
-			<td>Sottotitolo </td>
-			<td><input type="text" name="sottotitolo" maxlength="30"></td>
-		</tr>
-		
-		
 		<tr>
 			<td>Descrizione </td>	
 			<td><input type="text" name="descrizione" maxlength="30"></td>			
 		</tr>
-	
+		<tr>
+			<td>Tipo </td>
+			<td><input type="text" name="tipo" maxlength="30"></td>
+		</tr>
 		<tr> 
 			<td colspan="2"><input type="submit" value="CONFERMA">
 		</tr>
