@@ -14,7 +14,7 @@ import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.model.AmministratoreModelDM;
 import ekh.model.ClienteModelDM;
-import ekh.strategy.ModPasswordValidator;
+import ekh.strategy.ClienteValidator;
 
 @WebServlet("/ModificaProfiloRPServlet")
 public class ModificaProfiloRPServlet extends HttpServlet {
@@ -44,9 +44,9 @@ public class ModificaProfiloRPServlet extends HttpServlet {
 						inputs.add(password);
 						inputs.add(password2);
 
-						ModPasswordValidator pv = new ModPasswordValidator();
+						ClienteValidator cv = new ClienteValidator();
 
-						if (pv.validazione(inputs)) {
+						if (cv.passwordVal(inputs)) {
 							if (user.equals("admin")) {
 								AmministratoreBean bean = (AmministratoreBean) request.getSession()
 										.getAttribute("adminRP");

@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 public class RefertoModelDM {
 	public synchronized static void uploadReferto(String id, String referto) throws SQLException {
 		Connection connection = null;

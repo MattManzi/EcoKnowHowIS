@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/LogoutServlet")
-public class LogoutServlet extends HttpServlet {
+public class LogoutControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-    public LogoutServlet() {
+    public LogoutControl() {
         super();
     }
 
@@ -22,7 +22,7 @@ public class LogoutServlet extends HttpServlet {
 		request.getSession().removeAttribute("Admin");
 		request.getSession().invalidate();
 		
-		String redirectedPage="/jsp/HomePage.jsp";
+		String redirectedPage="/HomePage.jsp";
 		redirectedPage = response.encodeURL(redirectedPage);
 		response.sendRedirect(request.getContextPath()+redirectedPage);
 	}

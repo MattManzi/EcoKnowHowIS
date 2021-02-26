@@ -153,7 +153,7 @@ public class PacchettoControl extends HttpServlet {
 										ParametroBean bean = new ParametroBean();
 										bean = modelParametro.doRetrieveByKey(idParametro);
 										if (!bean.isEmpty()) {
-											if (action.equals("aggiungi")) {
+											if (action.equals("aggiungiPar")) {
 												pacchetto.addParametro(bean);
 												pacchetto.stampContenuto();
 											} else {

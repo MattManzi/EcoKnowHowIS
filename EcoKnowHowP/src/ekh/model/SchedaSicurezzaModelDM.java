@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SchedaSicurezzaModelDM {
-	public synchronized static void uploadReferto(String id, String scheda) throws SQLException {
+	public synchronized static void uploadSDS(String id, String scheda) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
