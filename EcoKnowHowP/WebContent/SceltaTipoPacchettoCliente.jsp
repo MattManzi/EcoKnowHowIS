@@ -3,13 +3,24 @@
 <%
 	Boolean userRoles = (Boolean) session.getAttribute("userRoles");
 	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("Utente");	
-	
-	/*if ((utente == null) || (userRoles == null) || (!userRoles.booleanValue())) {
+	MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("SelectMatrice");	
+	if(utente != null && userRoles != null && userRoles.booleanValue()) {
+		if(matrice==null){
+			response.sendRedirect("SceltaMatriceCliente.jsp");
+			return;
+		}
+	}else{
 		response.sendRedirect("LoginUser.jsp");
 		return;
-	}*/
+	}
+	/*
+		In questa pagina il cliente potra scegliere tra tre tipi di pacchetti:
+			tipo								Servlet
+			standar								VisualizzaPacchettiServlet?tipo=standard
+			analiti								VisualizzaPacchettiServlet?tipo=analitico
+			o creare un nuovo pacchetto			AggiungiPacchettoServlet
 	
-	
+	*/
 %>
 <!DOCTYPE html>
 <html>

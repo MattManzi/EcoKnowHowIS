@@ -8,11 +8,14 @@ Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
 ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
 
 /*
-Form per la creazione IN SESSIONE di un pacchetto.
-Solo info principali. Niente parametri
+Lista con tutti i parametri appartenenti alla matrice scelta in fase di creazione del pacchetto.
 
 Servlet Necessarie:
-	AggiuntaPacchettoServlet?action=crea - OK
+	VisualizzaParametriServlet?action=pacchetto - OK
+	ComponiPacchettoServlet?action=aggiungi - X
+	ComponiPacchettoServlet?action=rimuovi - X
+	ComponiPacchettoServlet?action=cancella - X
+	AggiuntaPacchettoServlet?action=salva - OK
 	
 Se il pacchetto viene salvato, il cliente dovrà recarsi in scelta pacchetti analitico per selezionarlo.
 */

@@ -30,7 +30,7 @@ public class RimuoviParametroServlet extends HttpServlet {
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 
 		if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
-			redirectedPage = "/jsp/LoginAdmin.jsp";
+			redirectedPage = "/LoginAdmin.jsp";
 		} else {
 			try {
 				String id=request.getParameter("id");
@@ -40,7 +40,7 @@ public class RimuoviParametroServlet extends HttpServlet {
 					} catch (SQLException e) {
 						System.out.println(e.getMessage());
 					}
-					redirectedPage="/jsp/PaginaMatriceAdmin.jsp";		
+					redirectedPage="/PaginaMatriceAdmin.jsp";		
 				}else
 					throw new Exception("Errore id Rimuovi Parametro");
 			}catch(Exception e) {

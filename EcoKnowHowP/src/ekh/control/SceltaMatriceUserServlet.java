@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
 import ekh.model.MatriceModelDM;
 
-@WebServlet("/SceltaMatriceUser")
-public class SceltaMatriceUser extends HttpServlet {
+@WebServlet("/SceltaMatriceUserServlet")
+public class SceltaMatriceUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	MatriceModelDM model = new MatriceModelDM();
 
-	public SceltaMatriceUser() {
+	public SceltaMatriceUserServlet() {
 		super();
 	}
 
@@ -26,12 +27,12 @@ public class SceltaMatriceUser extends HttpServlet {
 			throws ServletException, IOException {
 		String redirectedPage = "/HomePage.jsp";
 
-	/*	Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
-		ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");*/
+		Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
+		ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
 
 		try {
-			//if (user != null && userRoles != null && userRoles.booleanValue()) {*/
-				String idMatrice = request.getParameter("idMatrice");
+			if (user != null && userRoles != null && userRoles.booleanValue()) {
+				String idMatrice = request.getParameter("id");
 				if (idMatrice != null) {
 					MatriceBean bean = model.doRetrieveByKey(idMatrice);
 					if (!bean.isEmpty()) {
@@ -41,8 +42,8 @@ public class SceltaMatriceUser extends HttpServlet {
 						throw new Exception("ERRORE-SceltaMatriceUser: matrice non trovata.");
 				} else
 					throw new Exception("ERRORE-SceltaMatriceUser: idMatrice null.");
-			/*} else
-				throw new Exception("ERRORE-SceltaMatriceUser: Nessun Utente loggato.");*/
+			} else
+				throw new Exception("ERRORE-SceltaMatriceUser: Nessun Utente loggato.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

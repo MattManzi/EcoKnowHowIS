@@ -5,15 +5,25 @@
 	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("Utente");	
 	Collection<?> matrici=(Collection<?>) request.getAttribute("matrici"); 
 	
-	/*if ((utente == null) || (userRoles == null) || (!userRoles.booleanValue())) {
+	if(utente != null && userRoles != null && userRoles.booleanValue()) {
+		if(matrici==null){
+			response.sendRedirect(response.encodeRedirectURL("./VisualizzaMatriciServlet"));
+			return;
+		}
+	}else{
 		response.sendRedirect("LoginUser.jsp");
 		return;
-	}*/
-	
-	if(matrici==null){
-		response.sendRedirect(response.encodeRedirectURL("./VisualizzaMatriciServlet?action=user"));
-		return;
 	}
+	
+	
+/*
+In questa pagina il cliente potra scegliera su quale matrice basare il suo piano.
+Clicca su una card e manda l'id della matrice alla servlet. La matrice verrà caricata in sessione.
+
+Servlet:
+	VisualizzaMatriciServlet -OK
+	SceltaMatriceUserServlet -OK
+*/
 	
 %>
 <!DOCTYPE html>
@@ -36,7 +46,7 @@
 				
 				<div class="card">	
 					<div class="container">
-						<a href="<%=response.encodeURL("SceltaMatriceUser?idMatrice="+ bean.getId()) %>"><%=bean.getNome()%></a>
+						<a href="<%=response.encodeURL("SceltaMatriceUser?id="+ bean.getId()) %>"><%=bean.getNome()%></a>
 						<h3><b><%=bean.getSottotitolo()%></b></h3>				
 						<p><%=bean.getDescrizione()%></p>
 					</div>

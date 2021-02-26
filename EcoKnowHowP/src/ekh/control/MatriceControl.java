@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ModificaParametroServlet
+ * Servlet implementation class MatriceControl
  */
-@WebServlet("/ModificaParametroServlet")
-public class ModificaParametroServlet extends HttpServlet {
+@WebServlet("/MatriceControl")
+public class MatriceControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModificaParametroServlet() {
+    public MatriceControl() {
         super();
         // TODO Auto-generated constructor stub
     }

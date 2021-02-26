@@ -12,14 +12,14 @@ if (admin != null && adminRoles != null && adminRoles.booleanValue()){
 		response.sendRedirect("./GestioneClientiAdmin.jsp");
 		return;
 	}else{
-		Collection<?> piani=(Collection<?>)request.getSession().getAttribute("piani"); 
+		Collection<?> piani=(Collection<?>)request.getAttribute("piani"); 
 		if(piani==null){
 			response.sendRedirect(response.encodeRedirectURL("./VisualizzaPianiClienteServlet?username="+cliente.getUsername()));
 			return;
 		}
 	}
 }else if(user != null || userRoles != null && userRoles.booleanValue()){
-	Collection<?> piani=(Collection<?>)request.getSession().getAttribute("piani"); 
+	Collection<?> piani=(Collection<?>)request.getAttribute("piani"); 
 	if(piani==null){
 		response.sendRedirect(response.encodeRedirectURL("./VisualizzaPianiClienteServlet?username="+user.getUsername()));
 		return;
