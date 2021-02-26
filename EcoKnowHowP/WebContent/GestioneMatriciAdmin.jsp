@@ -2,7 +2,9 @@
 	pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 <%
+
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
+AmministratoreBean adminRoles = (AmministratoreBean) request.getSession().getAttribute("adminRoles");
 Collection<?> matrici=(Collection<?>) request.getAttribute("matrici");
 
 
@@ -10,6 +12,8 @@ if(matrici==null){
 	response.sendRedirect(response.encodeRedirectURL("./VisualizzaMatriciServlet"));
 	return;
 }
+
+
 %>
 
 
