@@ -1,3 +1,5 @@
+<%@page import="ekh.bean.*"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="java.util.Collection"%>
 <%@page import="ekh.bean.AmministratoreBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -5,7 +7,22 @@
 <!DOCTYPE html>
 <%
 
-AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
+AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
+Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
+Collection<?> matrici=(Collection<?>) request.getAttribute("matrici");
+Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
+ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
+if((admin != null && adminRoles != null && adminRoles.booleanValue()) 
+		|| (user != null && userRoles!= null && userRoles.booleanValue())){
+	if(matrici == null){
+		response.sendRedirect(response.encodeRedirectURL("./MatriceControl?action=visualizza"));
+		return;
+	}
+}else{
+	response.sendRedirect("./HomePage.jsp");
+	return;
+}
+
 
 
 
@@ -41,11 +58,14 @@ AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribut
 			<%
 			if (admin == null) {
 			%>
+			
 			<li class="header__menu__item"><a
 				href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a> <%
  				} else {
+ 			
 				 %> <a href=><%=admin.getUsername()%></a> <%
- 			}%>
+ 			}
+ 			%>
  			</li>
 		</ul>
 	</header>
@@ -54,6 +74,25 @@ AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribut
 	
 	<form action="PacchettoControl?action=crea" method="post">
 	<table id="tableMatriciAdmin">
+	
+
+		<tr>
+			<%if(matrici != null && matrici.size()>0){
+				Iterator<?> it=matrici.iterator();
+				while(it.hasNext()){
+					MatriceBean bean=(MatriceBean) it.next();
+			%>
+			<td>Matrice riferita </td>	
+			<td>
+			<select name="matrice" >		
+			
+				<option value="<%=bean.getId()%>" selected="selected"><%=bean.getNome()%> </option>
+				
+			</select>
+			</td>
+
+		</tr>
+		
 		<tr>
 			<td>Nome </td>	
 			<td><input type="text" name="nome" maxlength="30"></td>		
@@ -62,13 +101,15 @@ AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribut
 			<td>Descrizione </td>	
 			<td><input type="text" name="descrizione" maxlength="30"></td>			
 		</tr>
-		<tr>
-			<td>Tipo </td>
-			<td><input type="text" name="tipo" maxlength="30"></td>
-		</tr>
 		<tr> 
 			<td colspan="2"><input type="submit" value="CONFERMA">
 		</tr>
+						<%	
+				}
+				
+			}
+			
+			 %>
 	</table>
 	</form>
 	</div>
