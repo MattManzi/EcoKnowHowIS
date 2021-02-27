@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
 <%
-	Boolean userRoles = (Boolean) session.getAttribute("userRoles");
-	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("Utente");	
+	Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
+	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("User");	
 	Collection<?> matrici=(Collection<?>) request.getAttribute("matrici"); 
 	
 	if(utente != null && userRoles != null && userRoles.booleanValue()) {
 		if(matrici==null){
-			response.sendRedirect(response.encodeRedirectURL("./VisualizzaMatriciServlet"));
+			response.sendRedirect(response.encodeRedirectURL("./MatriceControl?action=visualizza"));
 			return;
 		}
 	}else{
@@ -46,7 +46,7 @@ Servlet:
 				
 				<div class="card">	
 					<div class="container">
-						<a href="<%=response.encodeURL("SceltaMatriceUser?id="+ bean.getId()) %>"><%=bean.getNome()%></a>
+						<a href="<%=response.encodeURL("MatriceControl?action=select&id="+ bean.getId()) %>"><%=bean.getNome()%></a>
 						<h3><b><%=bean.getSottotitolo()%></b></h3>				
 						<p><%=bean.getDescrizione()%></p>
 					</div>

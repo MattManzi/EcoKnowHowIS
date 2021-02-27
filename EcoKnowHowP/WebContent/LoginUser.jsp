@@ -21,19 +21,19 @@
 <title>EcoKnowHow</title>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/jsp/HomePage.jsp" class="logo">EcoKnowHow</a>
+	<a href="<%=response.encodeURL("HomePage.jsp")%>" class="logo">EcoKnowHow</a>
 	<div id="main">
 		<fieldset>
-		<form name="formLogin" action="${pageContext.request.contextPath}/jsp/LoginUser?action=login" method="post">
+		<form name="formLogin" action="<%=response.encodeURL("LoginControl?action=user")%>" method="post">
 			<label for="username">Username:</label> 
 			<input type="text" name="username" placeholder="enter username"><br> 
 			<label for="password">Password:</label> 
 			<input type="password" name="password" placeholder="enter password"><br>
-			<a href="<%=response.encodeURL("jsp/Registrazione.jsp") %>">Recupera Password</a><br>
-			<button type="button" onclick="loginUser()">Login</button>
+			<a href="<%=response.encodeURL("RecuperaPassword.jsp") %>">Recupera Password</a><br>
+			<input type="submit" value="Login">
 		</form>
 		<label for="registrati">Non hai un account?</label>
-		<a id="registrati" href="${pageContext.request.contextPath}/jsp/RegistrazioneUser.jsp">Registrati ora</a>
+		<a id="registrati" href="<%=response.encodeURL("RegistrazioneUser.jsp") %>">Registrati ora</a>
 		<%if(msg!=null){%>	
 			<p id="error"><%=msg%></p>
 		<%

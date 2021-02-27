@@ -55,6 +55,7 @@ public class LoginControl extends HttpServlet {
 							request.getSession().setAttribute("Admin", bean);
 							redirectedPage = "/HomePageAdmin.jsp";
 						} else {
+							redirectedPage = "/LoginAdmin.jsp";
 							request.getSession().setAttribute("adminRoles", false);
 							throw new Exception("ERRORE-LoginControl-admin: Account non trovato.");	
 						}
@@ -63,9 +64,10 @@ public class LoginControl extends HttpServlet {
 						bean = modelCliente.verificaLogin(username, EncryptionPassword.MD5(password));
 						if (!bean.isEmpty() && bean.getAttivo()==1) {
 							request.getSession().setAttribute("userRoles", true);
-							request.getSession().setAttribute("Utente", bean);
+							request.getSession().setAttribute("User", bean);
 							redirectedPage = "/HomePage.jsp";
 						} else {
+							redirectedPage = "/LoginUser.jsp";
 							request.getSession().setAttribute("userRoles", false);
 							throw new Exception("ERRORE-LoginControl-user: Account non trovato.");
 						}

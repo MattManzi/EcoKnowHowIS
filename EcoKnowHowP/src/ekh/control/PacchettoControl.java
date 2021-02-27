@@ -208,25 +208,34 @@ public class PacchettoControl extends HttpServlet {
 								if (bean != null) {
 									String tipo = request.getParameter("tipo");
 									if (tipo != null) {
-										if (tipo.equals("standard")) {
-											pacchetti = modelPacchetto.doRetrieveForUser("", tipo,
-													String.valueOf(bean.getId()));
-											redirectedPage = "/SceltaPacchettoCliente.jsp";
+										if(tipo.equals("standard") || tipo.equals("analitico")) {
+											if (tipo.equals("standard")) {
+												pacchetti = modelPacchetto.doRetrieveForUser("", tipo,
+														String.valueOf(bean.getId()));
+											} else {
+												String username = user.getUsername();
+												pacchetti = modelPacchetto.doRetrieveForUser(username, tipo,
+														String.valueOf(bean.getId()));
+											}
+											redirectedPage = "/SelezionaPacchettoCliente.jsp";
 											request.setAttribute("pacchetti", pacchetti);
-										} else if (tipo.equals("analitico")) {
-											String username = user.getUsername();
-											pacchetti = modelPacchetto.doRetrieveForUser(username, tipo,
-													String.valueOf(bean.getId()));
-											redirectedPage = "/SceltaPacchettoCliente.jsp";
-											request.setAttribute("pacchetti", pacchetti);
-										} else
+										}else
 											throw new Exception(
 													"ERRORE-PacchettoControl-user-visualizza: invalid tipo");
 									} else
 										throw new Exception("ERRORE-PacchettoControl-user-visualizza: tipo null");
 								} else
 									throw new Exception("ERRORE-PacchettoControl-user-visualizza: matrice null");
-							} else
+							}else if(action.equals("select")) {
+								request.getSession().removeAttribute("pacchetto");
+								String id = request.getParameter("id");
+								if (id != null) {
+									
+								}else {
+									redirectedPage = "/SceltaPacchettoCliente.jsp";
+									throw new Exception("ERRORE-PacchettoControl-user: id null.");
+								}
+							}else
 								throw new Exception("ERRORE-PacchettoControl-user: invalid action for user");
 						}
 						/* Funzioni action per user - FINE */

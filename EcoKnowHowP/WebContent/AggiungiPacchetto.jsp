@@ -15,7 +15,7 @@ ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
 if((admin != null && adminRoles != null && adminRoles.booleanValue()) 
 		|| (user != null && userRoles!= null && userRoles.booleanValue())){
 	if(matrici == null){
-		response.sendRedirect(response.encodeRedirectURL("./MatriceControl?action=visualizza"));
+		response.sendRedirect(response.encodeRedirectURL("./MatriceControl?action=visualizza&jsp=pacchetto"));
 		return;
 	}
 }else{

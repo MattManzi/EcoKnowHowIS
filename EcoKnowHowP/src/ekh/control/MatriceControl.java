@@ -1,7 +1,6 @@
 package ekh.control;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -44,10 +43,17 @@ public class MatriceControl extends HttpServlet {
 				if (action != null) {
 					if (admin != null) {
 						redirectedPage = "/GestioneMatriciAdmin.jsp";
-						if (action.equals("visualizza")) {
+						if (action.equals("visualizza")) {							
 							ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
 							matrici = modelMatrice.doRetrieveAll("id");
 							request.setAttribute("matrici", matrici);
+							String jsp=request.getParameter("jsp");
+							if(jsp!=null) {
+								if(jsp.equals("pacchetto")) {
+									redirectedPage = "/AggiungiPacchetto.jsp";
+								}else
+									throw new Exception("ERRORE-MatriceControl-visualizza: invalid jsp.");
+							}
 						} else if (action.equals("nome") || action.equals("sottotitolo")
 								|| action.equals("descrizione")) {
 							MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("matrice");

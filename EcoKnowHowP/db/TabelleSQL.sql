@@ -20,7 +20,7 @@ CREATE TABLE cliente(
 	pec char(50) default null,
 	sdi char(6) not null,
 	email char(50) not null,
-	password char(15) not null,
+	password char(35) not null,
 	codSicurezza char(7) not null,
 	attivo int check(attivo in(0,1)),
 	PRIMARY KEY(username)

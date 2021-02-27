@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
 <%
 	Boolean userRoles = (Boolean) session.getAttribute("userRoles");
-	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("Utente");	
+	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("User");	
 	MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("SelectMatrice");	
 	if(utente != null && userRoles != null && userRoles.booleanValue()) {
 		if(matrice==null){
@@ -33,19 +33,19 @@
 	<div id="main">	
 		<div class="card">	
 			<div class="container">
-				<h1><b>Crea un nuovo pacchetto</b></h1>
+				<a href="<%=response.encodeURL("CreaPacchetto.jsp") %>" >Crea un nuovo pacchetto</a>
 				<p>Inserisci i parametri all'interno del nuovo pacchetto</p>
 			</div>
 		</div>
 		<div class="card">	
 			<div class="container">
-				<h1><b>Pacchetti Analitici</b></h1>
+				<a href="<%=response.encodeURL("PacchettoControl?action=visualizza&tipo=analitico") %>" >Pacchetti Analitici</a>
 				<p>Seleziona un pacchetto creato per un precedente piano</p>
 			</div>
 		</div>
 		<div class="card">	
 			<div class="container">
-				<a href="<%=response.encodeURL("VisualizzaPacchettiServlet?tipo=standard") %>" >Pacchetti Standard</a>
+				<a href="<%=response.encodeURL("PacchettoControl?action=visualizza&tipo=standard") %>" >Pacchetti Standard</a>
 				<p>Seleziona un pacchetto proposto da noi!</p>
 			</div>
 		</div>	
