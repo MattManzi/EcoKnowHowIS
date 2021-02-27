@@ -39,7 +39,7 @@ public class LoginControl extends HttpServlet {
 		request.getSession().removeAttribute("Admin");
 		request.getSession().invalidate();
 
-		String redirectedPage = "/LoginFormUser.jsp";
+		String redirectedPage = "/HomePage.jsp";
 		String action = request.getParameter("action");
 
 		try {
@@ -77,7 +77,7 @@ public class LoginControl extends HttpServlet {
 				throw new Exception("ERRORE-LoginControl: action null.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			request.getSession().setAttribute("adminRoles", false);
+			redirectedPage = "/HomePage.jsp";
 		}
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);

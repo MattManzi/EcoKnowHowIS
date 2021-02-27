@@ -1,18 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
 <%
-	AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("admin"); 
+	AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
+	Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 	MatriceBean bean=(MatriceBean)request.getSession().getAttribute("matrice");
 	Collection<?> parametri=(Collection<?>) request.getAttribute("parametri");
 	
-	if(bean==null){
-		response.sendRedirect(response.encodeRedirectURL("GestioneMatriciAdmin.jsp"));
+	if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+		response.sendRedirect("./LoginAdmin.jsp");
 		return;
-	}
-	
-	if(parametri==null){
-		response.sendRedirect(response.encodeRedirectURL("VisualizzaParametriServlet?action=matrice&idMatrice="+bean.getId()));
-		return;
+	}else{
+		if(bean==null){
+			response.sendRedirect("./GestioneMatriciAdmin.jsp");
+			return;
+		}
+		
+		if(parametri==null){
+			response.sendRedirect(response.encodeRedirectURL("ParametroControl?action=visualizza&jsp=matrice"));
+			return;
+		}
 	}
 	
 %>
@@ -24,6 +30,7 @@
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="./script/alert.js"></script>
 <link href="css/HomePage2.css" rel="stylesheet">
 <link href="css/ModificaMatriceAdmin.css" rel="stylesheet">
 
@@ -81,25 +88,6 @@ function myFunctionSottotitolo() {
   }
 }
 </script>
-
-
-<script>
-
-function myFunction(String form,String mod) {
-  var x = document.getElementById(form);
-  if (x.className === "hidden") {
-    x.className = "show";
-  } else {
-    x.className = "hidden";
-  }
-  var x = document.getElementById(mod);
-  if(x.value=="Modifica") {
-	  x.value="Annulla";
-  } else {
-	  x.value="Modifica"
-  }
-}
-</script>
 </head>
 <body>
 	<header class="header" id="header">
@@ -129,7 +117,7 @@ function myFunction(String form,String mod) {
 		<div id="nome">
 			<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
 			<input id="modNome" onclick="myFunctionNome()" type="button" value="Modifica"></input>		
-			<form id="formName" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=nome") %>" method="post">
+			<form id="formName" class="hidden" action="<%=response.encodeURL("MatriceControl?action=nome") %>" method="post">
 				<input type="text" name="dato">			
 				<input type="submit" value="Salva">
 			</form>
@@ -138,7 +126,7 @@ function myFunction(String form,String mod) {
 		<div id="sottotitolo">
 			<p style="display: inline-block;">Sottotitolo: <%=bean.getSottotitolo()%></p>
 			<input id="modSottotitolo" onclick="myFunctionSottotitolo()" type="button" value="Modifica"></input>		
-			<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=sottotitolo") %>" method="post">
+			<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("MatriceControl?action=sottotitolo") %>" method="post">
 				<input type="text" name="dato">			
 				<input type="submit" value="Salva">
 			</form>
@@ -148,7 +136,7 @@ function myFunction(String form,String mod) {
 		<div id="Descrizioni">
 		<p style="display: inline-block;">Descrizione: <%=bean.getDescrizione()%></p>
 		<input id="modDescrizione" onclick="myFunctionDescrizione()" type="button" value="Modifica"></input>		
-		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("ModificaMatriceServlet?action=descrizione") %>" method="post">
+		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("MatriceControl?action=descrizione") %>" method="post">
 			<input type="text" name="dato">			
 			<input type="submit" value="Salva">
 		</form>
@@ -156,7 +144,7 @@ function myFunction(String form,String mod) {
 </div>
 
 <div>
-	<form action="AggiungiParametroMatriceServlet" method="post">
+	<form action="ParametroControl?action=addParM" method="post">
 		<table>
 		
 			<tr>
@@ -221,7 +209,7 @@ function myFunction(String form,String mod) {
 				<td > <%=parametro.getCampionamento()%> </td>
 				<td > <%=parametro.getuMisura()%> </td>
 				<td > <%=parametro.getPrezzo()%> </td>
-				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaMatrice(<%=bean.getId()%>)">X</button></td>			
+				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaParMatrice(<%=parametro.getId()%>)">X</button></td>			
 			</tr>
 			<%	
 				}

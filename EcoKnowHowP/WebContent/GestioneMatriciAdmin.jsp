@@ -4,14 +4,18 @@
 <%
 
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
-AmministratoreBean adminRoles = (AmministratoreBean) request.getSession().getAttribute("adminRoles");
+Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 Collection<?> matrici=(Collection<?>) request.getAttribute("matrici");
-
-
-if(matrici==null){
-	response.sendRedirect(response.encodeRedirectURL("./VisualizzaMatriciServlet"));
+if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+	response.sendRedirect("./LoginAdmin.jsp");
 	return;
+}else{
+	if(matrici==null){
+		response.sendRedirect(response.encodeRedirectURL("./MatriceControl?action=visualizza"));
+		return;
+	}
 }
+
 
 
 %>

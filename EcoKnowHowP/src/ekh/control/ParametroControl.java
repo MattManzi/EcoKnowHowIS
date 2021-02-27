@@ -91,7 +91,7 @@ public class ParametroControl extends HttpServlet {
 						} else if (action.equals("addParM") || action.equals("delParM")) {
 							MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("matrice");
 							if (matrice != null) {
-								if (action.equals("aggiungiPar")) {
+								if (action.equals("addParM")) {
 									String nome = request.getParameter("nome");
 									String sku = request.getParameter("sku");
 									String campione = request.getParameter("campione");
@@ -124,7 +124,7 @@ public class ParametroControl extends HttpServlet {
 									 * Exception("ERRORE-AggiuntaParametroServlet: inseriemento Dati.");
 									 */
 								} else {
-									String idParametro = request.getParameter("idParametro");
+									String idParametro = request.getParameter("id");
 									if (idParametro != null) {
 										model.doDelete(idParametro);
 									} else {

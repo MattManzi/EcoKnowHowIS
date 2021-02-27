@@ -1,49 +1,44 @@
+//MATRICI
 function cancellaMatrice(id){
 	var scelta=confirm("Sei sicuro di voler eliminare la matrice?");
 	if(scelta===true){
-		location.href="RimuoviMatriceServlet?id="+id;
+		location.href="MatriceControl?action=delete&id="+id;
 	}
 }
 
 function selectMatriceMod(id){
 	var scelta=confirm("Procedere con la modifica della matrice?");
 	if(scelta===true){
-		location.href="SelectMatriceAdminServlet?id="+id;
+		location.href="MatriceControl?action=select&id="+id;
 	}
 }
 
-function confermaMatriceMod(id){
+function confermaMatriceMod(action){
 	var scelta=confirm("Salvare le modifiche?");
 	if(scelta===true){
-		location.href="ModificaMatriceServlet?id="+id;
+		a.action="MatriceControl?action="+action;
 	}
 }
 
-function annullaModifica(){
-	var scelta=confirm("Annullare?");
+function cancellaParMatrice(id){
+	var scelta=confirm("Eliminare il parametro dalla matrice?");
 	if(scelta===true){
-		location.href="ViniliControl?action=annullaModifica";
+		location.href="ParametroControl?action=delParM&id="+id;
 	}
 }
 
 
-function resetRicerca(){
-	var scelta=confirm("Eliminare i filtri di ricerca?");
+//PACCHETTI
+function cancellaPacchetto(id){
+	var scelta=confirm("Sei sicuro di voler eliminare il pacchetto?");
 	if(scelta===true){
-		location.href="RicercaAvanzata?action=reset";
+		location.href="PacchettoControl?action=delete&id="+id;
 	}
 }
 
-function aggiuntaGenere(){
-	var scelta=confirm("Aggiungere genere?");
+function selectPacchettoMod(id){
+	var scelta=confirm("Procedere con la modifica del pacchetto?");
 	if(scelta===true){
-		location.href="GenereArtistaControl?action=aggiungi&opzione=genere";
-	}
-}
-
-function cancellaAdmin(nome){
-	var scelta=confirm("Sei sicuro?");
-	if(scelta===true){
-		location.href="AdminControl?action=cancella&username="+nome;
+		location.href="PacchettoControl?action=select&id="+id;
 	}
 }

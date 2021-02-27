@@ -19,7 +19,7 @@ import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
 import ekh.strategy.AggiungiPacchettoValidator;
 
-@WebServlet("/ModificaPacchettoAdminServlet")
+@WebServlet("/PacchettoControl")
 public class PacchettoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

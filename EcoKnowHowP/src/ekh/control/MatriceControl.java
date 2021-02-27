@@ -1,6 +1,7 @@
 package ekh.control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
 import ekh.model.MatriceModelDM;
 import ekh.strategy.AggiungiMatriceValidator;
+import ekh.strategy.MatriceValidator;
 
 @WebServlet("/MatriceControl")
 public class MatriceControl extends HttpServlet {
@@ -41,22 +43,28 @@ public class MatriceControl extends HttpServlet {
 				String action = request.getParameter("action");
 				if (action != null) {
 					if (admin != null) {
+						redirectedPage = "/GestioneMatriciAdmin.jsp";
 						if (action.equals("visualizza")) {
 							ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
 							matrici = modelMatrice.doRetrieveAll("id");
 							request.setAttribute("matrici", matrici);
-							redirectedPage = "/GestioneMatriciAdmin.jsp";
 						} else if (action.equals("nome") || action.equals("sottotitolo")
 								|| action.equals("descrizione")) {
 							MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("matrice");
 							if (matrice != null) {
 								String dato = request.getParameter("dato");
 								if (dato != null) {
-									modelMatrice.doUpdate(action, dato, String.valueOf(matrice.getId()));
-									redirectedPage = "/ModificaMatriceAdmin.jsp";
-									request.getSession().removeAttribute("matrice");
-									request.getSession().setAttribute("matrice",
-											modelMatrice.doRetrieveByKey(String.valueOf(matrice.getId())));
+									MatriceValidator mv = new MatriceValidator();
+									if (mv.modificaMatriceVal(action, dato)) {
+										modelMatrice.doUpdate(action, dato, String.valueOf(matrice.getId()));
+										redirectedPage = "/ModificaMatriceAdmin.jsp";
+										request.getSession().removeAttribute("matrice");
+										request.getSession().setAttribute("matrice",
+												modelMatrice.doRetrieveByKey(String.valueOf(matrice.getId())));
+									}else {
+										throw new Exception(
+												"ERRORE-MatriceControl-nome/sottotitolo/descrizione: inserimento dati.");
+									}
 								} else
 									throw new Exception(
 											"ERRORE-MatriceControl-nome/sottotitolo/descrizione: dati null.");
@@ -73,11 +81,14 @@ public class MatriceControl extends HttpServlet {
 								if (!bean.isEmpty()) {
 									redirectedPage = "/ModificaMatriceAdmin.jsp";
 									request.getSession().setAttribute("matrice", bean);
-								} else
+								} else {
+									redirectedPage = "/GestioneMatriciAdmin.jsp";
 									throw new Exception("ERRORE-MatriceControl-select: Matrice non trovata.");
-							} else
+								}
+							} else {
+								redirectedPage = "/GestioneMatriciAdmin.jsp";
 								throw new Exception("ERRORE-MatriceControl-select: id null.");
-
+							}
 						} else if (action.equals("aggiungi")) {
 							String nome = request.getParameter("nome");
 							String sottotitolo = request.getParameter("sottotitolo");
@@ -132,9 +143,7 @@ public class MatriceControl extends HttpServlet {
 					throw new Exception("ERRORE-MatriceControl: action null");
 			} else
 				throw new Exception("ERRORE-MatriceControl: nessun utente loggato.");
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		redirectedPage = response.encodeURL(redirectedPage);

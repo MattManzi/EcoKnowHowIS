@@ -6,14 +6,19 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%
-AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
+AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
+Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 Collection<?> pacchetti=(Collection<?>) request.getAttribute("pacchetti");
-
-
-if(pacchetti==null){
-	response.sendRedirect(response.encodeRedirectURL("./VisualizzaPacchettiServlet"));
+if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+	response.sendRedirect("./LoginAdmin.jsp");
 	return;
+}else{
+	if(pacchetti==null){
+		response.sendRedirect(response.encodeRedirectURL("./PacchettoControl?action=visualizza"));
+		return;
+	}
 }
+
 
 
 %>
@@ -30,6 +35,7 @@ if(pacchetti==null){
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/HomePage.css" rel="stylesheet">
 <link href="css/GestioneMatriceAdmin.css" rel="stylesheet">
+<script type="text/javascript" src="./script/alert.js"></script>
 <title>Gestione Pacchetti Admin</title>
 </head>
 <body>
@@ -62,7 +68,7 @@ if(pacchetti==null){
 	
 	
 	<div class="canvas">	
-		<button class="clearfix fixed"> <a  href="${pageContext.request.contextPath}/AggiungiPacchettoAdmin.jsp"> Aggiungi</a></button>
+		<button class="clearfix fixed"> <a href="<%=response.encodeURL("AggiungiPacchetto.jsp")%>"> Aggiungi</a></button>
 		<table id="tableMatriciAdmin">
 			<tr>
 				<td>ID</td>
@@ -81,8 +87,8 @@ if(pacchetti==null){
 				<td > <%=bean.getId()%> </td>
 				<td > <%=bean.getNome()%> </td>	
 				<td > <%=bean.getDescrizione()%> </td>	
-				<td> <button class="bott_modifica" id="modifica" onclick="selectMatriceMod(<%=bean.getId()%>)">M</button></td>
-				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaMatrice(<%=bean.getId()%>)">X</button></td>	
+				<td> <button class="bott_modifica" id="modifica" onclick="selectPacchettoMod(<%=bean.getId()%>)">M</button></td>
+				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaPacchetto(<%=bean.getId()%>)">X</button></td>	
 			</tr>
 			<%	
 				}

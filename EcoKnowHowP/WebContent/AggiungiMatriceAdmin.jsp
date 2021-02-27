@@ -6,7 +6,11 @@
 
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
-MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Matrice");
+Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
+if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+	response.sendRedirect("./LoginAdmin.jsp");
+	return;
+}
 %>
 
 <html>
@@ -50,7 +54,7 @@ MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Matrice");
 	<div class="canvas">
 			<h1>Aggiungi Matrice </h1>
 	
-	<form action="AggiuntaMatriceServlet" method="post">
+	<form action="MatriceControl?action=aggiungi" method="post">
 	<table id="tableMatriciAdmin">
 		<tr>
 			<td>Nome </td>	

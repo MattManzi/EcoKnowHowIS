@@ -52,7 +52,7 @@ AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribut
 	<div class="canvas">
 			<h1>Aggiungi Pacchetto </h1>
 	
-	<form action="AggiungiPacchettoServlet" method="post">
+	<form action="PacchettoControl?action=crea" method="post">
 	<table id="tableMatriciAdmin">
 		<tr>
 			<td>Nome </td>	
