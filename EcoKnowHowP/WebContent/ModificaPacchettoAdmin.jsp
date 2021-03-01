@@ -79,11 +79,7 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 							<a href="" >   <%=bean.getPrezzo()%> </a> 		
 						</div>		
 			<%	
-				}  
-			%>
-				<p> Prezzo:<%=prezzo%> Euro</p>
-				<a href="<%=response.encodeURL("PacchettoControl?action=salva")%>">Procedi</a>
-			<%		
+					} 	
 				}
 			%>
 	

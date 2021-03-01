@@ -2,12 +2,13 @@ package ekh.bean;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
 
 public class PacchettoBean {
-	private int id;
+	private String id;
 	private int idMatrice;
 	private String nome;
 	private String descrizione;
@@ -17,7 +18,7 @@ public class PacchettoBean {
 	private double prezzo;
 
 	public PacchettoBean() {
-		id = 0;
+		id = "";
 		idMatrice=0;
 		nome = "";
 		descrizione = "";
@@ -27,7 +28,7 @@ public class PacchettoBean {
 		prezzo = 0;
 	}
 
-	public PacchettoBean(int id, int idMatrice, String nome, String descrizione, String tipo, String username, ArrayList<ParametroBean> contenuto, double prezzo) {
+	public PacchettoBean(String id, int idMatrice, String nome, String descrizione, String tipo, String username, ArrayList<ParametroBean> contenuto, double prezzo) {
 		this.id = id;
 		this.idMatrice=idMatrice;
 		this.nome = nome;
@@ -38,14 +39,19 @@ public class PacchettoBean {
 		this.prezzo = prezzo;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
+	public void generaId() {
+		Random r = new Random();
+		int n = r.nextInt(999999);
+		id=String.format("%06d", n);
+	}
 	public int getIdMatrice() {
 		return idMatrice;
 	}
@@ -103,10 +109,7 @@ public class PacchettoBean {
 	}
 
 	public boolean isEmpty() {
-		if (id == 0) {
-			return true;
-		}
-		return false;
+		return id.equals("");
 	}
 	
 	public void addParametro(ParametroBean bean) {
@@ -179,13 +182,13 @@ public class PacchettoBean {
 		}
 	}
 	
-	public void stampContenuto(){
+	public void stampContenuto(String path){
 		String str="";
 		for(ParametroBean i:contenuto) {
 			str=str+i.getId()+"\n";
 		}
 		try {
-			PacchettoModelDM.updateContenuto(id,str);
+			PacchettoModelDM.updateContenuto(id,str, path);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}

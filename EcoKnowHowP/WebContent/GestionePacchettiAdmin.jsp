@@ -88,9 +88,9 @@ function myFunction() {
 					PacchettoBean bean=(PacchettoBean) it.next();
 			%>
 			<tr> 
-				<td > <%=bean.getId()%> </td>
-				<td > <%=bean.getNome()%> </td>	
-				<td > <%=bean.getDescrizione()%> </td>	
+				<td> <%=bean.getId()%> </td>
+				<td> <%=bean.getNome()%> </td>	
+				<td> <%=bean.getDescrizione()%> </td>	
 				<td> <button class="bott_modifica" id="modifica" onclick="selectPacchettoMod(<%=bean.getId()%>)">M</button></td>
 				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaPacchetto(<%=bean.getId()%>)">X</button></td>	
 			</tr>
@@ -101,12 +101,5 @@ function myFunction() {
 		</table>
 		<button class="bott_aggiungi"> <a href="<%=response.encodeURL("AggiungiPacchetto.jsp")%>"> Aggiungi</a></button>
 	</div>
-	
-	
-	
-	
-	
-	
-	
 </body>
 </html>

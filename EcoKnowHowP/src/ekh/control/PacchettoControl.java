@@ -1,5 +1,6 @@
 package ekh.control;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -115,9 +116,17 @@ public class PacchettoControl extends HttpServlet {
 							PacchettoBean bean = (PacchettoBean) request.getSession().getAttribute("creaPacchetto");
 							if (bean != null) {
 								if (bean.getContenuto().size() > 0) {
+									bean.generaId();
 									bean.setPrezzo(bean.calcolaPrezzo());
+									String SAVE_DIR = "uploadTemp";
+									String appPath = request.getServletContext().getRealPath("");
+									String savePath = appPath + SAVE_DIR;
+									File fileSaveDir = new File(savePath);
+									if (!fileSaveDir.exists()) {
+										fileSaveDir.mkdir();
+									}
 									modelPacchetto.doSave(bean);
-									bean.stampContenuto();
+									bean.stampContenuto(savePath+ File.separator);
 									redirectedPage = "/GestionePacchettiAdmin.jsp";
 								} else {
 									redirectedPage = "/ComponiPacchetto.jsp";
@@ -154,17 +163,22 @@ public class PacchettoControl extends HttpServlet {
 								if (pacchetto != null) {
 									String idParametro = request.getParameter("idParametro");
 									if (idParametro != null) {
+										String SAVE_DIR = "uploadTemp";
+										String appPath = request.getServletContext().getRealPath("");
+										String savePath = appPath + SAVE_DIR;
+										File fileSaveDir = new File(savePath);
+										if (!fileSaveDir.exists()) {
+											fileSaveDir.mkdir();
+										}
 										ParametroBean bean = new ParametroBean();
 										bean = modelParametro.doRetrieveByKey(idParametro);
 										if (!bean.isEmpty()) {
 											if (action.equals("aggiungiPar")) {
 												pacchetto.addParametro(bean);
-												pacchetto.stampContenuto();
 											} else {
 												pacchetto.remParametro(bean);
-												pacchetto.stampContenuto();
 											}
-											pacchetto.stampContenuto();
+											pacchetto.stampContenuto(savePath);
 											request.getSession().removeAttribute("pacchetto");
 											request.getSession().setAttribute("pacchetto", pacchetto);
 											redirectedPage = "/ModificaPacchettoAdmin.jsp";

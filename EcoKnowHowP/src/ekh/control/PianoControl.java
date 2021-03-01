@@ -208,7 +208,7 @@ public class PianoControl extends HttpServlet {
 						if (action.equals("ulReferto")) {
 							PianoBean bean = (PianoBean) request.getSession().getAttribute("pianoAdmin");
 							if (bean != null) {
-								String SAVE_DIR = "ulRefertoTemp";
+								String SAVE_DIR = "uploadTemp";
 								String appPath = request.getServletContext().getRealPath("");
 								String savePath = appPath + SAVE_DIR;
 
@@ -240,7 +240,7 @@ public class PianoControl extends HttpServlet {
 						if (action.equals("ulSDS")) {
 							String idPiano = request.getParameter("idPiano");
 							if (idPiano != null) {
-								String SAVE_DIR = "ulSDSTemp";
+								String SAVE_DIR = "uploadTemp";
 								String appPath = request.getServletContext().getRealPath("");
 								String savePath = appPath + SAVE_DIR;
 

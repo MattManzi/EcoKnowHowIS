@@ -34,7 +34,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setId(rs.getInt("id"));
+				bean.setId(rs.getString("id"));
 				bean.setIdMatrice(rs.getInt("idMAtrice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
@@ -77,7 +77,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			while (rs.next()) {
 				PacchettoBean bean = new PacchettoBean();
 
-				bean.setId(rs.getInt("id"));
+				bean.setId(rs.getString("id"));
 				bean.setIdMatrice(rs.getInt("idMAtrice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
@@ -104,18 +104,19 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO pacchetto(idMatrice, nome, descrizione, tipo, username, prezzo) VALUES (?,?,?,?,?,?)";
+		String insertSQL = "INSERT INTO pacchetto(id, idMatrice, nome, descrizione, tipo, username, prezzo) VALUES (?,?,?,?,?,?,?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 
-			preparedStatement.setInt(1, bean.getIdMatrice());
-			preparedStatement.setString(2, bean.getNome());
-			preparedStatement.setString(3, bean.getDescrizione());
-			preparedStatement.setString(4, bean.getTipo());
-			preparedStatement.setString(5, bean.getUsername());
-			preparedStatement.setDouble(6, bean.getPrezzo());
+			preparedStatement.setString(1, bean.getId());
+			preparedStatement.setInt(2, bean.getIdMatrice());
+			preparedStatement.setString(3, bean.getNome());
+			preparedStatement.setString(4, bean.getDescrizione());
+			preparedStatement.setString(5, bean.getTipo());
+			preparedStatement.setString(6, bean.getUsername());
+			preparedStatement.setDouble(7, bean.getPrezzo());
 
 			System.out.println("PacchettoModelDM: doSave:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -215,7 +216,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			while (rs.next()) {
 				PacchettoBean bean = new PacchettoBean();
 
-				bean.setId(rs.getInt("id"));
+				bean.setId(rs.getString("id"));
 				bean.setIdMatrice(rs.getInt("idMAtrice"));
 				bean.setNome(rs.getString("nome"));
 				bean.setDescrizione(rs.getString("descrizione"));
@@ -237,7 +238,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 		return pacchetti;
 	}
 
-	public synchronized static byte[] loadContenuto(int id) throws SQLException {
+	public synchronized static byte[] loadContenuto(String id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
@@ -249,7 +250,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 
-			preparedStatement.setInt(1, id);
+			preparedStatement.setString(1, id);
 
 			System.out.println("PacchettoModelDM: loadContenuto" + preparedStatement.toString());
 			rs = preparedStatement.executeQuery();
@@ -274,17 +275,17 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 		return bt;
 	}
 
-	public synchronized static void updateContenuto(int id, String contenuto) throws SQLException {
+	public synchronized static void updateContenuto(String id, String contenuto, String path) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		Random r = new Random();
 		int n = r.nextInt(999999);
-		String nomeFile = String.format("%06d", n);
+		String nomeFile = path+String.format("%06d", n) + ".txt";
 
 		// Creo un nuovo File
 		try {
-			File modFile = new File("txt/"+nomeFile + ".txt");
+			File modFile = new File(nomeFile);
 			if (modFile.createNewFile()) {
 				System.out.println("PacchettoModelDM: File created: " + modFile.getName());
 			} else {
@@ -297,7 +298,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 
 		// Scrivo sul nuovo file
 		try {
-			FileWriter myWriter = new FileWriter("txt/"+nomeFile + ".txt");
+			FileWriter myWriter = new FileWriter(nomeFile);
 			myWriter.write(contenuto);
 			myWriter.close();
 			System.out.println("PacchettoModelDM: Successfully wrote to the file.");
@@ -312,14 +313,16 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(sql);
 
-			File file = new File(nomeFile + ".txt");
+			File file = new File(nomeFile);
 			try {
 				FileInputStream fis = new FileInputStream(file);
 				preparedStatement.setBinaryStream(1, fis, fis.available());
-				preparedStatement.setInt(2, id);
-
+				preparedStatement.setString(2, id);
+				
+				System.out.println("PacchettoModelDM: updateContenuto:" + preparedStatement.toString());
 				preparedStatement.executeUpdate();
 				connection.commit();
+				fis.close();
 			} catch (FileNotFoundException e) {
 				System.out.println(e);
 			} catch (IOException e) {
@@ -328,7 +331,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 		} finally {
 			try {
 				if (preparedStatement != null)
-					preparedStatement.close();
+					preparedStatement.close();				
 			} catch (SQLException sqlException) {
 				System.out.println(sqlException);
 			} finally {
@@ -337,7 +340,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			}
 		}
 		// Elimino il file
-		File modFile = new File("txt/"+nomeFile + ".txt");
+		File modFile = new File(nomeFile);
 		if (modFile.delete()) {
 			System.out.println("Deleted the file: " + modFile.getName());
 		} else {
