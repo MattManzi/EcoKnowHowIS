@@ -31,11 +31,24 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="./script/alert.js"></script>
-<link href="css/HomePage2.css" rel="stylesheet">
+<link href="css/Template.css" rel="stylesheet">
 <link href="css/ModificaMatriceAdmin.css" rel="stylesheet">
 
 <title>Insert title here</title>
+
 <script>
+function myFunction() {
+  var x = document.getElementById("nav");
+  if (x.className === "nav") {
+    x.className += " responsive";
+  } else {
+    x.className = "nav";
+  }
+}
+</script>
+
+<script>
+
 
 function myFunctionNome() {
   var x = document.getElementById("formName");
@@ -94,10 +107,13 @@ function myFunctionSottotitolo() {
 		<div class="logo">
 			<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"><img src="./img/logo.png"></a>
 		</div>
-		<div class="nav" id="nav">		
-			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
-			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
-			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
+		<div class="nav" id="nav">
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+		<div class="invisibile">
+		<p><br></p>
+		<p><br></p>
+		<p><br></p>
+		</div>
 			<%if (admin == null){ %>
 				<a href="<%=response.encodeURL("LoginAdmin.jsp")%>" class="active">Login</a>					
 			<%}else{%>				
@@ -105,7 +121,9 @@ function myFunctionSottotitolo() {
 			<%
 			}
 			%>
-			<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
+			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
+			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
 		</div>	
 	</header>
 

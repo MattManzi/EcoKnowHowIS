@@ -22,8 +22,6 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 
 
 %>
-
-
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -33,42 +31,48 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="css/HomePage.css" rel="stylesheet">
+<link href="css/Template.css" rel="stylesheet">
 <link href="css/GestioneMatriceAdmin.css" rel="stylesheet">
 <script type="text/javascript" src="./script/alert.js"></script>
 <title>Gestione Pacchetti Admin</title>
 </head>
+<script>
+function myFunction() {
+  var x = document.getElementById("nav");
+  if (x.className === "nav") {
+    x.className += " responsive";
+  } else {
+    x.className = "nav";
+  }
+}
+</script>
 <body>
-		<header class="header clearfix fixed">
-		<a href="<%=response.encodeURL("HomePage.jsp")%>" class="header__logo">EcoKnowHow</a>
-		<ul class="header__menu ">
-			<li class="header__menu__item"><a
-				href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione
-					Matrici</a></li>
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/GestionePacchettiAdmin.jsp">Gestione
-					Pacchetti</a></li>
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/GestioneClientiAdmin.jsp">Gestione
-					Clienti</a></li>
-
+	<header class="header" id="header">
+		<div class="logo">
+			<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"><img src="./img/logo.png"></a>
+		</div>
+		<div class="nav" id="nav">
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+		<div class="invisibile">
+		<p><br></p>
+		<p><br></p>
+		<p><br></p>
+		</div>
+			<%if (admin == null){ %>
+				<a href="<%=response.encodeURL("LoginAdmin.jsp")%>" class="active">Login</a>					
+			<%}else{%>				
+				<a href="<%=response.encodeURL("")%>" class="active"><%=admin.getUsername() %></a>	
 			<%
-			if (admin == null) {
+			}
 			%>
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a> <%
- 				} else {
-			 %>
-				<a href=><%=admin.getUsername()%></a> <%
-				 }
-				 %>
-			 </li>
-		</ul>
+			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
+			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
+			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
+		</div>	
 	</header>
 	
 	
 	<div class="canvas">	
-		<button class="clearfix fixed"> <a href="<%=response.encodeURL("AggiungiPacchetto.jsp")%>"> Aggiungi</a></button>
 		<table id="tableMatriciAdmin">
 			<tr>
 				<td>ID</td>
@@ -95,6 +99,7 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 			}
 			 %>
 		</table>
+		<button class="bott_aggiungi"> <a href="<%=response.encodeURL("AggiungiPacchetto.jsp")%>"> Aggiungi</a></button>
 	</div>
 	
 	

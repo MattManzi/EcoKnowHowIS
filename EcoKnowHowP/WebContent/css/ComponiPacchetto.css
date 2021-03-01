@@ -1,0 +1,41 @@
+@charset "ISO-8859-1";
+
+a{text-decoration: none;}
+
+.main{
+	width: 90%;
+	margin: auto;
+	margin-top: 150px;
+	display: table;}
+
+.contenitore_parametri{
+    width: 80%;
+    text-align: center;
+    display: table-cell;
+	
+	
+}
+
+.prodottoCatalogo{
+	width:150px; 
+	margin:15px; display:inline-block;
+	background:linear-gradient(#add8e6, #57953c);
+	border-radius: 4px;
+
+	}
+	
+.nome__prodotto{
+	text-align: center;
+	}
+
+.carrello{ 
+	background:linear-gradient(#add8e6, #57953c);
+	border-radius: 4px;
+	width: 20%;
+	display: table-cell;
+}
+
+.canvas{
+	margin: auto;
+    width: 80%;
+}
