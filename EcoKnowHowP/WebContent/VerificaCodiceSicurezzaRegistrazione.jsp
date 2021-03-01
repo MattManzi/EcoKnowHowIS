@@ -9,11 +9,11 @@
 <body>
 	<h1>VerificaCodice</h1>
 	<p>Inserire il codice ricevuto via email.</p>
-	<form name="formVerificaCodiceregistrazione" action="<%=response.encodeURL("RegistrazioneUserServlet?action=registra") %>" method="post">
+	<form name="formVerificaCodiceregistrazione" action="<%=response.encodeURL("ClienteControl?action=registra") %>" method="post">
 		<input type="text" name="codice">
 		<input type="submit" value="verifica">
 	</form>	
-	<p>Non hai ricevuto l'e-mail? <a href="<%=response.encodeURL("RegistrazioneUserServlet?action=sendEmail") %>">Invia codice</a></p>
+	<p>Non hai ricevuto l'e-mail? <a href="<%=response.encodeURL("EmailControl?action=sendEmail") %>">Invia codice</a></p>
 	
 </body>
 </html>

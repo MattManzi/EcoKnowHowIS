@@ -8,8 +8,7 @@ public class ClienteBean {
 	private String telefono;
 	private String ragioneSociale;
 	private String indirizzo;
-	private String pIva;
-	private String cf;
+	private String ivaCF;
 	private String pec;
 	private String sdi;
 	private String email;
@@ -25,8 +24,7 @@ public class ClienteBean {
 		telefono = "";
 		ragioneSociale = "";
 		indirizzo = "";
-		pIva = "";
-		cf = "";
+		ivaCF = "";
 		pec = "";
 		sdi = "";
 		email="";
@@ -36,7 +34,7 @@ public class ClienteBean {
 	}
 
 	public ClienteBean(String username, String nome, String cognome, String funzioneAziendale, String telefono,
-			String ragioneSociale, String indirizzo, String pIva, String cf, String pec, String sdi, String email, String password, String codSicurezza) {
+			String ragioneSociale, String indirizzo, String ivaCF, String pec, String sdi, String email, String password, String codSicurezza) {
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -44,8 +42,7 @@ public class ClienteBean {
 		this.telefono = telefono;
 		this.ragioneSociale = ragioneSociale;
 		this.indirizzo = indirizzo;
-		this.pIva = pIva;
-		this.cf = cf;
+		this.ivaCF=ivaCF;
 		this.pec = pec;
 		this.sdi = sdi;
 		this.email=email;
@@ -110,20 +107,12 @@ public class ClienteBean {
 		this.indirizzo = indirizzo;
 	}
 
-	public String getpIva() {
-		return pIva;
+	public String getIvaCF() {
+		return ivaCF;
 	}
 
-	public void setpIva(String pIva) {
-		this.pIva = pIva;
-	}
-
-	public String getCf() {
-		return cf;
-	}
-
-	public void setCf(String cf) {
-		this.cf = cf;
+	public void setIvaCF(String ivaCF) {
+		this.ivaCF = ivaCF;
 	}
 
 	public String getPec() {

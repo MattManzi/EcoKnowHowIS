@@ -50,8 +50,7 @@ public class ClienteControl extends HttpServlet {
 					String civico = request.getParameter("civico");
 					String cap = request.getParameter("cap");
 					String comune = request.getParameter("comune");
-					String pIva = request.getParameter("pIva");
-					String cf = request.getParameter("cf");
+					String ivaCF = request.getParameter("ivaCF");
 					String pec = request.getParameter("pec");
 					String sdi = request.getParameter("sdi");
 					String email = request.getParameter("email");
@@ -67,8 +66,7 @@ public class ClienteControl extends HttpServlet {
 					inputs.add(comune);
 					inputs.add(via);
 					inputs.add(civico);
-					inputs.add(pIva);
-					inputs.add(cf);
+					inputs.add(ivaCF);
 					inputs.add(sdi);
 					inputs.add(cap);
 					inputs.add(telefono);
@@ -92,7 +90,7 @@ public class ClienteControl extends HttpServlet {
 							String indirizzo = via + ", " + civico + ", " + comune + ", " + cap;
 
 							ClienteBean bean = new ClienteBean(username, nome, cognome, funzioneAziendale, telefono,
-									ragioneSociale, indirizzo, pIva, cf, pec, sdi, email, password, codSicurezza);
+									ragioneSociale, indirizzo, ivaCF, pec, sdi, email, password, codSicurezza);
 
 							request.getSession().setAttribute("ClienteTemp", bean);
 

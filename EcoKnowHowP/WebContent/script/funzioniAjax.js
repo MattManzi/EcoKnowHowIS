@@ -1,8 +1,8 @@
 //Controllo Registrazione user
-function testUser(user){
+function testUser(username){
 	var http = new XMLHttpRequest();
 	var url = "ajaxRegistrazioneUser";
-	var params = "user="+ user+"&action=user";
+	var params = "action=username&dato="+ username;
 	http.open("GET", url+"?"+params, true);
 	http.onreadystatechange = function() {
 		var txt=this.responseText;
@@ -25,7 +25,7 @@ function testUser(user){
 function testEmail(email){
 	var http = new XMLHttpRequest();
 	var url = "ajaxRegistrazioneUser";
-	var params = "email="+ email+"&action=email";
+	var params = "action=email&dato="+ email;
 	http.open("GET", url+"?"+params, true);
 	http.onreadystatechange = function() {
 		var txt=this.responseText;

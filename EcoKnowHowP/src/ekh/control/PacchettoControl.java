@@ -85,7 +85,7 @@ public class PacchettoControl extends HttpServlet {
 								String id = request.getParameter("id");
 								if (function != null && id != null) {
 									ParametroBean bean = new ParametroBean();
-									bean = modelParametro.doRetrieveByKey(id);
+									bean = modelParametro.doRetrieveByKey(id);									
 									if (!bean.isEmpty()) {
 										if (function.equals("aggiungi") || function.equals("rimuovi")
 												|| function.equals("svuota")) {
@@ -98,6 +98,7 @@ public class PacchettoControl extends HttpServlet {
 											}
 											request.getSession().removeAttribute("creaPacchetto");
 											request.getSession().setAttribute("creaPacchetto", pacchetto);
+											redirectedPage = "/ComponiPacchetto.jsp";
 										} else
 											throw new Exception("ERRORE-PacchettoControl-componi: invalid action.");
 									} else

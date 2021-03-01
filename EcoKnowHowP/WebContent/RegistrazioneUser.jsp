@@ -7,7 +7,7 @@
 <title>Registrazione</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/script/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script> 
-<script type="text/javascript" src="${pageContext.request.contextPath}/script/RegistrazioneUser.js"></script>
+<script type="text/javascript" src="./script/RegistrazioneUser.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/script/funzioniAjax.js"></script>
 <link rel="stylesheet" href="/css/RegistrazioneUser.css" type="text/css">
 </head>
@@ -15,7 +15,7 @@
 	<a href="${pageContext.request.contextPath}/jsp/HomePage.jsp" class="logo">EcoKnowHow</a>
 	<div>
 		<fieldset><legend>Registrazione</legend>
-			<form id="formRegistrazioneUser" name="formRegistrazioneUser" action="${pageContext.request.contextPath}/RegistrazioneUserServlet?action=inserimentoDati" method="post">
+			<form id="formRegistrazioneUser" name="formRegistrazioneUser" action="<%=response.encodeURL("ClienteControl?action=inserimentoDati")%>" method="post">
 				<table>
 					<tr>
 						<td><label for="nome">Nome:</label></td>	
@@ -54,12 +54,8 @@
 						<td><input type="text" name="comune" maxlength="30"></td>	
 					</tr>
 					<tr>
-						<td><label for="pIva">Partita IVA:</label></td>	
-						<td><input type="text" name="pIva" maxlength="11"></td>	
-					</tr>
-					<tr>
-						<td><label for="cf">Codice Fiscale:</label></td>	
-						<td><input type="text" name="cf" maxlength="16"></td>	
+						<td><label for="ivaCF">Partita IVA o CF:</label></td>	
+						<td><input type="text" name="ivaCF" maxlength="16"></td>	
 					</tr>
 					<tr>
 						<td><label for="sdi">Codice destinatario(SDI):</label></td>	
@@ -79,11 +75,11 @@
 					</tr>
 					<tr>
 						<td><label for="password">Password:</label></td>	
-						<td><input type="text" id="password" name="password" maxlength="15"></td>	
+						<td><input type="password" id="password" name="password" maxlength="15"></td>	
 					</tr>
 					<tr>
 						<td><label for="password2">Conferma Password:</label></td>	
-						<td><input type="text" name="password2" maxlength="15"></td>	
+						<td><input type="password" name="password2" maxlength="15"></td>	
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" value="Conferma"></td>	

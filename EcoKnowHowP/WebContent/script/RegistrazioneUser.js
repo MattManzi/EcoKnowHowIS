@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	$.validator.addMethod('email_val', function(value, element) {
 		return this.optional(element) || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
 	});
@@ -18,11 +17,8 @@ $(document).ready(function() {
 	$.validator.addMethod('alphaNumeric_val', function(value, element) {
 		return this.optional(element) || /^\w+(\s?\w+)*$/.test(value);
 	});
-	$.validator.addMethod('codFiscale_val', function(value, element) {
-		return this.optional(element) || /^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$/.test(value);
-	});
-	$.validator.addMethod('pIva_val', function(value, element) {
-		return this.optional(element) || /^\d{11}$/.test(value);
+	$.validator.addMethod('pIvaCF_val', function(value, element) {
+		return this.optional(element) || /(^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z])|(^[0-9]{11})$/.test(value);
 	});
 
 	$("#formRegistrazioneUser").validate({
@@ -63,11 +59,9 @@ $(document).ready(function() {
 				required: true,
 				allLetter_val: true
 			},
-			'pIva': {
-				pIva_val: true
-			},
-			'cf': {
-				codFiscale_val: true
+			'ivaCF': {
+				required: true,
+				pIvaCF_val: true
 			},
 			'pec': {
 				email_val: true
@@ -132,11 +126,9 @@ $(document).ready(function() {
 				required: "Inserire un comune.",
 				allLetter_val: "Comune non valido."
 			},
-			'pIva': {
-				pIva_val: "P.IVA non valida."
-			},
-			'cf': {
-				codFiscale_val: "CF non valido."
+			'ivaCF': {
+				required: "Inserire una p.Iva o un CF.",
+				pIvaCF_val: "P.IVA o CF non valido."
 			},
 			'sdi': {
 				required: "Inserire un SDI.",
