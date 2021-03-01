@@ -1,12 +1,20 @@
-<%@page import="ekh.bean.MatriceBean"%>
-<%@page import="ekh.bean.AmministratoreBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
-MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Admin");
+Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
+PacchettoBean pacchetto=(PacchettoBean) request.getSession().getAttribute("pacchetto");
+if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+	response.sendRedirect("./LoginAdmin.jsp");
+	return;
+}else{
+	if(pacchetto==null){
+		response.sendRedirect(response.encodeRedirectURL("./PacchettoControl?action=visualizza"));
+		return;
+	}
+}
 
 
 %>
@@ -52,7 +60,32 @@ MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("Admin");
 	</header>
 	
 	
-
+		<%
+				int prezzo=0;
+				if(pacchetto.getContenuto().size()== 0){
+			%>				
+					<p>Il tuo pacchetto è vuoto. Aggiungi i parametri per comporre il pacchetto</p>
+						
+			<%
+				}else{
+					Iterator<?> it = pacchetto.getContenuto().iterator();
+					while (it.hasNext()) {
+						ParametroBean bean = (ParametroBean) it.next();
+						prezzo+= bean.getPrezzo();
+			%>	
+						<div>
+						<a href="<%=response.encodeURL("PacchettoControl?action=componi&function=rimuovi&id="+bean.getId())%>">X</a>
+							<a href="" > <%=bean.getNome()%>  </a> 	
+							<a href="" >   <%=bean.getPrezzo()%> </a> 		
+						</div>		
+			<%	
+				}  
+			%>
+				<p> Prezzo:<%=prezzo%> Euro</p>
+				<a href="<%=response.encodeURL("PacchettoControl?action=salva")%>">Procedi</a>
+			<%		
+				}
+			%>
 	
 	
 

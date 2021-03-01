@@ -284,7 +284,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 
 		// Creo un nuovo File
 		try {
-			File modFile = new File(nomeFile + ".txt");
+			File modFile = new File("txt/"+nomeFile + ".txt");
 			if (modFile.createNewFile()) {
 				System.out.println("PacchettoModelDM: File created: " + modFile.getName());
 			} else {
@@ -297,7 +297,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 
 		// Scrivo sul nuovo file
 		try {
-			FileWriter myWriter = new FileWriter(nomeFile + ".txt");
+			FileWriter myWriter = new FileWriter("txt/"+nomeFile + ".txt");
 			myWriter.write(contenuto);
 			myWriter.close();
 			System.out.println("PacchettoModelDM: Successfully wrote to the file.");
@@ -337,7 +337,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			}
 		}
 		// Elimino il file
-		File modFile = new File(nomeFile + ".txt");
+		File modFile = new File("txt/"+nomeFile + ".txt");
 		if (modFile.delete()) {
 			System.out.println("Deleted the file: " + modFile.getName());
 		} else {

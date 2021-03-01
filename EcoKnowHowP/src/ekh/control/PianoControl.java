@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -27,7 +26,6 @@ import ekh.model.PacchettoModelDM;
 import ekh.model.PianoModelDM;
 import ekh.model.RefertoModelDM;
 import ekh.model.SchedaSicurezzaModelDM;
-import ekh.strategy.PianoValidator;
 
 @WebServlet("/PianoControl")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB

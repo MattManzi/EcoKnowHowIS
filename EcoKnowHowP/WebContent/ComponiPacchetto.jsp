@@ -135,7 +135,7 @@ function myFunction() {
 	</div>
 </div>
 	
-		<footer class="footer">
+	<footer class="footer">
 		<p>2020 Prova&copy;</p>
 	</footer>
 </body>

@@ -63,9 +63,9 @@ public class PacchettoControl extends HttpServlet {
 								username = user.getUsername();
 							}
 							ArrayList<String> inputs = new ArrayList<String>();
-							inputs.add(idMatrice);
-							inputs.add(nome);
-							inputs.add(descrizione);
+							inputs.add(idMatrice.trim());
+							inputs.add(nome.trim());
+							inputs.add(descrizione.trim());
 							AggiungiPacchettoValidator pv = new AggiungiPacchettoValidator();
 							if (pv.validazione(inputs)) {
 								PacchettoBean bean = new PacchettoBean();
@@ -248,9 +248,7 @@ public class PacchettoControl extends HttpServlet {
 					throw new Exception("ERRORE-PacchettoControl: action null");
 			} else
 				throw new Exception("ERRORE-PacchettoControl: nessun utente loggato.");
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		redirectedPage = response.encodeURL(redirectedPage);
