@@ -110,7 +110,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 
-			preparedStatement.setString(1, bean.getNome());
+			preparedStatement.setInt(1, bean.getIdMatrice());
 			preparedStatement.setString(2, bean.getNome());
 			preparedStatement.setString(3, bean.getDescrizione());
 			preparedStatement.setString(4, bean.getTipo());

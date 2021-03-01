@@ -11,7 +11,7 @@ AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribut
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="css/HomePage2.css" rel="stylesheet">
+<link href="css/Template.css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Insert title here</title>
@@ -31,10 +31,13 @@ function myFunction() {
 		<div class="logo">
 			<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"><img src="./img/logo.png"></a>
 		</div>
-		<div class="nav" id="nav">		
-			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
-			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
-			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
+		<div class="nav" id="nav">
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+		<div class="invisibile">
+		<p><br></p>
+		<p><br></p>
+		<p><br></p>
+		</div>
 			<%if (admin == null){ %>
 				<a href="<%=response.encodeURL("LoginAdmin.jsp")%>" class="active">Login</a>					
 			<%}else{%>				
@@ -42,7 +45,9 @@ function myFunction() {
 			<%
 			}
 			%>
-			<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
+			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
+			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
 		</div>	
 	</header>
 

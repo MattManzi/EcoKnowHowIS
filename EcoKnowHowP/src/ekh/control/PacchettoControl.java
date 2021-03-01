@@ -52,6 +52,7 @@ public class PacchettoControl extends HttpServlet {
 							String idMatrice = request.getParameter("idMatrice");
 							String nome = request.getParameter("nome");
 							String descrizione = request.getParameter("descrizione");
+							System.out.println(idMatrice);
 							String tipo = "";
 							String username = "";
 							if (admin != null) {
@@ -85,7 +86,7 @@ public class PacchettoControl extends HttpServlet {
 								String id = request.getParameter("id");
 								if (function != null && id != null) {
 									ParametroBean bean = new ParametroBean();
-									bean = modelParametro.doRetrieveByKey(id);									
+									bean = modelParametro.doRetrieveByKey(id);	
 									if (!bean.isEmpty()) {
 										if (function.equals("aggiungi") || function.equals("rimuovi")
 												|| function.equals("svuota")) {
@@ -99,6 +100,7 @@ public class PacchettoControl extends HttpServlet {
 											request.getSession().removeAttribute("creaPacchetto");
 											request.getSession().setAttribute("creaPacchetto", pacchetto);
 											redirectedPage = "/ComponiPacchetto.jsp";
+
 										} else
 											throw new Exception("ERRORE-PacchettoControl-componi: invalid action.");
 									} else
@@ -116,6 +118,7 @@ public class PacchettoControl extends HttpServlet {
 									bean.setPrezzo(bean.calcolaPrezzo());
 									modelPacchetto.doSave(bean);
 									bean.stampContenuto();
+									redirectedPage = "/GestionePacchettiAdmin.jsp";
 								} else {
 									redirectedPage = "/ComponiPacchetto.jsp";
 									throw new Exception("ERRORE-PacchettoControl-salva: pacchetto vuoto.");

@@ -117,7 +117,7 @@ public class PacchettoBean {
 					for(ParametroBean p:contenuto) {
 						if(p.getId()==bean.getId()) {
 							chiave=false;
-							throw new Exception("ERRORE - PacchettoBean.addParametro:: Parametro già presente nel pacchetto.");
+							throw new Exception("ERRORE - PacchettoBean.addParametro: Parametro già presente nel pacchetto.");
 						}
 					}
 					if(chiave) {

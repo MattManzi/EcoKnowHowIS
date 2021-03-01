@@ -36,38 +36,44 @@ if((admin != null && adminRoles != null && adminRoles.booleanValue())
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="css/HomePage.css" rel="stylesheet">
+<link href="css/Template.css" rel="stylesheet">
 <link href="css/GestioneMatriceAdmin.css" rel="stylesheet">
 <title>Insert title here</title>
+<script>
+function myFunction() {
+  var x = document.getElementById("nav");
+  if (x.className === "nav") {
+    x.className += " responsive";
+  } else {
+    x.className = "nav";
+  }
+}
+</script>
 </head>
 <body>
 
-	<header class="header">
-		<a href="<%=response.encodeURL("HomePage.jsp")%>" class="header__logo">EcoKnowHow</a>
-		<ul class="header__menu ">
-			<li class="header__menu__item"><a
-				href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione
-					Matrici</a></li>
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/GestionePacchettiAdmin.jsp">Gestione
-					Pacchetti</a></li>
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/GestioneClientiAdmin.jsp">Gestione
-					Clienti</a></li>
-
+	<header class="header" id="header">
+		<div class="logo">
+			<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"><img src="./img/logo.png"></a>
+		</div>
+		<div class="nav" id="nav">
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+		<div class="invisibile">
+		<p><br></p>
+		<p><br></p>
+		<p><br></p>
+		</div>
+			<%if (admin == null){ %>
+				<a href="<%=response.encodeURL("LoginAdmin.jsp")%>" class="active">Login</a>					
+			<%}else{%>				
+				<a href="<%=response.encodeURL("")%>" class="active"><%=admin.getUsername() %></a>	
 			<%
-			if (admin == null) {
+			}
 			%>
-			
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a> <%
- 				} else {
- 			
-				 %> <a href=><%=admin.getUsername()%></a> <%
- 			}
- 			%>
- 			</li>
-		</ul>
+			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
+			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
+			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
+		</div>	
 	</header>
 	<div class="canvas">
 			<h1>Aggiungi Pacchetto </h1>
@@ -77,17 +83,22 @@ if((admin != null && adminRoles != null && adminRoles.booleanValue())
 	
 
 		<tr>
-			<%if(matrici != null && matrici.size()>0){
+
+			<td>Matrice riferita </td>	
+			<td>
+			<select name="idMatrice" >		
+						<%if(matrici != null && matrici.size()>0){
 				Iterator<?> it=matrici.iterator();
 				while(it.hasNext()){
 					MatriceBean bean=(MatriceBean) it.next();
 			%>
-			<td>Matrice riferita </td>	
-			<td>
-			<select name="matrice" >		
-			
 				<option value="<%=bean.getId()%>" selected="selected"><%=bean.getNome()%> </option>
+										<%	
+				}
 				
+			}
+			
+			 %>
 			</select>
 			</td>
 
@@ -102,14 +113,9 @@ if((admin != null && adminRoles != null && adminRoles.booleanValue())
 			<td><input type="text" name="descrizione" maxlength="30"></td>			
 		</tr>
 		<tr> 
-			<td colspan="2"><input type="submit" value="CONFERMA">
+			<td colspan="2"><input class="bott_conferma" type="submit" value="CONFERMA">
 		</tr>
-						<%	
-				}
-				
-			}
-			
-			 %>
+
 	</table>
 	</form>
 	</div>
