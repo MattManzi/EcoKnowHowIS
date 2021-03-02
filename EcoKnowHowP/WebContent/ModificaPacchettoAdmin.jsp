@@ -34,8 +34,7 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 </head>
 <body>
 
-
-<header class="header">
+	<header class="header">
 		<a href="<%=response.encodeURL("HomePage.jsp")%>" class="header__logo">EcoKnowHow</a>
 		<ul class="header__menu ">
 			<li class="header__menu__item"><a

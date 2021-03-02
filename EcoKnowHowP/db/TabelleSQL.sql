@@ -60,7 +60,7 @@ CREATE TABLE pacchetto(
 	idMatrice int not null,
 	nome char(20) not null,
 	descrizione char(250) not null,
-	tipo char(8) check(tipo in('standard', 'analitico')),
+	tipo char(9) check(tipo in('standard', 'analitico')),
 	username char(20) not null,
 	contenuto mediumblob default null,
 	prezzo double default 0,
