@@ -14,15 +14,16 @@ import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
 import ekh.model.MatriceModelDM;
-import ekh.strategy.AggiungiMatriceValidator;
+import ekh.model.ParametroModelDM;
 import ekh.strategy.MatriceValidator;
 
-@WebServlet("/MatriceControl")
+@WebServlet("/Matrice")
 public class MatriceControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	MatriceModelDM modelMatrice = new MatriceModelDM();
-
+	ParametroModelDM modelParametro= new ParametroModelDM();
+	
 	public MatriceControl() {
 		super();
 	}
@@ -43,16 +44,16 @@ public class MatriceControl extends HttpServlet {
 				if (action != null) {
 					if (admin != null) {
 						redirectedPage = "/GestioneMatriciAdmin.jsp";
-						if (action.equals("visualizza")) {							
+						if (action.equals("visualizza")) {
 							ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
 							matrici = modelMatrice.doRetrieveAll("id");
 							request.setAttribute("matrici", matrici);
-							String jsp=request.getParameter("jsp");
-							if(jsp!=null) {
-								if(jsp.equals("pacchetto")) {
+							String jsp = request.getParameter("jsp");
+							if (jsp != null) {
+								if (jsp.equals("pacchetto")) {
 									redirectedPage = "/AggiungiPacchetto.jsp";
-								}else
-									throw new Exception("ERRORE-MatriceControl-visualizza: invalid jsp.");
+								} else
+									throw new Exception("ERRORE-MatriceControl-admin-visualizza: invalid jsp.");
 							}
 						} else if (action.equals("nome") || action.equals("sottotitolo")
 								|| action.equals("descrizione")) {
@@ -67,17 +68,14 @@ public class MatriceControl extends HttpServlet {
 										request.getSession().removeAttribute("matrice");
 										request.getSession().setAttribute("matrice",
 												modelMatrice.doRetrieveByKey(String.valueOf(matrice.getId())));
-									}else {
+									} else
 										throw new Exception(
-												"ERRORE-MatriceControl-nome/sottotitolo/descrizione: inserimento dati.");
-									}
+												"ERRORE-MatriceControl-admin-nome/sottotitolo/descrizione: inserimento dati.");
 								} else
 									throw new Exception(
-											"ERRORE-MatriceControl-nome/sottotitolo/descrizione: dati null.");
-							} else {
-								redirectedPage = "/GestioneMatriciAdmin.jsp";
-								throw new Exception("ERRORE-MatriceControl-nome/sottotitolo/descrizione: Matrice null");
-							}
+											"ERRORE-MatriceControl-admin-nome/sottotitolo/descrizione: dati null.");
+							} else
+								throw new Exception("ERRORE-MatriceControl-admin-nome/sottotitolo/descrizione: Matrice null");
 						} else if (action.equals("select")) {
 							request.getSession().removeAttribute("matrice");
 							String id = request.getParameter("id");
@@ -87,14 +85,10 @@ public class MatriceControl extends HttpServlet {
 								if (!bean.isEmpty()) {
 									redirectedPage = "/ModificaMatriceAdmin.jsp";
 									request.getSession().setAttribute("matrice", bean);
-								} else {
-									redirectedPage = "/GestioneMatriciAdmin.jsp";
-									throw new Exception("ERRORE-MatriceControl-select: Matrice non trovata.");
-								}
-							} else {
-								redirectedPage = "/GestioneMatriciAdmin.jsp";
-								throw new Exception("ERRORE-MatriceControl-select: id null.");
-							}
+								} else 
+									throw new Exception("ERRORE-MatriceControl-admin-select: Matrice non trovata.");
+							} else 
+								throw new Exception("ERRORE-MatriceControl-admin-select: id null.");
 						} else if (action.equals("aggiungi")) {
 							String nome = request.getParameter("nome");
 							String sottotitolo = request.getParameter("sottotitolo");
@@ -105,24 +99,22 @@ public class MatriceControl extends HttpServlet {
 							inputs.add(sottotitolo);
 							inputs.add(descrizione);
 
-							AggiungiMatriceValidator mv = new AggiungiMatriceValidator();
+							MatriceValidator mv = new MatriceValidator();
 
-							if (mv.validazione(inputs)) {
+							if (mv.aggiuntaVal(inputs)) {
 								MatriceBean bean = new MatriceBean();
 								bean.setNome(nome);
 								bean.setSottotitolo(sottotitolo);
 								bean.setDescrizione(descrizione);
 								modelMatrice.doSave(bean);
-								redirectedPage = "/GestioneMatriciAdmin.jsp";
 							} else
-								throw new Exception("ERRORE-MatriceControl-aggiungi inserimento dati.");
+								throw new Exception("ERRORE-MatriceControl-admin-aggiungi: inserimento dati.");
 						} else if (action.equals("delete")) {
 							String id = request.getParameter("id");
 							if (id != null) {
 								modelMatrice.doDelete(id);
-								redirectedPage = "/GestioneMatriciAdmin.jsp";
 							} else
-								throw new Exception("ERRORE-MatriceControl-delete: id null");
+								throw new Exception("ERRORE-MatriceControl-admin-delete: id null");
 						} else
 							throw new Exception("ERRORE-MatriceControl-admin: invalid action for admin.");
 					} else {
@@ -133,9 +125,9 @@ public class MatriceControl extends HttpServlet {
 							redirectedPage = "/SceltaMatriceCliente.jsp";
 						} else if (action.equals("select")) {
 							request.getSession().removeAttribute("SelectMatrice");
-							String idMatrice = request.getParameter("id");
-							if (idMatrice != null) {
-								MatriceBean bean = modelMatrice.doRetrieveByKey(idMatrice);
+							String id = request.getParameter("id");
+							if (id != null) {
+								MatriceBean bean = modelMatrice.doRetrieveByKey(id);
 								if (!bean.isEmpty()) {
 									request.getSession().setAttribute("SelectMatrice", bean);
 									redirectedPage = "/SceltaTipoPacchettoCliente.jsp";

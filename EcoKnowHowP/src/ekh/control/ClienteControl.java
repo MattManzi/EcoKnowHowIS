@@ -133,12 +133,11 @@ public class ClienteControl extends HttpServlet {
 					if ((admin != null && adminRoles != null && adminRoles.booleanValue())
 							|| (user != null || userRoles != null && !userRoles.booleanValue())) {
 						if (admin != null) {
-							redirectedPage = "/HomePageAdmin.jsp";
+							redirectedPage = "/GestioneClientiAdmin.jsp";
 							if (action.equals("visualizza")) {
 								ArrayList<ClienteBean> clienti = new ArrayList<ClienteBean>();
 								clienti = modelCliente.doRetrieveAll("username");
 								request.setAttribute("clienti", clienti);
-								redirectedPage = "/GestioneClientiAdmin.jsp";
 							} else if (action.equals("select")) {
 								request.getSession().removeAttribute("cliente");
 								String username = request.getParameter("username");
@@ -161,7 +160,6 @@ public class ClienteControl extends HttpServlet {
 										modelPacchetto.doDelete(p.getId());
 									}
 									modelCliente.doDelete(username);
-									redirectedPage = "/GestioneClientiAdmin.jsp";
 								} else
 									throw new Exception("ERRORE-ClienteControl-admin-delete: username null");
 							} else

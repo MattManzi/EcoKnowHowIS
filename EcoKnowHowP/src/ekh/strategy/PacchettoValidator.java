@@ -2,8 +2,8 @@ package ekh.strategy;
 
 import java.util.ArrayList;
 
-public class AggiungiPacchettoValidator {
-	public boolean validazione(ArrayList<String> inputs) {
+public class PacchettoValidator {
+	public boolean aggiuntaVal(ArrayList<String> inputs) {
 		InputValidator validator=new InputValidator();
 		try {
 			validator.setValidatorStrategy(new ValidatorAlphaNumeric());	
@@ -26,5 +26,4 @@ public class AggiungiPacchettoValidator {
 		}
 		return false;
 	}
-
 }

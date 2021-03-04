@@ -19,12 +19,12 @@ import ekh.bean.ParametroBean;
 import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
 
-@WebServlet("/ParametroControl")
+@WebServlet("/Parametro")
 public class ParametroControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ParametroModelDM model = new ParametroModelDM();
-	PacchettoModelDM modelPacchetto=new PacchettoModelDM();
+	PacchettoModelDM modelPacchetto = new PacchettoModelDM();
 
 	public ParametroControl() {
 		super();
@@ -60,33 +60,17 @@ public class ParametroControl extends HttpServlet {
 						if (action.equals("visualizza")) {
 							String jsp = request.getParameter("jsp");
 							if (jsp != null) {
-								if (jsp.equals("matrice") || jsp.equals("pacchetto")) {
-									ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();
-									if (jsp.equals("matrice")) {
-										MatriceBean matrice = (MatriceBean) request.getSession()
-												.getAttribute("matrice");
-										if (matrice != null) {
-											parametri = model.doRetrieveByMatrix(String.valueOf(matrice.getId()));
-											redirectedPage = "/ModificaMatriceAdmin.jsp";
-										} else {
-											redirectedPage = "/GestioneMatriciAdmin.jsp";
-											throw new Exception(
-													"ERRORE-ParametroControl-matrice/pacchetto: Matrice null");
-										}
+								if (jsp.equals("matrice")) {
+									MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("matrice");
+									if (matrice != null) {
+										ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();
+										parametri = model.doRetrieveByMatrix(String.valueOf(matrice.getId()));
+										request.setAttribute("parametri", parametri);
+										redirectedPage = "/ModificaMatriceAdmin.jsp";
 									} else {
-										PacchettoBean pacchetto = (PacchettoBean) request.getSession()
-												.getAttribute("pacchetto");
-										if (pacchetto != null) {
-											parametri = model
-													.doRetrieveByMatrix(String.valueOf(pacchetto.getIdMatrice()));
-											redirectedPage = "/ModificaPacchettoAdmin.jsp";
-										} else {
-											redirectedPage = "/GestionePacchettiAdmin.jsp";
-											throw new Exception(
-													"ERRORE-ParametroControl-matrice/pacchetto: Matrice null");
-										}
+										redirectedPage = "/GestioneMatriciAdmin.jsp";
+										throw new Exception("ERRORE-ParametroControl-admin-matrice: Matrice null");
 									}
-									request.setAttribute("parametri", parametri);
 								} else
 									throw new Exception("ERRORE-ParametroControl: invalid jsp.");
 							} else
@@ -136,12 +120,12 @@ public class ParametroControl extends HttpServlet {
 										if (!fileSaveDir.exists()) {
 											fileSaveDir.mkdir();
 										}
-										ArrayList<PacchettoBean> pacchetti=new ArrayList<PacchettoBean>();
-										pacchetti=modelPacchetto.doRetrieveAll("id");
-										for(PacchettoBean bean:pacchetti) {
+										ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
+										pacchetti = modelPacchetto.doRetrieveAll("id");
+										for (PacchettoBean bean : pacchetti) {
 											bean.readContenuto();
-											for(ParametroBean param:bean.getContenuto()) {
-												if(param.getId()==Integer.parseInt(idParametro)) {
+											for (ParametroBean param : bean.getContenuto()) {
+												if (param.getId() == Integer.parseInt(idParametro)) {
 													bean.remParametro(param);
 													bean.stampContenuto(savePath);
 													break;
@@ -156,19 +140,20 @@ public class ParametroControl extends HttpServlet {
 									}
 								}
 								redirectedPage = "/ModificaMatriceAdmin.jsp";
-							}else {
+							} else {
 								redirectedPage = "/GestioneMatriciAdmin.jsp";
 								throw new Exception("ERRORE-MatriceControl-aggiungiPar/rimuoviPar: Matrice null");
 							}
-						}
-					} else {
-
+						}else
+							throw new Exception("ERRORE-ParametroControl: invalid action for admin.");
 					}
 				} else
 					throw new Exception("ERRORE-ParametroControl: action null.");
 			} else
 				throw new Exception("ERRORE-ParametroControl: nessun utente loggato.");
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			System.out.println(e.getMessage());
 		}
 		redirectedPage = response.encodeURL(redirectedPage);

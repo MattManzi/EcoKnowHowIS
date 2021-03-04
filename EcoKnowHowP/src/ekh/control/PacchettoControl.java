@@ -18,7 +18,7 @@ import ekh.bean.PacchettoBean;
 import ekh.bean.ParametroBean;
 import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
-import ekh.strategy.AggiungiPacchettoValidator;
+import ekh.strategy.PacchettoValidator;
 
 @WebServlet("/PacchettoControl")
 public class PacchettoControl extends HttpServlet {
@@ -53,7 +53,6 @@ public class PacchettoControl extends HttpServlet {
 							String idMatrice = request.getParameter("idMatrice");
 							String nome = request.getParameter("nome");
 							String descrizione = request.getParameter("descrizione");
-							System.out.println(idMatrice);
 							String tipo = "";
 							String username = "";
 							if (admin != null) {
@@ -67,8 +66,8 @@ public class PacchettoControl extends HttpServlet {
 							inputs.add(idMatrice.trim());
 							inputs.add(nome.trim());
 							inputs.add(descrizione.trim());
-							AggiungiPacchettoValidator pv = new AggiungiPacchettoValidator();
-							if (pv.validazione(inputs)) {
+							PacchettoValidator pv = new PacchettoValidator();
+							if (pv.aggiuntaVal(inputs)) {
 								PacchettoBean bean = new PacchettoBean();
 								bean.setIdMatrice(Integer.parseInt(idMatrice));
 								bean.setNome(nome);
@@ -140,11 +139,10 @@ public class PacchettoControl extends HttpServlet {
 					} else {
 						/* Funzioni action per admin - INIZIO */
 						if (admin != null) {
-							redirectedPage = "/HomePageAdmin.jsp";
+							redirectedPage = "/GestionePacchettiAdmin.jsp";
 							if (action.equals("visualizza")) {
 								ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
 								pacchetti = modelPacchetto.doRetrieveAll("id");
-								redirectedPage = "/GestionePacchettiAdmin.jsp";
 								request.setAttribute("pacchetti", pacchetti);
 							} else if (action.equals("nome") || action.equals("prezzo")
 									|| action.equals("descrizione")) {
@@ -160,11 +158,9 @@ public class PacchettoControl extends HttpServlet {
 												modelPacchetto.doRetrieveByKey(pacchetto.getId()));
 									} else
 										throw new Exception("ERRORE-PacchettoControl-admin-visualizza: dati null.");
-								} else {
-									redirectedPage = "/GestionePacchettiAdmin.jsp";
+								} else
 									throw new Exception(
 											"ERRORE-PacchettoControl-admin-nome/prezzo/descrizione: pacchetto null");
-								}
 							} else if (action.equals("addParam") || action.equals("remParam")) {
 								PacchettoBean pacchetto = (PacchettoBean) request.getSession()
 										.getAttribute("pacchetto");
@@ -196,11 +192,9 @@ public class PacchettoControl extends HttpServlet {
 									} else
 										throw new Exception(
 												"ERRORE-PacchettoControl-admin-aggiungiPar/rimuoviPar: id Parametro null");
-								} else {
-									redirectedPage = "/GestionePacchettiAdmin.jsp";
+								} else 
 									throw new Exception(
 											"ERRORE-PacchettoControl-admin-aggiungiPar/rimuoviPar: pacchetto null");
-								}
 							} else if (action.equals("delete")) {
 								redirectedPage = "/GestionePacchettiAdmin.jsp";
 								String id = request.getParameter("id");
@@ -219,21 +213,21 @@ public class PacchettoControl extends HttpServlet {
 										redirectedPage = "/ModificaPacchettoAdmin.jsp";
 										request.getSession().setAttribute("pacchetto", bean);
 									} else
-										throw new Exception("ERRORE-PacchettoControl-select: Pacchetto non trovata.");
+										throw new Exception("ERRORE-PacchettoControl-admin-select: Pacchetto non trovata.");
 								} else
-									throw new Exception("ERRORE-PacchettoControl-select: id null.");
+									throw new Exception("ERRORE-PacchettoControl-admin-select: id null.");
 							} else
 								throw new Exception("ERRORE-PacchettoControl-admin: invalid action for admin.");
 							/* Funzioni action per admin - FINE */
 						} else {
 							/* Funzioni action per user - INIZIO */
 							if (action.equals("visualizza")) {
-								ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
 								MatriceBean bean = (MatriceBean) request.getSession().getAttribute("SelectMatrice");
 								if (bean != null) {
 									String tipo = request.getParameter("tipo");
 									if (tipo != null) {
 										if (tipo.equals("standard") || tipo.equals("analitico")) {
+											ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
 											if (tipo.equals("standard")) {
 												pacchetti = modelPacchetto.doRetrieveForUser("", tipo,
 														String.valueOf(bean.getId()));

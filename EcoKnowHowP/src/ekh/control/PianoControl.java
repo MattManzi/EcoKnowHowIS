@@ -59,7 +59,6 @@ public class PianoControl extends HttpServlet {
 					|| (user != null || userRoles != null && !userRoles.booleanValue())) {
 				String action = request.getParameter("action");
 				if (action != null) {
-					redirectedPage = "/GestioneClientiAdmin.jsp";
 					if (action.equals("pianiCliente")) {
 						String username = request.getParameter("username");
 						if (username != null) {
@@ -161,16 +160,17 @@ public class PianoControl extends HttpServlet {
 						if (admin != null) {
 							PianoBean bean=(PianoBean) request.getSession().getAttribute("pianoAdmin");
 							if(bean!=null) {
-								/*if (action.equals("prezzo")) {
+								if(action.equals("prezzo")) {
 									String prezzo=request.getParameter("prezzo");
 									PianoValidator pv=new PianoValidator();
-									if(pv.modificaPianoVal(dato, input)) {
-										
+									if(pv.modificaPianoVal("prezzo", prezzo)) {
+										modelPiano.doUpdate("prezzo", prezzo, String.valueOf(bean.getId()));
+										redirectedPage = "/DettagliPianoCliente.jsp";
 									}
 								} else if (action.equals("stato")) {
-
+									
 								} else
-									throw new Exception("ERRORE-PianoControl-admin: invalid action for admin.");*/
+									throw new Exception("ERRORE-PianoControl-admin: invalid action for admin.");
 							}else {
 								redirectedPage="/StoricoCliente.jsp";
 								throw new Exception("ERRORE-PianoControl: piano null.");

@@ -2,10 +2,10 @@ package ekh.bean;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
+import ekh.support.GeneraRandom;
 
 public class PacchettoBean {
 	private String id;
@@ -49,9 +49,8 @@ public class PacchettoBean {
 
 	public void generaId() throws SQLException {
 		PacchettoModelDM model=new PacchettoModelDM();
-		Random r = new Random();
-		int n = r.nextInt(999999);
-		String idTemp=String.format("%06d", n);
+		GeneraRandom gr=new GeneraRandom();		
+		String idTemp=gr.getRandom();
 		
 		if(model.controlloId(idTemp)) {
 			id=idTemp;
