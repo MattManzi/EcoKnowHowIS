@@ -9,7 +9,7 @@ ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
 Form per la creazione di un modulo.
 
 Servlet Necessarie:
-	AggiuntaPianoServlet?action=salve- X
+	PianoControl?action=salva- X
 	
 */
 

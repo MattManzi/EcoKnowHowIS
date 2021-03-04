@@ -2,15 +2,15 @@ package ekh.strategy;
 
 import java.util.regex.Pattern;
 
-public class ValidatorUsername implements InputVal{
+public class ValidatorAllLetterPoint implements InputVal{
 	@Override
 	public boolean valida(String str, int n) {
-		return validaUsername(str, n);
+		return validator(str, n);
 	}
 	
-	public boolean validaUsername(String str, int n) {
+	public boolean validator(String str, int n) {
 		if(str!=null && !str.equals("") && str.length()<=n) {
-			return Pattern.matches("^\\w{5,15}$", str);
+			return Pattern.matches("^[A-Z\\.a-z]*$", str);
 		}
 		return false;
 	}

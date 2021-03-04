@@ -13,7 +13,7 @@ import ekh.bean.ClienteBean;
 import ekh.support.SendEmail;
 
 
-@WebServlet("/EmailControl")
+@WebServlet("/Email")
 public class EmailControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,6 +27,7 @@ public class EmailControl extends HttpServlet {
 		try {
 			if (action != null) {
 				if (action.equals("sendEmail")) {
+					redirectedPage = "/RegistrazioneUser.jsp";
 					ClienteBean bean = (ClienteBean) request.getSession().getAttribute("ClienteTemp");
 					if(bean!=null) {
 						SendEmail sm = new SendEmail();						
@@ -37,16 +38,15 @@ public class EmailControl extends HttpServlet {
 						boolean sendEmail = sm.sendEmail(bean);
 
 						if (sendEmail) {
-							redirectedPage = "/VerificaCodiceSicurezzaRegistrazione.jsp";
+							redirectedPage = "/VerificaCSRegistrazione.jsp";
 						} else
-							throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mail");
-					}else {
-						redirectedPage = "/RegistrazioneUser.jsp";
-						throw new Exception("ERRORE-RegistrazioneUserServlet: utente null");
-					}
-				}
+							throw new Exception("ERRORE-RegistrazioneUserServlet: invio e-mail.");
+					}else 
+						throw new Exception("ERRORE-RegistrazioneUserServlet: utente null.");
+				}else
+					throw new Exception("ERRORE-RegistrazioneUserServlet: invalid action.");
 			} else
-				throw new Exception("ERRORE-RegistrazioneUserServlet: action null");
+				throw new Exception("ERRORE-RegistrazioneUserServlet: action null.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

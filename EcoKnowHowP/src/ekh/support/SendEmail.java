@@ -1,7 +1,6 @@
 package ekh.support;
 
 import java.util.Properties;
-import java.util.Random;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -16,10 +15,8 @@ import ekh.bean.ClienteBean;
 
 public class SendEmail {
 	public String getRandom() {
-		Random r = new Random();
-		int n = r.nextInt(999999);
-
-		return String.format("%06d", n);
+		GeneraRandom gr=new GeneraRandom();		
+		return gr.getRandom();
 	}
 
 	public boolean sendEmail(ClienteBean bean) {

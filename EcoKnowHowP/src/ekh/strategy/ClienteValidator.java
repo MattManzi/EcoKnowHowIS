@@ -20,13 +20,14 @@ public class ClienteValidator {
 			if (!validator.validator(50))
 				throw new Exception("ERRORE-RegistrazioneValidator: Funzione Aziendale");
 
-			validator.setString(inputs.get(3)); // RagioneSociale
-			if (!validator.validator(50))
-				throw new Exception("ERRORE-RegistrazioneValidator: Ragione Sociale");
-
 			validator.setString(inputs.get(4)); // Comune
 			if (!validator.validator(30))
 				throw new Exception("ERRORE-RegistrazioneValidator: Comune");
+
+			validator.setValidatorStrategy(new ValidatorAllLetterPoint());
+			validator.setString(inputs.get(3)); // RagioneSociale
+			if (!validator.validator(50))
+				throw new Exception("ERRORE-RegistrazioneValidator: Ragione Sociale");
 
 			validator.setValidatorStrategy(new ValidatorAlphaNumeric());
 			validator.setString(inputs.get(5)); // Via
@@ -36,14 +37,15 @@ public class ClienteValidator {
 			validator.setString(inputs.get(6)); // Civico
 			if (!validator.validator(10))
 				throw new Exception("ERRORE-RegistrazioneValidator: Civico");
-			
-			validator.setString(inputs.get(7)); // pIva o CF
-			if (!validator.validator(inputs.get(7).length())) 
-					throw new Exception("ERRORE-RegistrazioneValidator: PIVA CF");
-					
+
 			validator.setString(inputs.get(8)); // SDI
 			if (!validator.validator(6))
 				throw new Exception("ERRORE-RegistrazioneValidator: SDI");
+
+			validator.setValidatorStrategy(new ValidatorPIvaCF());
+			validator.setString(inputs.get(7)); // pIva o CF
+			if (!validator.validator(0))
+				throw new Exception("ERRORE-RegistrazioneValidator: PIVA CF");
 
 			validator.setValidatorStrategy(new ValidatorNumber());
 			validator.setString(inputs.get(9)); // CAP
@@ -75,10 +77,6 @@ public class ClienteValidator {
 			if (!validator.validator(15))
 				throw new Exception("ERRORE-RegistrazioneValidator: Password");
 
-			validator.setString(inputs.get(15)); // Password2
-			if (!validator.validator(15))
-				throw new Exception("ERRORE-RegistrazioneValidator: Conferma Password");
-
 			if (!inputs.get(14).equals(inputs.get(15)))
 				throw new Exception("ERRORE-RegistrazioneValidator: Password Diverse");
 
@@ -97,10 +95,6 @@ public class ClienteValidator {
 			validator.setString(inputs.get(0)); // Password
 			if (!validator.validator(15))
 				throw new Exception("ERRORE-ClienteValidator-passwordVal: Password");
-
-			validator.setString(inputs.get(1)); // Password2
-			if (!validator.validator(15))
-				throw new Exception("ERRORE-ClienteValidator-passwordVal: Conferma Password");
 
 			if (!inputs.get(0).equals(inputs.get(1)))
 				throw new Exception("ERRORE-ClienteValidator-passwordVal: Password Diverse");
@@ -123,8 +117,7 @@ public class ClienteValidator {
 				}else {
 					n=50;
 				}
-			} else if (dato.equals("via") || dato.equals("civico") || dato.equals("pIva") || dato.equals("cf")
-					|| dato.equals("sdi")) {
+			} else if (dato.equals("via") || dato.equals("civico") || dato.equals("sdi")) {
 				validator.setValidatorStrategy(new ValidatorAlphaNumeric());
 				if(dato.equals("via")) {
 					n=40;
@@ -137,7 +130,9 @@ public class ClienteValidator {
 				}else if(dato.equals("sdi")) {
 					n=6;
 				}
-			} else if (dato.equals("cap") || dato.equals("telefono")) {
+			}else if(dato.equals("ivaCF")){
+				validator.setValidatorStrategy(new ValidatorPIvaCF());
+			}else if (dato.equals("cap") || dato.equals("telefono")) {
 				validator.setValidatorStrategy(new ValidatorNumber());
 				if(dato.equals("cap")) {
 					n=5;

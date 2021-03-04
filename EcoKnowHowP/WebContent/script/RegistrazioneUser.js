@@ -2,12 +2,12 @@ $(document).ready(function() {
 	$.validator.addMethod('email_val', function(value, element) {
 		return this.optional(element) || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
 	});
-	$.validator.addMethod('userPass_val', function(value, element) {
-		return this.optional(element) || /^\w+([\.-]?\w+)*$/.test(value);
+	$.validator.addMethod('username_val', function(value, element) {
+		return this.optional(element) || /^\w{5,15}$/.test(value);
 	});
 	$.validator.addMethod('allLetter_val', function(value, element) {
 		return this.optional(element) || /^[A-Za-z]+(\s?[A-Za-z])*$/.test(value);
-	});
+	});	
 	$.validator.addMethod('phoneNumber_val', function(value, element) {
 		return this.optional(element) || /^\d{10}$/.test(value);
 	});
@@ -19,6 +19,9 @@ $(document).ready(function() {
 	});
 	$.validator.addMethod('pIvaCF_val', function(value, element) {
 		return this.optional(element) || /(^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z])|(^[0-9]{11})$/.test(value);
+	});	
+	$.validator.addMethod('password_val', function(value, element) {
+		return this.optional(element) || /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})/.test(value);
 	});
 
 	$("#formRegistrazioneUser").validate({
@@ -77,12 +80,12 @@ $(document).ready(function() {
 			'username': {
 				required: true,
 				minlength: 5,
-				userPass_val: true
+				username_val: true
 			},
 			'password': {
 				required: true,
 				minlength: 5,
-				userPass_val: true
+				password_val: true
 			},
 			'password2': {
 				required: true,
@@ -144,12 +147,12 @@ $(document).ready(function() {
 			'username': {
 				required: "Inserire un username.",
 				minlength: "Inserire almeno 5 caratteri.",
-				userPass_val: "Username non valido."
+				username_val: "Username non valido."
 			},
 			'password': {
 				required: "Inserire una password.",
 				minlength: "Inserire almeno 5 caratteri.",
-				userPass_val: "Password non valida."
+				password_val: "Password non valida."
 			},
 			'password2': {
 				required: "Confermare la password.",

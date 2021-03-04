@@ -197,10 +197,13 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 
 		ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
 
-		String selectSQL = "SELECT * FROM pacchetto WHERE tipo=? AND idMatrice=?";
+		String selectSQL = "SELECT * FROM pacchetto WHERE tipo=?";
 
 		if (username != null && !username.equals("")) {
 			selectSQL += " AND username=" + username;
+		}
+		if(idMatrice!=null && !idMatrice.equals("")) {
+			selectSQL += " AND idMatrice=" + idMatrice;
 		}
 
 		try {
@@ -236,6 +239,38 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			}
 		}
 		return pacchetti;
+	}
+	
+	public boolean controlloId(String id)throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		PacchettoBean bean=new PacchettoBean();
+		
+		String selectSQL="SELECT id FROM pacchetto WHERE id=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, id);
+
+			System.out.println("PaccheModelDM: controlloId:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setUsername(rs.getString("id"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		
+		return bean.isEmpty();
 	}
 
 	public synchronized static byte[] loadContenuto(String id) throws SQLException {
@@ -342,9 +377,9 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 		// Elimino il file
 		File modFile = new File(nomeFile);
 		if (modFile.delete()) {
-			System.out.println("Deleted the file: " + modFile.getName());
+			System.out.println("PacchettoModelDM: Deleted the file: " + modFile.getName());
 		} else {
-			System.out.println("Failed to delete the file.");
+			System.out.println("PacchettoModelDM: Failed to delete the file.");
 		}
 	}
 }

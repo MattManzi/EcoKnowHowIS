@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 
 import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
+import ekh.bean.MatriceBean;
 import ekh.bean.ModuloBean;
 import ekh.bean.PacchettoBean;
 import ekh.bean.PianoBean;
@@ -26,6 +27,7 @@ import ekh.model.PacchettoModelDM;
 import ekh.model.PianoModelDM;
 import ekh.model.RefertoModelDM;
 import ekh.model.SchedaSicurezzaModelDM;
+import ekh.strategy.PianoValidator;
 
 @WebServlet("/PianoControl")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -57,6 +59,7 @@ public class PianoControl extends HttpServlet {
 					|| (user != null || userRoles != null && !userRoles.booleanValue())) {
 				String action = request.getParameter("action");
 				if (action != null) {
+					redirectedPage = "/GestioneClientiAdmin.jsp";
 					if (action.equals("pianiCliente")) {
 						String username = request.getParameter("username");
 						if (username != null) {
@@ -67,24 +70,19 @@ public class PianoControl extends HttpServlet {
 						} else
 							throw new Exception("ERRORE-PianoControl: username null.");
 					} else if (action.equals("select")) {
+						request.getSession().removeAttribute("pianoAdmin");
 						String id = request.getParameter("id");
 						if (id != null) {
 							PianoBean piano = new PianoBean();
 							piano = modelPiano.doRetrieveByKey(id);
-							if (!piano.isEmpty()) {
-								PacchettoBean pacchetto = new PacchettoBean();
-								pacchetto = modelPacchetto.doRetrieveByKey(String.valueOf(piano.getIdPacchetto()));
-								if (!pacchetto.isEmpty()) {
-									pacchetto.readContenuto();
-									piano.setPacchetto(pacchetto);
+							if (!piano.isEmpty()) {									
+									piano.readContenuto();								
 									ModuloBean modulo = new ModuloBean();
 									modulo.readModulo(piano.getId());
 									piano.setModulo(modulo);
 									request.setAttribute("piano", piano);
 									request.getSession().setAttribute("pianoAdmin", piano);
 									redirectedPage = "/DettagliPianoCliente.jsp";
-								} else
-									throw new Exception("ERRORE-SelectPianoClienteServlet: pacchetto non trovato.");
 							} else
 								throw new Exception("ERRORE-SelectPianoClienteServlet: piano non trovato.");
 						} else {
@@ -128,7 +126,6 @@ public class PianoControl extends HttpServlet {
 							Blob blob = SchedaSicurezzaModelDM.downloadFile(idPiano);
 							InputStream inputStream = blob.getBinaryStream();
 							int fileLength = inputStream.available();
-							System.out.println("fileLength = " + fileLength);
 
 							ServletContext context = getServletContext();
 
@@ -178,6 +175,70 @@ public class PianoControl extends HttpServlet {
 								redirectedPage="/StoricoCliente.jsp";
 								throw new Exception("ERRORE-PianoControl: piano null.");
 							}							
+						}else {
+							if(action.equals("crea")) {
+								MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("SelectMatrice");
+								if(matrice!=null) {
+									PacchettoBean pacchetto=(PacchettoBean) request.getSession().getAttribute("SelectPacchetto");
+									if(pacchetto!=null) {
+										//obbligatorio
+										String ragioneSocialeProd=request.getParameter("ragioneSocialeProd");
+										String sedeLegaleProd=request.getParameter("sedeLegaleProd");
+										String pIvaProd=request.getParameter("pIvaProd");
+										String telefonoProd=request.getParameter("telefonoProd");
+										String emailProd=request.getParameter("emailProd");		
+										
+										String check=request.getParameter("check");
+										
+										String ragioneSocialeCom=request.getParameter("ragioneSocialeCom");
+										String sedeLegaleCom=request.getParameter("sedeLegaleCom");
+										String pIvaCom=request.getParameter("pIvaCom");
+										String telefonoCom=request.getParameter("telefonoCom");
+										String emailCom=request.getParameter("emailCom");
+										
+										String data=request.getParameter("data");
+										String luogo=request.getParameter("luogo");
+										String quantitaCampione=request.getParameter("quantitaCampione");										
+										String dataConferma=request.getParameter("dataConferma");
+										
+										//facoltativo
+										String nomeCampionatore=request.getParameter("nomeCampionatore");
+										String cognomeCampionatore=request.getParameter("cognomeCampionatore");
+										String norma=request.getParameter("norma");
+										String note=request.getParameter("note");
+										
+										PianoValidator pv=new PianoValidator();
+										
+										ArrayList<String> inputs=new ArrayList<String>();
+										inputs.add(ragioneSocialeProd);
+										inputs.add(sedeLegaleProd);
+										inputs.add(pIvaProd);
+										inputs.add(telefonoProd);
+										inputs.add(emailProd);
+										if(check==null || !check.equals("true")) {
+											inputs.add(ragioneSocialeCom);
+											inputs.add(sedeLegaleCom);
+											inputs.add(pIvaCom);
+											inputs.add(telefonoCom);
+											inputs.add(emailCom);
+										}
+										
+										ArrayList<String> inputs2=new ArrayList<String>();
+										inputs2.add(data);
+										inputs2.add(luogo);
+										inputs2.add(quantitaCampione);
+										inputs2.add(dataConferma);
+										
+										
+									}else {
+										redirectedPage="/SceltaTipoPacchettoCliente.jsp";
+										throw new Exception("ERRORE-PianoControl-user-crea: matrice null.");
+									}
+								}else{
+									redirectedPage="/SceltaMatriceCliente.jsp";
+									throw new Exception("ERRORE-PianoControl-user-crea: matrice null.");
+								}
+							}
 						}
 					}
 				} else

@@ -1,5 +1,6 @@
 package ekh.control;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
 import ekh.bean.PacchettoBean;
 import ekh.bean.ParametroBean;
+import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
 
 @WebServlet("/ParametroControl")
@@ -22,6 +24,7 @@ public class ParametroControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ParametroModelDM model = new ParametroModelDM();
+	PacchettoModelDM modelPacchetto=new PacchettoModelDM();
 
 	public ParametroControl() {
 		super();
@@ -126,6 +129,25 @@ public class ParametroControl extends HttpServlet {
 								} else {
 									String idParametro = request.getParameter("id");
 									if (idParametro != null) {
+										String SAVE_DIR = "uploadTemp";
+										String appPath = request.getServletContext().getRealPath("");
+										String savePath = appPath + SAVE_DIR;
+										File fileSaveDir = new File(savePath);
+										if (!fileSaveDir.exists()) {
+											fileSaveDir.mkdir();
+										}
+										ArrayList<PacchettoBean> pacchetti=new ArrayList<PacchettoBean>();
+										pacchetti=modelPacchetto.doRetrieveAll("id");
+										for(PacchettoBean bean:pacchetti) {
+											bean.readContenuto();
+											for(ParametroBean param:bean.getContenuto()) {
+												if(param.getId()==Integer.parseInt(idParametro)) {
+													bean.remParametro(param);
+													bean.stampContenuto(savePath);
+													break;
+												}
+											}
+										}
 										model.doDelete(idParametro);
 									} else {
 										redirectedPage = "/ModificaMatriceAdmin.jsp";

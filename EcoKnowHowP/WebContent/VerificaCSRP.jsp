@@ -15,11 +15,11 @@
 <body>
 <h1>VerificaCodice</h1>
 	<p>Inserire il codice ricevuto via email.</p>
-	<form name="formVerificaCodiceRP" action="<%=response.encodeURL("RecuperaPasswordServlet?action=codice&user="+user) %>" method="post">
+	<form name="formVerificaCodiceRP" action="<%=response.encodeURL("RP?action=codice&user="+user) %>" method="post">
 		<input type="text" name="codice">
 		<input type="submit" value="verifica">
 	</form>	
-	<p>Non hai ricevuto l'e-mail? <a href="<%=response.encodeURL("RecuperaPasswordServlet?action=sendEmail&user="+user) %>">Invia codice</a></p>
+	<p>Non hai ricevuto l'e-mail? <a href="<%=response.encodeURL("RP?action=sendEmail&user="+user) %>">Invia codice</a></p>
 	
 </body>
 </html>

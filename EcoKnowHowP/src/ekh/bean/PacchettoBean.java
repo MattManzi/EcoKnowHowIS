@@ -16,7 +16,7 @@ public class PacchettoBean {
 	private String username;
 	private ArrayList<ParametroBean> contenuto;
 	private double prezzo;
-
+	
 	public PacchettoBean() {
 		id = "";
 		idMatrice=0;
@@ -47,11 +47,19 @@ public class PacchettoBean {
 		this.id = id;
 	}
 
-	public void generaId() {
+	public void generaId() throws SQLException {
+		PacchettoModelDM model=new PacchettoModelDM();
 		Random r = new Random();
 		int n = r.nextInt(999999);
-		id=String.format("%06d", n);
+		String idTemp=String.format("%06d", n);
+		
+		if(model.controlloId(idTemp)) {
+			id=idTemp;
+		}else {
+			generaId();
+		}		
 	}
+	
 	public int getIdMatrice() {
 		return idMatrice;
 	}
@@ -177,7 +185,7 @@ public class PacchettoBean {
 			try {
 				contenuto.add(model.doRetrieveByKey(id));
 			} catch (SQLException e) {
-				System.out.println("Errore PacchettoBean readContenuto: "+e.getMessage());
+				System.out.println("ERORRE-PacchettoBean: readContenuto: "+e.getMessage());
 			}
 		}
 	}

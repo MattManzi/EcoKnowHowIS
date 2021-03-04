@@ -5,28 +5,26 @@
 Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
 ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
+PianoBean pianoAdmin = null;
+PianoBean piano = null;
 Boolean key = false;
 
 if ((admin != null && adminRoles != null && adminRoles.booleanValue())
 		|| (user != null || userRoles != null && userRoles.booleanValue())) {
 	if(admin!=null){
-		PianoBean piano = (PianoBean) request.getSession().getAttribute("pianoAdmin");
-		if(piano==null){
+		pianoAdmin = (PianoBean) request.getSession().getAttribute("pianoAdmin");
+		if(pianoAdmin==null){
 			response.sendRedirect("./GestioneClientiAdmin.jsp");
 			return;
 		}else{
 			key = true;	
 		}
 	}else{
-		PianoBean piano = (PianoBean) request.getAttribute("pianoAdmin");
+		piano = (PianoBean) request.getAttribute("pianoAdmin");
 		if(piano==null){
 			response.sendRedirect("./GestioneClientiAdmin.jsp");
 			return;
 		}
-	}
-	PacchettoBean pacchetto=(PacchettoBean) request.getAttribute("pacchettoPiano");
-	if(pacchetto==null){
-		
 	}
 } else {
 	response.sendRedirect("./HomePage.jsp");
@@ -34,13 +32,28 @@ if ((admin != null && adminRoles != null && adminRoles.booleanValue())
 }
 
 /*
-Lista con tutti il pacchetto usato dal cliente e i dati inseriti nel modulo.
-Il Cliente qui non potra fare niente!
-L'admin potrà modificare il prezzo e lo stato.
+Lista con tutti i parametri selezionati dal cliente e i dati inseriti nel modulo.
+Il Cliente qui potrà solo scaricare il referto.
+L'admin potrà modificare il prezzo e lo stato; caricare/scaricare il referto; scaricare la SDS.
+
+if(key){
+	stato modificabile
+	input per il prezzo
+	button dlSDS
+}
+
+if(piano.getReferto){
+	button dlReferto
+}else{
+	button ulReferto
+}
 
 Servlet Necessarie:
-	SelectPianoClienteServlet - OK
-	ModificaPianoClienteAdminServler - X
+	PianoControl?action=dlReferto - OK x
+	PianoControl?action=ulReferto - OK x
+	PianoControl?action=dlSDS - OK x
+	PianoControl?action=prezzo - X
+	PianoControl?action=stato - X
 */
 %>
 <!DOCTYPE html>

@@ -10,7 +10,13 @@ public class AmministratoreValidator {
 			if (dato.equals("email")) {
 				validator.setValidatorStrategy(new ValidatorEmail());
 				n=50;
-			}else 
+			}else if(dato.equals("password")) {
+				validator.setValidatorStrategy(new ValidatorPassword());
+				n=15;
+			}else if(dato.equals("username")) {
+				validator.setValidatorStrategy(new ValidatorUsername());
+				n=15;
+			}else
 				throw new Exception("ERRORE-AmministratoreValidator-modificaProfiloVal: invalid dato for admin");
 
 			validator.setString(input);
@@ -31,10 +37,6 @@ public class AmministratoreValidator {
 			validator.setString(inputs.get(0)); // Password
 			if (!validator.validator(15))
 				throw new Exception("ERRORE-AmministratoreValidator-passwordVal: Password");
-
-			validator.setString(inputs.get(1)); // Password2
-			if (!validator.validator(15))
-				throw new Exception("ERRORE-AmministratoreValidator-passwordVal: Conferma Password");
 
 			if (!inputs.get(0).equals(inputs.get(1)))
 				throw new Exception("ERRORE-AmministratoreValidator-passwordVal: Password Diverse");

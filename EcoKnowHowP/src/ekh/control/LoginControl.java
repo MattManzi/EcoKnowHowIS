@@ -15,7 +15,7 @@ import ekh.model.AmministratoreModelDM;
 import ekh.model.ClienteModelDM;
 import ekh.support.EncryptionPassword;
 
-@WebServlet("/LoginControl")
+@WebServlet("/Login")
 public class LoginControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -55,8 +55,8 @@ public class LoginControl extends HttpServlet {
 							request.getSession().setAttribute("Admin", bean);
 							redirectedPage = "/HomePageAdmin.jsp";
 						} else {
-							redirectedPage = "/LoginAdmin.jsp";
 							request.getSession().setAttribute("adminRoles", false);
+							redirectedPage = "/LoginAdmin.jsp";
 							throw new Exception("ERRORE-LoginControl-admin: Account non trovato.");	
 						}
 					} else if (action.equals("user")) {
@@ -67,8 +67,8 @@ public class LoginControl extends HttpServlet {
 							request.getSession().setAttribute("User", bean);
 							redirectedPage = "/HomePage.jsp";
 						} else {
-							redirectedPage = "/LoginUser.jsp";
 							request.getSession().setAttribute("userRoles", false);
+							redirectedPage = "/LoginUser.jsp";
 							throw new Exception("ERRORE-LoginControl-user: Account non trovato.");
 						}
 					} else
@@ -79,7 +79,6 @@ public class LoginControl extends HttpServlet {
 				throw new Exception("ERRORE-LoginControl: action null.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			redirectedPage = "/HomePage.jsp";
 		}
 		redirectedPage = response.encodeURL(redirectedPage);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(redirectedPage);

@@ -8,12 +8,12 @@ CREATE USER 'ekh'@'localhost' IDENTIFIED BY 'adminadmin';
 GRANT ALL ON ecoknowhow.* TO 'ekh'@'localhost';
 
 CREATE TABLE cliente(
-	username char(20) not null,
+	username char(15) not null,
 	nome char(30) not null,
 	cognome char(30) not null, 
 	funzioneAziendale char(50) not null,
 	telefono char(10) not null,
-	ragioneSociale char(50) not null, 
+	ragioneSociale char(6) not null, 
 	indirizzo char(100) not null,
 	pIvaCF char(16) not null,
 	pec char(50) default null,
@@ -26,7 +26,7 @@ CREATE TABLE cliente(
 );
 
 CREATE TABLE amministratore(
-	username char(20) not null,
+	username char(15) not null,
 	email char(50) not null,
 	password char(35) not null,
 	codSicurezza char(7) not null,
@@ -64,24 +64,29 @@ CREATE TABLE pacchetto(
 	username char(20) not null,
 	contenuto mediumblob default null,
 	prezzo double default 0,
-	FOREIGN KEY(idMatrice) REFERENCES matrice(id),
+	FOREIGN KEY(idMatrice) REFERENCES matrice(id),	
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE piano(
-	id int not null AUTO_INCREMENT, 
-	idPacchetto char(6) not null,
+	id char(8) not null,
 	username char(20) not null,
+	pacchetto mediumblob default null,
 	modulo mediumblob default null,
 	referto mediumblob default null,
 	schedaDatiSicurezza mediumblob default null,
 	prezzo double default 0,
 	stato char(9) check(stato in('respinto', 'inAttesa', 'approvato')),	
-	FOREIGN KEY(idPacchetto) REFERENCES pacchetto(id),
-	FOREIGN KEY(username) REFERENCES cliente(username),
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE info(
+	id int not null,
+	anno char(4) not null,
+	idPiano char(4) not null,
+);
+
+insert into info(id, anno, idPiano) value(1,'2021','0001');
 insert into amministratore(username, email, password, codSicurezza) values('admin1', 'ptksfn@hotmail.com', 'a722c63db8ec8625af6cf71cb8c2d939', '336548');
 
 

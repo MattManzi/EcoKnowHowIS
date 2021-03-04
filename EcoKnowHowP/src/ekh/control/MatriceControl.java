@@ -132,6 +132,7 @@ public class MatriceControl extends HttpServlet {
 							request.setAttribute("matrici", matrici);
 							redirectedPage = "/SceltaMatriceCliente.jsp";
 						} else if (action.equals("select")) {
+							request.getSession().removeAttribute("SelectMatrice");
 							String idMatrice = request.getParameter("id");
 							if (idMatrice != null) {
 								MatriceBean bean = modelMatrice.doRetrieveByKey(idMatrice);
