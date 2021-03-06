@@ -10,7 +10,7 @@ public class ValidatorPassword implements InputVal{
 	}
 	public boolean validaPassword(String str, int n) {
 		if(str!=null && !str.equals("") && str.length()<=n) {
-			return Pattern.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})", str);
+			return Pattern.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{5,15})", str);
 		}
 		return false;
 	}

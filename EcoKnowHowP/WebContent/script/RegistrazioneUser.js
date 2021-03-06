@@ -23,7 +23,7 @@ $(document).ready(function() {
 	$.validator.addMethod('password_val', function(value, element) {
 		return this.optional(element) || /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})/.test(value);
 	});
-
+	
 	$("#formRegistrazioneUser").validate({
 		rules: {
 			'nome': {

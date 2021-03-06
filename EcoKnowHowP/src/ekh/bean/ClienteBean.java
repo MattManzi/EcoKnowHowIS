@@ -4,7 +4,7 @@ public class ClienteBean {
 	private String username;
 	private String nome;
 	private String cognome;
-	private String funzioneAziendale;
+	private String settore;
 	private String telefono;
 	private String ragioneSociale;
 	private String indirizzo;
@@ -20,7 +20,7 @@ public class ClienteBean {
 		username = "";
 		nome = "";
 		cognome = "";
-		funzioneAziendale = "";
+		settore = "";
 		telefono = "";
 		ragioneSociale = "";
 		indirizzo = "";
@@ -33,12 +33,12 @@ public class ClienteBean {
 		attivo=0;
 	}
 
-	public ClienteBean(String username, String nome, String cognome, String funzioneAziendale, String telefono,
+	public ClienteBean(String username, String nome, String cognome, String settore, String telefono,
 			String ragioneSociale, String indirizzo, String ivaCF, String pec, String sdi, String email, String password, String codSicurezza) {
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;
-		this.funzioneAziendale = funzioneAziendale;
+		this.settore = settore;
 		this.telefono = telefono;
 		this.ragioneSociale = ragioneSociale;
 		this.indirizzo = indirizzo;
@@ -75,12 +75,12 @@ public class ClienteBean {
 		this.cognome = cognome;
 	}
 
-	public String getFunzioneAziendale() {
-		return funzioneAziendale;
+	public String getSettore() {
+		return settore;
 	}
 
-	public void setFunzioneAziendale(String funzioneAziendale) {
-		this.funzioneAziendale = funzioneAziendale;
+	public void setSettore(String settore) {
+		this.settore = settore;
 	}
 
 	public String getTelefono() {
