@@ -41,7 +41,6 @@ public class LoginControl extends HttpServlet {
 
 		String redirectedPage = "/HomePage.jsp";
 		String action = request.getParameter("action");
-
 		try {
 			if (action != null) {
 				String username = request.getParameter("username");

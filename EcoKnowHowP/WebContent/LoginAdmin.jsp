@@ -16,7 +16,7 @@
 <body>
 <a href="<%=response.encodeURL("HomePage.jsp") %>" class="logo"> EcoKnowHow </a>
 	<div id="main">
-		<form name="formLoginAdmin" action="<%=response.encodeURL("LoginControl?action=admin") %>" method="post">
+		<form name="formLoginAdmin" action="<%=response.encodeURL("Login?action=admin") %>" method="post">
 			<fieldset>
 				<label for="username">Username</label> 
 				<input class="normal" id="username" type="text" name="username" placeholder="enter username"><br> 
