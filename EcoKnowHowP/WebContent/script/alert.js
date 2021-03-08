@@ -24,7 +24,7 @@ function confermaMatriceMod(action){
 function cancellaParMatrice(id){
 	var scelta=confirm("Eliminare il parametro dalla matrice?");
 	if(scelta===true){
-		location.href="ParametroControl?action=delParM&id="+id;
+		location.href="Parametro?action=delParM&id="+id;
 	}
 }
 
@@ -33,14 +33,14 @@ function cancellaParMatrice(id){
 function cancellaPacchetto(id){
 	var scelta=confirm("Sei sicuro di voler eliminare il pacchetto?");
 	if(scelta===true){
-		location.href="PacchettoControl?action=delete&id="+id;
+		location.href="Pacchetto?action=delete&id="+id;
 	}
 }
 
 function selectPacchettoMod(id){
 	var scelta=confirm("Procedere con la modifica del pacchetto?");
 	if(scelta===true){
-		location.href="PacchettoControl?action=select&id="+id;
+		location.href="Pacchetto?action=select&id="+id;
 	}
 }
 

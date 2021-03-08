@@ -1,5 +1,20 @@
 @charset "ISO-8859-1";
 
+.hidden{
+	visibility: hidden;
+}
+
+.show{
+	visibility:visible;
+}
+.contenitore{
+	padding-top: 15px;
+}
+
+#formName{
+	display: inline-block;
+
+}
 
 .canvas{
 	padding: 20% 10% 0 10%;

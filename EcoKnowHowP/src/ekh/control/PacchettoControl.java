@@ -16,17 +16,18 @@ import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
 import ekh.bean.PacchettoBean;
 import ekh.bean.ParametroBean;
+import ekh.model.MatriceModelDM;
 import ekh.model.PacchettoModelDM;
 import ekh.model.ParametroModelDM;
 import ekh.strategy.PacchettoValidator;
 
-@WebServlet("/PacchettoControl")
+@WebServlet("/Pacchetto")
 public class PacchettoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	PacchettoModelDM modelPacchetto = new PacchettoModelDM();
 	ParametroModelDM modelParametro = new ParametroModelDM();
-
+	MatriceModelDM modelMatrice= new MatriceModelDM();
 	public PacchettoControl() {
 		super();
 	}
@@ -156,6 +157,7 @@ public class PacchettoControl extends HttpServlet {
 										request.getSession().removeAttribute("pacchetto");
 										request.getSession().setAttribute("pacchetto",
 												modelPacchetto.doRetrieveByKey(pacchetto.getId()));
+										
 									} else
 										throw new Exception("ERRORE-PacchettoControl-admin-visualizza: dati null.");
 								} else
@@ -204,6 +206,7 @@ public class PacchettoControl extends HttpServlet {
 									throw new Exception("ERRORE-PacchettoControl-admin-delete: id null.");
 							} else if (action.equals("select")) {
 								request.getSession().removeAttribute("pacchetto");
+								request.getSession().removeAttribute("matrice");
 								String id = request.getParameter("id");
 								if (id != null) {
 									PacchettoBean bean = new PacchettoBean();
@@ -212,6 +215,7 @@ public class PacchettoControl extends HttpServlet {
 										bean.readContenuto();
 										redirectedPage = "/ModificaPacchettoAdmin.jsp";
 										request.getSession().setAttribute("pacchetto", bean);
+										request.getSession().setAttribute("matrice", modelMatrice.doRetrieveByKey(String.valueOf(bean.getIdMatrice())));
 									} else
 										throw new Exception("ERRORE-PacchettoControl-admin-select: Pacchetto non trovata.");
 								} else

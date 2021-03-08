@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
 <%
-	AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 	Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 	MatriceBean bean=(MatriceBean)request.getSession().getAttribute("matrice");
 	Collection<?> parametri=(Collection<?>) request.getAttribute("parametri");
 	
-	if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+	if ( adminRoles == null || !adminRoles.booleanValue()) {
 		response.sendRedirect("./LoginAdmin.jsp");
 		return;
 	}else{
@@ -16,7 +15,7 @@
 		}
 		
 		if(parametri==null){
-			response.sendRedirect(response.encodeRedirectURL("ParametroControl?action=visualizza&jsp=matrice"));
+			response.sendRedirect(response.encodeRedirectURL("Parametro?action=visualizza&jsp=matrice"));
 			return;
 		}
 	}
@@ -27,14 +26,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript" src="./script/alert.js"></script>
-<link href="css/Template.css" rel="stylesheet">
 <link href="css/ModificaMatriceAdmin.css" rel="stylesheet">
 
-<title>Insert title here</title>
+<title>Modifica Matrice Admin</title>
 
 <script>
 function myFunction() {
@@ -103,29 +97,8 @@ function myFunctionSottotitolo() {
 </script>
 </head>
 <body>
-	<header class="header" id="header">
-		<div class="logo">
-			<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"><img src="./img/logo.png"></a>
-		</div>
-		<div class="nav" id="nav">
-		<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
-		<div class="invisibile">
-		<p><br></p>
-		<p><br></p>
-		<p><br></p>
-		</div>
-			<%if (admin == null){ %>
-				<a href="<%=response.encodeURL("LoginAdmin.jsp")%>" class="active">Login</a>					
-			<%}else{%>				
-				<a href="<%=response.encodeURL("")%>" class="active"><%=admin.getUsername() %></a>	
-			<%
-			}
-			%>
-			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
-			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
-			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
-		</div>	
-	</header>
+	
+	<%@ include file="NavAdmin.jsp" %>
 
 
 	<div class="contenitore">
@@ -135,7 +108,7 @@ function myFunctionSottotitolo() {
 		<div id="nome">
 			<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
 			<input id="modNome" onclick="myFunctionNome()" type="button" value="Modifica"></input>		
-			<form id="formName" class="hidden" action="<%=response.encodeURL("MatriceControl?action=nome") %>" method="post">
+			<form id="formName" class="hidden" action="<%=response.encodeURL("Matrice?action=nome") %>" method="post">
 				<input type="text" name="dato">			
 				<input type="submit" value="Salva">
 			</form>
@@ -144,7 +117,7 @@ function myFunctionSottotitolo() {
 		<div id="sottotitolo">
 			<p style="display: inline-block;">Sottotitolo: <%=bean.getSottotitolo()%></p>
 			<input id="modSottotitolo" onclick="myFunctionSottotitolo()" type="button" value="Modifica"></input>		
-			<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("MatriceControl?action=sottotitolo") %>" method="post">
+			<form id="formSottotitolo" class="hidden" action="<%=response.encodeURL("Matrice?action=sottotitolo") %>" method="post">
 				<input type="text" name="dato">			
 				<input type="submit" value="Salva">
 			</form>
@@ -154,7 +127,7 @@ function myFunctionSottotitolo() {
 		<div id="Descrizioni">
 		<p style="display: inline-block;">Descrizione: <%=bean.getDescrizione()%></p>
 		<input id="modDescrizione" onclick="myFunctionDescrizione()" type="button" value="Modifica"></input>		
-		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("MatriceControl?action=descrizione") %>" method="post">
+		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("Matrice?action=descrizione") %>" method="post">
 			<input type="text" name="dato">			
 			<input type="submit" value="Salva">
 		</form>
@@ -172,14 +145,6 @@ function myFunctionSottotitolo() {
 			<tr>	
 				<td>Sku: </td>
 				<td><input type="text" name="sku" maxlength="30"></td>
-			</tr>
-			<tr>
-				<td>Capione: </td>
-				<td><input type="text" name="campione" maxlength="30"></td>
-			</tr>
-			<tr>
-				<td>Campionamento </td>
-				<td><input type="text" name="campionamento" maxlength="30"></td>
 			</tr>
 			<tr>
 				<td>Limite Emissione: </td>
@@ -237,8 +202,6 @@ function myFunctionSottotitolo() {
 	</div>
 
 
-
-
 <div>
 <table>
 
@@ -257,8 +220,6 @@ function myFunctionSottotitolo() {
 </table>
 </div>
 	
-	<footer class="footer">
-		<p>2020 Prova&copy;</p>
-	</footer>
+<%@ include file="Footer.jsp" %>>
 </body>
 </html>

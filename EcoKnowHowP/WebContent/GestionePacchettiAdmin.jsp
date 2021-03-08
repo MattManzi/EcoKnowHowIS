@@ -14,7 +14,7 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 	return;
 }else{
 	if(pacchetti==null){
-		response.sendRedirect(response.encodeRedirectURL("./PacchettoControl?action=visualizza"));
+		response.sendRedirect(response.encodeRedirectURL("./Pacchetto?action=visualizza"));
 		return;
 	}
 }

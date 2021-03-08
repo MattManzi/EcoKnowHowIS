@@ -3,16 +3,21 @@
 <!DOCTYPE html>
 
 <%
-AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
-PacchettoBean pacchetto=(PacchettoBean) request.getSession().getAttribute("pacchetto");
-if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
+
+PacchettoBean bean=null;
+MatriceBean matrice=null;
+
+if ( adminRoles == null || !adminRoles.booleanValue()) {
 	response.sendRedirect("./LoginAdmin.jsp");
 	return;
 }else{
-	if(pacchetto==null){
-		response.sendRedirect(response.encodeRedirectURL("./PacchettoControl?action=visualizza"));
+	bean=(PacchettoBean)request.getSession().getAttribute("pacchetto");
+	if(bean==null){
+		response.sendRedirect(response.encodeRedirectURL("./Pacchetto?action=visualizza"));
 		return;
+	}else{
+		 matrice=(MatriceBean)request.getSession().getAttribute("matrice");
 	}
 }
 
@@ -22,70 +27,122 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="css/HomePage.css" rel="stylesheet">
 <link href="css/GestioneMatriceAdmin.css" rel="stylesheet">
-<title>Insert title here</title>
+<title>Modifica Pacchetto Admin</title>
+
+<script>
+
+
+function myFunctionNome() {
+  var x = document.getElementById("formName");
+  if (x.className === "hidden") {
+    x.className = "show";
+  } else {
+    x.className = "hidden";
+  }
+  var x = document.getElementById("modNome");
+  if(x.value=="Modifica") {
+	  x.value="Annulla";
+  } else {
+	  x.value="Modifica"
+  }
+}
+</script>
+
+<script>
+
+function myFunctionDescrizione() {
+  var x = document.getElementById("formDescrizione");
+  if (x.className === "hidden") {
+    x.className = "show";
+  } else {
+    x.className = "hidden";
+  }
+  var x = document.getElementById("modDescrizione");
+  if(x.value=="Modifica") {
+	  x.value="Annulla";
+  } else {
+	  x.value="Modifica"
+  }
+}
+</script>
+
 </head>
+
 <body>
 
-	<header class="header">
-		<a href="<%=response.encodeURL("HomePage.jsp")%>" class="header__logo">EcoKnowHow</a>
-		<ul class="header__menu ">
-			<li class="header__menu__item"><a
-				href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione
-					Matrici</a></li>
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/GestionePacchettiAdmin.jsp">Gestione
-					Pacchetti</a></li>
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/GestioneClientiAdmin.jsp">Gestione
-					Clienti</a></li>
-			<%
-			if (admin == null) {
-			%>
-			<li class="header__menu__item"><a
-				href="${pageContext.request.contextPath}/LoginUser.jsp">Login</a> <%
- 				} else {
-				 %> <a href=><%=admin.getUsername()%></a> <%
- 			}%>
- 			</li>
-		</ul>
-	</header>
+<%@ include file="NavAdmin.jsp" %>
+
+
+
+<div class="contenitore">
+
+		<h1>Modifica Parametro</h1>
+		
+		<div id="nomeMatrice">
+			<p style="display: inline-block;">Matrice di Riferimento: <%=matrice.getNome()%></p>
+		</div>		
+		
+	
+		<div id="nome">
+			<p style="display: inline-block;">Nome: <%=bean.getNome() %></p>
+			<input id="modNome" onclick="myFunctionNome()" type="button" value="Modifica"></input>		
+			<form id="formName" class="hidden" action="<%=response.encodeURL("Pacchetto?action=nome") %>" method="post">
+				<input type="text" name="dato">			
+				<input type="submit" value="Salva">
+			</form>
+		</div>	
+
+	<div id="Descrizioni">
+		<p style="display: inline-block;">Descrizione: <%=bean.getDescrizione()%></p>
+		<input id="modDescrizione" onclick="myFunctionDescrizione()" type="button" value="Modifica"></input>		
+		<form id="formDescrizione" class="hidden" action="<%=response.encodeURL("Pacchetto?action=descrizione") %>" method="post">
+			<input type="text" name="dato">			
+			<input type="submit" value="Salva">
+		</form>
+	</div>
 	
 	
+	<div id="tipo">
+		<p style="display: inline-block;">Tipo di Pacchetto: <%=bean.getTipo()%></p>
+	</div>
+	
+	
+	<div id="username">
+		<p style="display: inline-block;">Creatore del pacchetto: <%=bean.getUsername()%></p>
+	</div>
+</div>
+
+
 		<%
 				int prezzo=0;
-				if(pacchetto.getContenuto().size()== 0){
+				if(bean.getContenuto().size()== 0){
 			%>				
 					<p>Il tuo pacchetto è vuoto. Aggiungi i parametri per comporre il pacchetto</p>
 						
 			<%
 				}else{
-					Iterator<?> it = pacchetto.getContenuto().iterator();
+					Iterator<?> it = bean.getContenuto().iterator();
 					while (it.hasNext()) {
-						ParametroBean bean = (ParametroBean) it.next();
+						ParametroBean parametro = (ParametroBean) it.next();
 						prezzo+= bean.getPrezzo();
 			%>	
 						<div>
-						<a href="<%=response.encodeURL("PacchettoControl?action=componi&function=rimuovi&id="+bean.getId())%>">X</a>
-							<a href="" > <%=bean.getNome()%>  </a> 	
-							<a href="" >   <%=bean.getPrezzo()%> </a> 		
+						<a href="<%=response.encodeURL("Pacchetto?action=componi&function=rimuovi&id="+bean.getId())%>">X</a>
+							<a href="" > <%=parametro.getNome()%>  </a> 	
+							<a href="" >   <%=parametro.getPrezzo()%> </a> 		
 						</div>		
 			<%	
 					} 	
 				}
 			%>
 	
-	
 
-		<footer class="footer">
-		<p>2020 Prova&copy;</p>
-	</footer>
+		
+
+
+
+
+<%@ include file="Footer.jsp" %>	
 </body>
 </html>
