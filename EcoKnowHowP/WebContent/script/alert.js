@@ -1,22 +1,23 @@
 //MATRICI
+
 function cancellaMatrice(id){
 	var scelta=confirm("Sei sicuro di voler eliminare la matrice?");
 	if(scelta===true){
-		location.href="MatriceControl?action=delete&id="+id;
+		location.href="Matrice?action=delete&id="+id;
 	}
 }
 
 function selectMatriceMod(id){
 	var scelta=confirm("Procedere con la modifica della matrice?");
 	if(scelta===true){
-		location.href="MatriceControl?action=select&id="+id;
+		location.href="Matrice?action=select&id="+id;
 	}
 }
 
 function confermaMatriceMod(action){
 	var scelta=confirm("Salvare le modifiche?");
 	if(scelta===true){
-		a.action="MatriceControl?action="+action;
+		a.action="Matrice?action="+action;
 	}
 }
 

@@ -15,7 +15,7 @@
 	<a href="${pageContext.request.contextPath}/jsp/HomePage.jsp" class="logo">EcoKnowHow</a>
 	<div>
 		<fieldset><legend>Registrazione</legend>
-			<form id="formRegistrazioneUser" name="formRegistrazioneUser" action="<%=response.encodeURL("ClienteControl?action=inserimentoDati")%>" method="post">
+			<form id="formRegistrazioneUser" name="formRegistrazioneUser" action="<%=response.encodeURL("User?action=inserimentoDati")%>" method="post">
 				<table>
 					<tr>
 						<td><label for="nome">Nome:</label></td>	

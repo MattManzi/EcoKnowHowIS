@@ -23,11 +23,12 @@ public class ClienteValidator {
 			validator.setString(inputs.get(4)); // Comune
 			if (!validator.validator(30))
 				throw new Exception("ERRORE-RegistrazioneValidator: Comune");
-
-			validator.setValidatorStrategy(new ValidatorAllLetterPoint());
-			validator.setString(inputs.get(3)); // RagioneSociale
-			if (!validator.validator(50))
-				throw new Exception("ERRORE-RegistrazioneValidator: Ragione Sociale");
+			/*
+			 * validator.setValidatorStrategy(new ValidatorAllLetterPoint());
+			 * validator.setString(inputs.get(3)); // RagioneSociale if
+			 * (!validator.validator(50)) throw new
+			 * Exception("ERRORE-RegistrazioneValidator: Ragione Sociale");
+			 */
 
 			validator.setValidatorStrategy(new ValidatorAlphaNumeric());
 			validator.setString(inputs.get(5)); // Via

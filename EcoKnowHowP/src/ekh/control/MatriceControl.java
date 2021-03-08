@@ -31,7 +31,7 @@ public class MatriceControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String redirectedPage = "/HomePage.jsp";
-
+		System.out.println("matrice visualizza");
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 		Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
@@ -43,6 +43,7 @@ public class MatriceControl extends HttpServlet {
 				String action = request.getParameter("action");
 				if (action != null) {
 					if (admin != null) {
+						System.out.println("matrice visualizza");
 						redirectedPage = "/GestioneMatriciAdmin.jsp";
 						if (action.equals("visualizza")) {
 							ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();

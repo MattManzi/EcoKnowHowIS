@@ -43,8 +43,7 @@ $(document).ready(function() {
 				phoneNumber_val: true
 			},
 			'ragioneSociale': {
-				required: true,
-				allLetter_val: true
+				required: true
 			},
 			'via': {
 				required: true,
@@ -110,8 +109,7 @@ $(document).ready(function() {
 				phoneNumber_val: "Numero non valido."
 			},
 			'ragioneSociale': {
-				required: "Inserire una Ragione Sociale.",
-				allLetter_val: "Ragione Sociale non valida."
+				required: "Inserire una Ragione Sociale."
 			},
 			'via': {
 				required: "Inserire una via.",

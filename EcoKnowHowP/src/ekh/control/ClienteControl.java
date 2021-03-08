@@ -44,6 +44,7 @@ public class ClienteControl extends HttpServlet {
 		try {
 			String action = request.getParameter("action");
 			if (action != null) {
+				
 				if (action.equals("inserimentoDati")) {
 					String nome = request.getParameter("nome");
 					String cognome = request.getParameter("cognome");
@@ -62,7 +63,9 @@ public class ClienteControl extends HttpServlet {
 					String password = request.getParameter("password");
 					String password2 = request.getParameter("password2");
 
+					System.out.println(nome +" " +ragioneSociale);
 					ArrayList<String> inputs = new ArrayList<String>();
+					
 					inputs.add(nome.trim());
 					inputs.add(cognome.trim());
 					inputs.add(funzioneAziendale.trim());

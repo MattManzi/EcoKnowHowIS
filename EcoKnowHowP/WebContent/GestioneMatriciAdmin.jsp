@@ -11,7 +11,7 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 	return;
 }else{
 	if(matrici==null){
-		response.sendRedirect(response.encodeRedirectURL("./MatriceControl?action=visualizza"));
+		response.sendRedirect(response.encodeRedirectURL("./Matrice?action=visualizza"));
 		return;
 	}
 }
@@ -24,6 +24,7 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/Template.css" rel="stylesheet">
+<script type="text/javascript" src="./script/alert.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Gestione Matrice Admin</title>
