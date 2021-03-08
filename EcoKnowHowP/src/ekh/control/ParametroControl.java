@@ -81,8 +81,6 @@ public class ParametroControl extends HttpServlet {
 								if (action.equals("addParM")) {
 									String nome = request.getParameter("nome");
 									String sku = request.getParameter("sku");
-									String campione = request.getParameter("campione");
-									String campionamento = request.getParameter("campionamento");
 									String limiteEmissione = request.getParameter("limiteEmissione");
 									String uMisura = request.getParameter("uMisura");
 									String prezzo = request.getParameter("prezzo");
@@ -99,8 +97,6 @@ public class ParametroControl extends HttpServlet {
 									bean.setIdMatrice(matrice.getId());
 									bean.setNome(nome);
 									bean.setSku(sku);
-									bean.setCampione(campione);
-									bean.setCampionamento(campionamento);
 									bean.setLimiteEmissione(limiteEmissione);
 									bean.setuMisura(uMisura);
 									bean.setPrezzo(Double.parseDouble(prezzo));

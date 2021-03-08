@@ -139,10 +139,6 @@ public class ClienteBean {
 		this.email = email;
 	}
 	
-	public void setFunzioneAziendale(String string) {
-		this.fun
-	}
-
 	public String getPassword() {
 		return password;
 	}

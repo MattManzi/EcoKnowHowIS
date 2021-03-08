@@ -32,8 +32,6 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 				bean.setIdMatrice(rs.getInt("idMatrice"));	
 				bean.setNome(rs.getString("nome"));	
 				bean.setSku(rs.getString("sku"));	
-				bean.setCampione(rs.getString("campione"));	
-				bean.setCampionamento(rs.getString("campionamento"));	
 				bean.setLimiteEmissione(rs.getString("limiteEmissione"));	
 				bean.setuMisura(rs.getString("uMisura"));	
 				bean.setPrezzo(rs.getDouble("prezzo"));	
@@ -78,8 +76,6 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 				bean.setIdMatrice(rs.getInt("idMatrice"));	
 				bean.setNome(rs.getString("nome"));	
 				bean.setSku(rs.getString("sku"));	
-				bean.setCampione(rs.getString("campione"));	
-				bean.setCampionamento(rs.getString("campionamento"));	
 				bean.setLimiteEmissione(rs.getString("limiteEmissione"));	
 				bean.setuMisura(rs.getString("uMisura"));	
 				bean.setPrezzo(rs.getDouble("prezzo"));	
@@ -103,7 +99,7 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (?,?,?,?,?,?,?,?)";
+		String insertSQL="INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura, prezzo ) VALUES (?,?,?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -112,11 +108,9 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 			preparedStatement.setInt(1, bean.getIdMatrice());
 			preparedStatement.setString(2, bean.getNome());
 			preparedStatement.setString(3, bean.getSku());
-			preparedStatement.setString(4, bean.getCampione());
-			preparedStatement.setString(5, bean.getCampionamento());
-			preparedStatement.setString(6, bean.getLimiteEmissione());
-			preparedStatement.setString(7, bean.getuMisura());
-			preparedStatement.setDouble(8, bean.getPrezzo());
+			preparedStatement.setString(4, bean.getLimiteEmissione());
+			preparedStatement.setString(5, bean.getuMisura());
+			preparedStatement.setDouble(6, bean.getPrezzo());
 
 			System.out.println("ParametroModelDM: doSave:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -215,9 +209,7 @@ public class ParametroModelDM implements ClassModel<ParametroBean> {
 				bean.setId(rs.getInt("id"));	
 				bean.setIdMatrice(rs.getInt("idMatrice"));	
 				bean.setNome(rs.getString("nome"));	
-				bean.setSku(rs.getString("sku"));	
-				bean.setCampione(rs.getString("campione"));	
-				bean.setCampionamento(rs.getString("campionamento"));	
+				bean.setSku(rs.getString("sku"));		
 				bean.setLimiteEmissione(rs.getString("limiteEmissione"));	
 				bean.setuMisura(rs.getString("uMisura"));	
 				bean.setPrezzo(rs.getDouble("prezzo"));	

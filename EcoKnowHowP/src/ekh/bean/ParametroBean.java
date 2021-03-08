@@ -5,8 +5,6 @@ public class ParametroBean {
 	private int idMatrice;
 	private String nome;
 	private String sku;
-	private String campione;
-	private String campionamento;
 	private String limiteEmissione;
 	private String uMisura;
 	private double prezzo;
@@ -16,21 +14,16 @@ public class ParametroBean {
 		idMatrice = 0;
 		nome = "";
 		sku = "";
-		campione = "";
-		campionamento = "";
 		limiteEmissione = "";
 		uMisura = "";
 		prezzo = 0;
 	}
 	
-	public ParametroBean(int id, int idMatrice, String nome, String sku, String campione, String campionamento,
-			String limiteEmissione, String uMisura, double prezzo) {
+	public ParametroBean(int id, int idMatrice, String nome, String sku, String limiteEmissione, String uMisura, double prezzo) {
 		this.id = id;
 		this.idMatrice = idMatrice;
 		this.nome = nome;
 		this.sku = sku;
-		this.campione = campione;
-		this.campionamento = campionamento;
 		this.limiteEmissione = limiteEmissione;
 		this.uMisura = uMisura;
 		this.prezzo = prezzo;
@@ -68,22 +61,6 @@ public class ParametroBean {
 		this.sku = sku;
 	}
 
-	public String getCampione() {
-		return campione;
-	}
-
-	public void setCampione(String campione) {
-		this.campione = campione;
-	}
-
-	public String getCampionamento() {
-		return campionamento;
-	}
-
-	public void setCampionamento(String campionamento) {
-		this.campionamento = campionamento;
-	}
-
 	public String getLimiteEmissione() {
 		return limiteEmissione;
 	}
@@ -109,9 +86,6 @@ public class ParametroBean {
 	}
 	
 	public boolean isEmpty() {
-		if (id == 0) {
-			return true;
-		}
-		return false;
+		return id==0;
 	}
 }

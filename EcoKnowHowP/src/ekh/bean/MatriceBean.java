@@ -4,20 +4,20 @@ public class MatriceBean {
 	private int id;
 	private String nome;
 	private String sottotitolo;
-	private String descrizione;
+	private String nota;
 	
 	public MatriceBean() {
 		id=0;
 		nome = "";
 		sottotitolo = "";
-		descrizione = "";
+		nota = "";
 	}
 	
-	public MatriceBean(int id, String nome, String sottotitolo, String descrizione) {
+	public MatriceBean(int id, String nome, String sottotitolo, String nota) {
 		this.id=id;
 		this.nome = nome;
 		this.sottotitolo = sottotitolo;
-		this.descrizione = descrizione;
+		this.nota = nota;
 	}
 
 	public int getId() {
@@ -44,18 +44,15 @@ public class MatriceBean {
 		this.sottotitolo = sottotitolo;
 	}
 
-	public String getDescrizione() {
-		return descrizione;
+	public String getNota() {
+		return nota;
 	}
 
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setNota(String nota) {
+		this.nota = nota;
 	}
 	
 	public boolean isEmpty() {
-		if (id == 0) {
-			return true;
-		}
-		return false;
+		return id==0;
 	}
 }

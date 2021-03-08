@@ -30,13 +30,13 @@ public class MatriceValidator {
 		InputValidator validator = new InputValidator();
 		int n=0;
 		try {
-			if (dato.equals("nome") || dato.equals("sottotitolo") || dato.equals("descrizione")) {
+			if (dato.equals("nome") || dato.equals("sottotitolo") || dato.equals("nota")) {
 				validator.setValidatorStrategy(new ValidatorAlphaNumeric());
 				if(dato.equals("nome")) {
 					n=20;
 				}else if(dato.equals("sottotitolo")) {
 					n=50;
-				}else if(dato.equals("descrizione")) {
+				}else if(dato.equals("nota")) {
 					n=250;
 				}
 			}else

@@ -1,5 +1,19 @@
-
 @charset "ISO-8859-1";
+
+
+#main{
+	width: 95%;
+	margin: auto;
+	padding-top: 30px;
+}
+
+.contenitore form{
+	display: inline-block;
+}
+
+#formAddParametro label.error{
+	color: #f33;
+}
 	
 .hidden{
 	visibility: hidden;
@@ -8,11 +22,36 @@
 .show{
 	visibility:visible;
 }
-.contenitore{
-	padding-top: 15px;
+
+p{
+	display: inline-block;
 }
 
-#formName{
-	display: inline-block;
+#parametri{
+	width: 95%;
+	display: table;
+	margin: auto;
+	padding-top: 50px;
+}
 
+#addPar{
+	width: 30%;
+	display:table-cell;	
+}
+
+#allPar{
+	width: 70%;
+	display:table-cell;
+}
+
+#allPar table{
+	text-align:center;
+	border-collapse: collapse;
+	width:100%;	
+	 box-shadow:10px  10px 5px #dedede, -10px -10px 5px #dedede, 10px -10px 5px #dedede, -10px  10px 5px #dedede;
+}
+
+#allPar table th{
+	padding: 20px 0;
+	background: #ADD8E6;
 }

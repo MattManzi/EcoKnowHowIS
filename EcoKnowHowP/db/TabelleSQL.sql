@@ -11,7 +11,7 @@ CREATE TABLE cliente(
 	username char(15) not null,
 	nome char(30) not null,
 	cognome char(30) not null, 
-	funzioneAziendale char(50) not null,
+	settore char(20) not null,
 	telefono char(10) not null,
 	ragioneSociale char(6) not null, 
 	indirizzo char(100) not null,
@@ -37,19 +37,17 @@ CREATE TABLE matrice(
 	id int not null AUTO_INCREMENT, 
 	nome char(20) not null,
 	sottotitolo char(50) not null,
-	descrizione char(250) not null,
+	nota char(250) not null,
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE parametro(
 	id int not null AUTO_INCREMENT, 
 	idMatrice int not null,
-	nome char(20) not null,
+	nome char(100) not null,
 	sku char(20) not null,
-	campione char(50) not null,
-	campionamento char(50) not null,
-	limiteEmissione char(10) not null,
-	uMisura char(10) not null,
+	limiteEmissione char(20) not null,
+	uMisura char(20) not null,
 	prezzo double default 0,
 	FOREIGN KEY(idMatrice) REFERENCES matrice(id),
 	PRIMARY KEY(id)
@@ -83,49 +81,11 @@ CREATE TABLE piano(
 CREATE TABLE info(
 	id int not null,
 	anno char(4) not null,
-	idPiano char(4) not null,
+	idPiano char(4) not null
 );
 
 insert into info(id, anno, idPiano) value(1,'2021','0001');
 insert into amministratore(username, email, password, codSicurezza) values('admin1', 'ptksfn@hotmail.com', 'a722c63db8ec8625af6cf71cb8c2d939', '336548');
-
-
-insert into matrice(nome, sottotitolo, descrizione) values('Acque', 'Analisi Acque', 'descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1 descrizone1');
-insert into matrice(nome, sottotitolo, descrizione) values('Terra', 'Analisi Terra', 'descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 descrizone2 ');
-insert into matrice(nome, sottotitolo, descrizione) values('Rifiuti', 'Analisi Rifiuti', 'descrizione3 descrizione3 descrizione3 descrizione3 descrizione3 descrizione3');
-
-
-insert into parametro(idMatrice ,nome ,sku , campione ,	campionamento ,	limiteEmissione ,uMisura ,	prezzo ) values (1,'Ferro','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Zinco','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Rame','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Quarzo','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Mercurio','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Bronzo','wwee','qwe','qwe','qw','qwe',15.0);
-insert into parametro(idMatrice ,nome ,sku , campione ,	campionamento ,	limiteEmissione ,uMisura ,	prezzo ) values (1,'Ferro','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Zinco2','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Rame2','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Quarzo2','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Mercurio2','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (1,'Bronzo2','wwee','qwe','qwe','qw','qwe',15.0);
-
-insert into parametro(idMatrice ,nome ,sku , campione ,	campionamento ,	limiteEmissione ,uMisura ,	prezzo ) values (2,'Ferro','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (2,'Zinco','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (2,'Rame','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (2,'Quarzo','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (2,'Mercurio','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (2,'Bronzo','wwee','qwe','qwe','qw','qwe',15.0);
-
-insert into parametro(idMatrice, nome, sku, campione, campionamento ,limiteEmissione, uMisura,prezzo ) values (3,'Ferro','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (3,'Zinco','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (3,'Rame','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (3,'Quarzo','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (3,'Mercurio','wwee','qwe','qwe','qw','qwe',15.0);
-INSERT INTO parametro(idMatrice, nome, sku, campione, campionamento, limiteEmissione, uMisura, prezzo ) VALUES (3,'Bronzo','wwee','qwe','qwe','qw','qwe',15.0);
-
-
-
-
-
 
 
 

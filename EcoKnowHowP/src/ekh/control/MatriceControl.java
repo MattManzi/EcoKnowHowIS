@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
+import ekh.bean.ParametroBean;
 import ekh.model.MatriceModelDM;
 import ekh.model.ParametroModelDM;
 import ekh.strategy.MatriceValidator;
@@ -31,7 +32,6 @@ public class MatriceControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String redirectedPage = "/HomePage.jsp";
-		System.out.println("matrice visualizza");
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 		Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
@@ -43,7 +43,6 @@ public class MatriceControl extends HttpServlet {
 				String action = request.getParameter("action");
 				if (action != null) {
 					if (admin != null) {
-						System.out.println("matrice visualizza");
 						redirectedPage = "/GestioneMatriciAdmin.jsp";
 						if (action.equals("visualizza")) {
 							ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
@@ -57,7 +56,7 @@ public class MatriceControl extends HttpServlet {
 									throw new Exception("ERRORE-MatriceControl-admin-visualizza: invalid jsp.");
 							}
 						} else if (action.equals("nome") || action.equals("sottotitolo")
-								|| action.equals("descrizione")) {
+								|| action.equals("nota")) {
 							MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("matrice");
 							if (matrice != null) {
 								String dato = request.getParameter("dato");
@@ -71,12 +70,12 @@ public class MatriceControl extends HttpServlet {
 												modelMatrice.doRetrieveByKey(String.valueOf(matrice.getId())));
 									} else
 										throw new Exception(
-												"ERRORE-MatriceControl-admin-nome/sottotitolo/descrizione: inserimento dati.");
+												"ERRORE-MatriceControl-admin-nome/sottotitolo/nota: inserimento dati.");
 								} else
 									throw new Exception(
-											"ERRORE-MatriceControl-admin-nome/sottotitolo/descrizione: dati null.");
+											"ERRORE-MatriceControl-admin-nome/sottotitolo/nota: dati null.");
 							} else
-								throw new Exception("ERRORE-MatriceControl-admin-nome/sottotitolo/descrizione: Matrice null");
+								throw new Exception("ERRORE-MatriceControl-admin-nome/sottotitolo/nota: Matrice null");
 						} else if (action.equals("select")) {
 							request.getSession().removeAttribute("matrice");
 							String id = request.getParameter("id");
@@ -93,12 +92,12 @@ public class MatriceControl extends HttpServlet {
 						} else if (action.equals("aggiungi")) {
 							String nome = request.getParameter("nome");
 							String sottotitolo = request.getParameter("sottotitolo");
-							String descrizione = request.getParameter("descrizione");
+							String nota = request.getParameter("nota");
 
 							ArrayList<String> inputs = new ArrayList<String>();
 							inputs.add(nome);
 							inputs.add(sottotitolo);
-							inputs.add(descrizione);
+							inputs.add(nota);
 
 							MatriceValidator mv = new MatriceValidator();
 
@@ -106,13 +105,18 @@ public class MatriceControl extends HttpServlet {
 								MatriceBean bean = new MatriceBean();
 								bean.setNome(nome);
 								bean.setSottotitolo(sottotitolo);
-								bean.setDescrizione(descrizione);
+								bean.setNota(nota);
 								modelMatrice.doSave(bean);
 							} else
 								throw new Exception("ERRORE-MatriceControl-admin-aggiungi: inserimento dati.");
 						} else if (action.equals("delete")) {
 							String id = request.getParameter("id");
 							if (id != null) {
+							ArrayList<ParametroBean> parametri=new ArrayList<ParametroBean>();
+							parametri=modelParametro.doRetrieveByMatrix(id);
+							for(ParametroBean bean:parametri) {
+								modelParametro.doDelete(String.valueOf(bean.getId()));
+							}
 								modelMatrice.doDelete(id);
 							} else
 								throw new Exception("ERRORE-MatriceControl-admin-delete: id null");

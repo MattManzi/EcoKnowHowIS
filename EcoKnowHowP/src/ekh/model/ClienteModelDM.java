@@ -31,7 +31,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setUsername(rs.getString("username"));
 				bean.setNome(rs.getString("nome"));	
 				bean.setCognome(rs.getString("cognome"));
-				bean.setFunzioneAziendale(rs.getString("funzioneAziendale"));
+				bean.setSettore(rs.getString("settore"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setRagioneSociale(rs.getString("ragioneSociale"));
 				bean.setIndirizzo(rs.getString("indirizzo"));
@@ -82,7 +82,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setUsername(rs.getString("email"));
 				bean.setNome(rs.getString("nome"));	
 				bean.setCognome(rs.getString("cognome"));
-				bean.setFunzioneAziendale(rs.getString("funzioneAziendale"));
+				bean.setSettore(rs.getString("settore"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setRagioneSociale(rs.getString("ragioneSociale"));
 				bean.setIndirizzo(rs.getString("indirizzo"));
@@ -113,7 +113,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO cliente(email, nome, cognome, funzioneAziendale, telefono, ragioneSociale, indirizzo, pIvaCF, pec, sdi, email, password, codSicurezza, attivo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String insertSQL="INSERT INTO cliente(email, nome, cognome, settore, telefono, ragioneSociale, indirizzo, pIvaCF, pec, sdi, email, password, codSicurezza, attivo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -122,7 +122,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 			preparedStatement.setString(1, bean.getUsername());
 			preparedStatement.setString(2, bean.getNome());
 			preparedStatement.setString(3, bean.getCognome());
-			preparedStatement.setString(4, bean.getFunzioneAziendale());
+			preparedStatement.setString(4, bean.getSettore());
 			preparedStatement.setString(5, bean.getTelefono());
 			preparedStatement.setString(6, bean.getRagioneSociale());
 			preparedStatement.setString(7, bean.getIndirizzo());
@@ -227,7 +227,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setUsername(rs.getString("username"));
 				bean.setNome(rs.getString("nome"));	
 				bean.setCognome(rs.getString("cognome"));
-				bean.setFunzioneAziendale(rs.getString("funzioneAziendale"));
+				bean.setSettore(rs.getString("settore"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setRagioneSociale(rs.getString("ragioneSociale"));
 				bean.setIndirizzo(rs.getString("indirizzo"));
@@ -303,7 +303,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 				bean.setUsername(rs.getString("username"));
 				bean.setNome(rs.getString("nome"));	
 				bean.setCognome(rs.getString("cognome"));
-				bean.setFunzioneAziendale(rs.getString("funzioneAziendale"));
+				bean.setSettore(rs.getString("settore"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setRagioneSociale(rs.getString("ragioneSociale"));
 				bean.setIndirizzo(rs.getString("indirizzo"));
