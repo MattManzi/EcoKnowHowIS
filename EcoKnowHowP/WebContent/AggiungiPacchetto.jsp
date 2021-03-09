@@ -1,124 +1,67 @@
-<%@page import="ekh.bean.*"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.Collection"%>
-<%@page import="ekh.bean.AmministratoreBean"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 <%
-
-AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
 Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 Collection<?> matrici=(Collection<?>) request.getAttribute("matrici");
 Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
-ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
-if((admin != null && adminRoles != null && adminRoles.booleanValue()) 
-		|| (user != null && userRoles!= null && userRoles.booleanValue())){
+if((adminRoles != null && adminRoles.booleanValue()) 
+		|| (userRoles!= null && userRoles.booleanValue())){
 	if(matrici == null){
-		response.sendRedirect(response.encodeRedirectURL("./MatriceControl?action=visualizza&jsp=pacchetto"));
+		response.sendRedirect(response.encodeRedirectURL("./Matrice?action=visualizza&jsp=pacchetto"));
 		return;
 	}
 }else{
 	response.sendRedirect("./HomePage.jsp");
 	return;
 }
-
-
-
-
 %>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="css/Template.css" rel="stylesheet">
 <link href="css/GestioneMatriceAdmin.css" rel="stylesheet">
-<title>Insert title here</title>
-<script>
-function myFunction() {
-  var x = document.getElementById("nav");
-  if (x.className === "nav") {
-    x.className += " responsive";
-  } else {
-    x.className = "nav";
-  }
-}
-</script>
+<title>Aggiungi Pacchetto</title>
 </head>
 <body>
+	<%if(adminRoles != null){%>
+		<%@ include file="NavAdmin.jsp" %>
+	<%}else{%>
+		<%@ include file="NavUser.jsp" %>
+	<%}%>
 
-	<header class="header" id="header">
-		<div class="logo">
-			<a href="<%=response.encodeURL("HomePageAdmin.jsp")%>"><img src="./img/logo.png"></a>
-		</div>
-		<div class="nav" id="nav">
-		<a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
-		<div class="invisibile">
-		<p><br></p>
-		<p><br></p>
-		<p><br></p>
-		</div>
-			<%if (admin == null){ %>
-				<a href="<%=response.encodeURL("LoginAdmin.jsp")%>" class="active">Login</a>					
-			<%}else{%>				
-				<a href="<%=response.encodeURL("")%>" class="active"><%=admin.getUsername() %></a>	
-			<%
-			}
-			%>
-			<a href="<%=response.encodeURL("GestioneClientiAdmin.jsp")%>">Gestione Clienti</a>
-			<a href="<%=response.encodeURL("GestioneMatriciAdmin.jsp")%>">Gestione Matrici</a>		   	
-			<a href="<%=response.encodeURL("GestionePacchettiAdmin.jsp")%>">Gestione Pacchetti</a>
-		</div>	
-	</header>
 	<div class="canvas">
-			<h1>Aggiungi Pacchetto </h1>
-	
-	<form action="PacchettoControl?action=crea" method="post">
-	<table id="tableMatriciAdmin">
-	
-
-		<tr>
-
-			<td>Matrice riferita </td>	
-			<td>
-			<select name="idMatrice" >		
-						<%if(matrici != null && matrici.size()>0){
-				Iterator<?> it=matrici.iterator();
-				while(it.hasNext()){
-					MatriceBean bean=(MatriceBean) it.next();
-			%>
-				<option value="<%=bean.getId()%>" selected="selected"><%=bean.getNome()%> </option>
-										<%	
-				}
-				
-			}
-			
-			 %>
-			</select>
-			</td>
-
-		</tr>
-		
-		<tr>
-			<td>Nome </td>	
-			<td><input type="text" name="nome" maxlength="30"></td>		
-		</tr>
-		<tr>
-			<td>Descrizione </td>	
-			<td><input type="text" name="descrizione" maxlength="30"></td>			
-		</tr>
-		<tr> 
-			<td colspan="2"><input class="bott_conferma" type="submit" value="CONFERMA">
-		</tr>
-
-	</table>
-	</form>
+		<h1>Aggiungi Pacchetto </h1>	
+		<form action="Pacchetto?action=crea" method="post">
+			<table id="tableMatriciAdmin">
+				<tr>
+					<td><label for="idMatrice">Matrice:</label></td>	
+					<td><select name="idMatrice" >		
+							<%if(matrici != null && matrici.size()>0){
+								Iterator<?> it=matrici.iterator();
+								while(it.hasNext()){
+									MatriceBean bean=(MatriceBean) it.next();
+							%>
+									<option value="<%=bean.getId()%>" selected="selected"><%=bean.getNome()%> </option>
+							<%	}
+					
+							}%>
+						</select>
+					</td>
+				</tr>		
+				<tr>
+					<td><label for="nome">Nome:</label></td>	
+					<td><input type="text" name="nome" maxlength="30"></td>		
+				</tr>
+				<tr>
+					<td><label for="descrizione">Descrizione:</label></td>	
+					<td><input type="text" name="descrizione" maxlength="30"></td>			
+				</tr>
+				<tr> 
+					<td colspan="2"><input class="bott_conferma" type="submit" value="CONFERMA">
+				</tr>
+			</table>
+		</form>
 	</div>
-
+	
+	<%@ include file="Footer.jsp" %>
 </body>
 </html>

@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, ekh.bean.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Registrazione</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/script/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script> 

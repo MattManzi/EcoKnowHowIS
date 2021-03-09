@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- In questa pagina verrà chiesto all'utente di inserire la propria email -->
+	<!-- In questa pagina verrÃ  chiesto all'utente di inserire la propria email -->
 	<h1>Recupero Password</h1>
 	
 	<form name="formEmail" action="<%=response.encodeURL("RP?action=verifica") %>" method="post"> 

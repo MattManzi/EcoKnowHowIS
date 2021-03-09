@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <%
 	Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
 	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("User");	
@@ -18,7 +18,7 @@
 	
 /*
 In questa pagina il cliente potra scegliera su quale matrice basare il suo piano.
-Clicca su una card e manda l'id della matrice alla servlet. La matrice verrà caricata in sessione.
+Clicca su una card e manda l'id della matrice alla servlet. La matrice verrÃ  caricata in sessione.
 
 Servlet:
 	VisualizzaMatriciServlet -OK
@@ -29,7 +29,6 @@ Servlet:
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link href="css/SceltaMatriceUser.css" rel="stylesheet">
 </head>
@@ -48,7 +47,7 @@ Servlet:
 					<div class="container">
 						<a href="<%=response.encodeURL("MatriceControl?action=select&id="+ bean.getId()) %>"><%=bean.getNome()%></a>
 						<h3><b><%=bean.getSottotitolo()%></b></h3>				
-						<p><%=bean.getDescrizione()%></p>
+						<p><%=bean.getNota()%></p>
 					</div>
 				</div>
 		<%

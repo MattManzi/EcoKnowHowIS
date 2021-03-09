@@ -156,8 +156,7 @@ public class PacchettoControl extends HttpServlet {
 										modelPacchetto.doUpdate(action, dato, pacchetto.getId());
 										request.getSession().removeAttribute("pacchetto");
 										request.getSession().setAttribute("pacchetto",
-												modelPacchetto.doRetrieveByKey(pacchetto.getId()));
-										
+												modelPacchetto.doRetrieveByKey(pacchetto.getId()));										
 									} else
 										throw new Exception("ERRORE-PacchettoControl-admin-visualizza: dati null.");
 								} else
@@ -168,7 +167,7 @@ public class PacchettoControl extends HttpServlet {
 										.getAttribute("pacchetto");
 								if (pacchetto != null) {
 									String id = request.getParameter("id");
-									if (id != null) {
+									if (id != null && !id.equals("-")) {
 										redirectedPage = "/ModificaPacchettoAdmin.jsp";
 										String SAVE_DIR = "uploadTemp";
 										String appPath = request.getServletContext().getRealPath("");
@@ -207,6 +206,7 @@ public class PacchettoControl extends HttpServlet {
 							} else if (action.equals("select")) {
 								request.getSession().removeAttribute("pacchetto");
 								request.getSession().removeAttribute("matrice");
+								request.getSession().removeAttribute("parametri");
 								String id = request.getParameter("id");
 								if (id != null) {
 									PacchettoBean bean = new PacchettoBean();
@@ -216,6 +216,7 @@ public class PacchettoControl extends HttpServlet {
 										redirectedPage = "/ModificaPacchettoAdmin.jsp";
 										request.getSession().setAttribute("pacchetto", bean);
 										request.getSession().setAttribute("matrice", modelMatrice.doRetrieveByKey(String.valueOf(bean.getIdMatrice())));
+										request.getSession().setAttribute("parametri", modelParametro.doRetrieveByMatrix(String.valueOf(bean.getIdMatrice())));
 									} else
 										throw new Exception("ERRORE-PacchettoControl-admin-select: Pacchetto non trovata.");
 								} else

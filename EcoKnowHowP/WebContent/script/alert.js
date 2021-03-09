@@ -44,12 +44,10 @@ function selectPacchettoMod(id){
 	}
 }
 
-function myFunction() {
-  var x = document.getElementById("nav");
-  if (x.className === "nav") {
-    x.className += " responsive";
-  } else {
-    x.className = "nav";
-  }
+//ParametriPacchetto
+function canellcaParametroPacchetto(id){
+	var scelta=confirm("Sei sicuro di voler rimuovere il parametro dal pacchetto?");
+	if(scelta===true){
+		location.href="Pacchetto?action=remParam&id="+id;
+	}
 }
-

@@ -201,9 +201,7 @@ public class PacchettoBean {
 		}
 	}
 	
-	public double calcolaPrezzo() {
-		double prezzo=0;
-		
+	public double calcolaPrezzo() {		
 		for(ParametroBean bean:contenuto) {
 			prezzo=prezzo+bean.getPrezzo();
 		}	

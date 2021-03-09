@@ -1,10 +1,9 @@
 @charset "ISO-8859-1";
 
-
 #main{
 	width: 95%;
-	margin: auto;
-	padding-top: 30px;
+	margin: 100px auto;
+	
 }
 
 .contenitore form{

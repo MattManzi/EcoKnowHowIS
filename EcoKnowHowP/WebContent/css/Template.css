@@ -10,9 +10,7 @@ body{background: #F0F8FF;}
 .nav a, .active{float: right; font-size: 20px; display: block;  color: white; text-align: center; padding: 31px 16px; text-decoration: none;}
 .nav a:hover:not(.active){background: #c7f3ff; color: #000000;}
 .active {background-color: #99CBFF;}
-.invisibile{
-	display: none;
-}
+.invisibile{display: none;}
 
 	
 div#main{

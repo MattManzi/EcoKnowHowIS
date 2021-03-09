@@ -1,9 +1,5 @@
-<%@page import="java.util.Iterator"%>
-<%@page import="ekh.bean.PacchettoBean"%>
-<%@page import="java.util.Collection"%>
-<%@page import="ekh.bean.AmministratoreBean"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
@@ -24,7 +20,6 @@ if (admin == null || adminRoles == null || !adminRoles.booleanValue()) {
 %>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"

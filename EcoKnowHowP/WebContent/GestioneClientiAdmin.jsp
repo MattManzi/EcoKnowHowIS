@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 <% 
 Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
@@ -18,7 +18,7 @@ if (adminRoles == null || !adminRoles.booleanValue()) {
 
 /*
 Lista con tutti i clienti.
-In questa pagina sarà possibile rimuovere i clienti dal db.
+In questa pagina sarÃ  possibile rimuovere i clienti dal db.
 Cliccare su un cliente per accedere al suo storico piani.
 
 Servlet Necessarie:
@@ -30,8 +30,6 @@ Servlet Necessarie:
 %>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-
 <title>Gestione Clienti Admin</title>
 <body>
 <%@ include file="NavAdmin.jsp" %>

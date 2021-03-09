@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, ekh.bean.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
     
     <%
 	Boolean userRoles = (Boolean) session.getAttribute("userRoles");
@@ -13,7 +13,6 @@
 <html>
 
 <head>
-<meta charset="ISO-8859-1">
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <link href="../css/HomePage.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">

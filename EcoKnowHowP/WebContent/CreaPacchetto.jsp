@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
     
 <%
 AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin"); 
@@ -14,19 +14,15 @@ Solo info principali. Niente parametri
 Servlet Necessarie:
 	AggiuntaPacchettoServlet?action=crea - OK
 	
-Se il pacchetto viene salvato, il cliente dovrà recarsi in scelta pacchetti analitico per selezionarlo.
+Se il pacchetto viene salvato, il cliente dovrÃ  recarsi in scelta pacchetti analitico per selezionarlo.
 */
 
 %>       
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-		<footer class="footer">
-		<p>2020 Prova&copy;</p>
-	</footer>
 </body>
 </html>

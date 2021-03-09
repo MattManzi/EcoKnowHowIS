@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="ekh.bean.*, java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <%
 	Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 	MatriceBean matrice=null;
@@ -25,7 +25,7 @@
 
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <link href="css/ModificaMatriceAdmin.css" rel="stylesheet">
 <script type="text/javascript" src="./script/alert.js"></script>
 <title>Modifica Matrice Admin</title>
@@ -84,23 +84,23 @@ function mod(form, input) {
 				<form id="formAddParametro" action="Parametro?action=addParM" method="post">
 					<table>			
 						<tr>
-							<td>Nome parametro: </td> 
+							<td><label for="nome">Nome parametro:</label></td> 
 							<td><input type="text" name="nome" maxlength="100" required="required"></td>
 						</tr>
 						<tr>	
-							<td>Sku: </td>
+							<td><label for="sku">Sku:</label></td>
 							<td><input type="text" name="sku" maxlength="20" required="required"></td>
 						</tr>
 						<tr>
-							<td>Limite Emissione: </td>
+							<td><label for="limiteEmissione">Limite Emissione:</label></td>
 							<td><input type="text" name="limiteEmissione" maxlength="20" required="required"></td>
 						</tr>
 						<tr>
-							<td>Unità di Misura </td>
+							<td><label for="uMisura">UnitÃ  di Misura:</label></td>
 							<td><input type="text" name="uMisura" maxlength="20" required="required"></td>
 						</tr>
 						<tr>
-							<td>Prezzo: </td>
+							<td><label for="prezzo">Prezzo:</label></td>
 							<td><input type="number" name="prezzo" id="addPrezzo" min="0.01" max="999" step="0.01" required="required"></td>
 						</tr>				
 						<tr>
@@ -111,7 +111,7 @@ function mod(form, input) {
 			</div>
 		
 			<div class="canvas" id="allPar">	
-				<table id="tableMatriciAdmin">
+				<table>
 					<tr>
 						<th>Nome </th> 
 						<th>Sku</th>
@@ -126,14 +126,14 @@ function mod(form, input) {
 						while(it.hasNext()){
 							ParametroBean parametro=(ParametroBean) it.next();
 					%>
-					<tr> 
-						<td > <%=parametro.getNome()%> </td>	
-						<td > <%=parametro.getSku()%> </td>
-						<td > <%=parametro.getLimiteEmissione()%> </td>
-						<td > <%=parametro.getuMisura()%> </td>
-						<td > <%=parametro.getPrezzo()%> </td>
-						<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaParMatrice(<%=parametro.getId()%>)">X</button></td>			
-					</tr>
+							<tr> 
+								<td><%=parametro.getNome()%></td>	
+								<td><%=parametro.getSku()%></td>
+								<td><%=parametro.getLimiteEmissione()%></td>
+								<td><%=parametro.getuMisura()%></td>
+								<td><%=parametro.getPrezzo()%></td>
+								<td><button class="bott_rimuovi" id="cancella" onclick="cancellaParMatrice(<%=parametro.getId()%>)">X</button></td>			
+							</tr>
 					<%	
 						}
 					}
@@ -142,6 +142,7 @@ function mod(form, input) {
 			</div>
 		</div>
 	</div>
-	<%@ include file="Footer.jsp" %>>
+	
+	<%@ include file="Footer.jsp" %>
 </body>
 </html>

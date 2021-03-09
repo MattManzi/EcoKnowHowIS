@@ -7,8 +7,8 @@ INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Terra', 'Suolo', 'Tabella 1
 INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Terra', 'Terreni destinati allo spandimento', 'Allegato I A e II A D.Lgs. N. 99 del 1992');
 
 INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Rifiuti', 'Rifiuti (classificazione)', 'Classificazione ai sensi del Reg. 1357 del 2004');
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Rifiuti', 'Rifiuti (ammissibilitÃ  in discarica)', 'D.Lgs. N. 36 del 2003');
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Rifiuti', 'Rifiuti (ammissibilitÃ  a recupero)', 'DM. 05/02/1998');
+INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Rifiuti', 'Rifiuti (ammissibilità  in discarica)', 'D.Lgs. N. 36 del 2003');
+INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Rifiuti', 'Rifiuti (ammissibilità  a recupero)', 'DM. 05/02/1998');
 
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(1,'pH', 'SAS_001', '5,5 - 9,5', 'Unità di pH');
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(1,'Temperatura (°C)', 'SAS_002', 'Variabile', '-');

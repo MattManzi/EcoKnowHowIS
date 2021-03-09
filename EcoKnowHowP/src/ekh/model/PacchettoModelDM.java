@@ -145,7 +145,7 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			preparedStatement = connection.prepareStatement(updateSQL);
 
 			preparedStatement.setString(1, str);
-			preparedStatement.setString(1, key);
+			preparedStatement.setString(2, key);
 
 			System.out.println("PacchettoModelDM: doUpdate:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
