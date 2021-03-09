@@ -25,7 +25,6 @@
 
 <html>
 <head>
-<meta charset="UTF-8">
 <link href="css/ModificaMatriceAdmin.css" rel="stylesheet">
 <script type="text/javascript" src="./script/alert.js"></script>
 <title>Modifica Matrice Admin</title>

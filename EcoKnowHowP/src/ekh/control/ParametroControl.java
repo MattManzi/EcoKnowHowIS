@@ -84,7 +84,7 @@ public class ParametroControl extends HttpServlet {
 									String limiteEmissione = request.getParameter("limiteEmissione");
 									String uMisura = request.getParameter("uMisura");
 									String prezzo = request.getParameter("prezzo");
-
+									System.out.println(nome+" "+sku);
 									/*
 									 * ArrayList<String> inputs = new ArrayList<String>(); inputs.add(nome);
 									 * inputs.add(sku); inputs.add(campione); inputs.add(campionamento);
