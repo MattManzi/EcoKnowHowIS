@@ -79,7 +79,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 			while (rs.next()) {
 				ClienteBean bean=new ClienteBean();
 				
-				bean.setUsername(rs.getString("email"));
+				bean.setUsername(rs.getString("username"));
 				bean.setNome(rs.getString("nome"));	
 				bean.setCognome(rs.getString("cognome"));
 				bean.setSettore(rs.getString("settore"));
