@@ -13,10 +13,13 @@
 <title>LoginAdmin</title>
 </head>
 <body>
-<a href="<%=response.encodeURL("HomePage.jsp") %>" class="logo"> EcoKnowHow </a>
-	<div id="main">
+
+	
+
+	<div class="canvas">
+	<a href="<%=response.encodeURL("HomePage.jsp") %>" class="logo"> EcoKnowHow </a>
 		<form name="formLoginAdmin" action="<%=response.encodeURL("Login?action=admin") %>" method="post">
-			<fieldset>
+			<fieldset class="">
 				<label for="username">Username</label> 
 				<input class="normal" id="username" type="text" name="username" placeholder="enter username"><br> 
 				<label for="password">Password</label> 
@@ -26,6 +29,7 @@
 		</form>
 		<a href="<%=response.encodeURL("RecuperaPassword.jsp") %>"> Recupera Password </a>
 	</div>
+	
 	
 		<footer class="footer">
 		<p>2020 Prova&copy;</p>

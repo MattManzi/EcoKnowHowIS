@@ -44,7 +44,7 @@ public class ClienteControl extends HttpServlet {
 		try {
 			String action = request.getParameter("action");
 			if (action != null) {
-				
+
 				if (action.equals("inserimentoDati")) {
 					String nome = request.getParameter("nome");
 					String cognome = request.getParameter("cognome");
@@ -63,9 +63,9 @@ public class ClienteControl extends HttpServlet {
 					String password = request.getParameter("password");
 					String password2 = request.getParameter("password2");
 
-					System.out.println(nome +" " +ragioneSociale);
+					System.out.println(nome + " " + ragioneSociale);
 					ArrayList<String> inputs = new ArrayList<String>();
-					
+
 					inputs.add(nome.trim());
 					inputs.add(cognome.trim());
 					inputs.add(funzioneAziendale.trim());
@@ -156,9 +156,11 @@ public class ClienteControl extends HttpServlet {
 									throw new Exception("ERRORE-ClienteControl-admin-select: username null");
 							} else if (action.equals("delete")) {
 								String username = request.getParameter("username");
+								System.out.println(username);
 								if (username != null) {
 									ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
 									pacchetti = modelPacchetto.doRetrieveForUser(username, "analitico", "");
+									System.out.println(pacchetti.size());
 									for (PacchettoBean p : pacchetti) {
 										modelPacchetto.doDelete(p.getId());
 									}
@@ -188,8 +190,7 @@ public class ClienteControl extends HttpServlet {
 											throw new Exception(
 													"ERRORE-ClienteControl-user-password: inserimento dati");
 									} else
-										throw new Exception(
-												"ERRORE-ClienteControl-user-dato: dato null.");
+										throw new Exception("ERRORE-ClienteControl-user-dato: dato null.");
 								} else if (action.equals("password")) {
 									String password = request.getParameter("password");
 									String password2 = request.getParameter("password2");
@@ -198,7 +199,8 @@ public class ClienteControl extends HttpServlet {
 									inputs.add(password2);
 									ClienteValidator cv = new ClienteValidator();
 									if (cv.passwordVal(inputs)) {
-										modelCliente.doUpdate("password", EncryptionPassword.MD5(password), user.getUsername());
+										modelCliente.doUpdate("password", EncryptionPassword.MD5(password),
+												user.getUsername());
 									} else
 										throw new Exception("ERRORE-ClienteControl-user-password: inserimento dati");
 								} else {
@@ -211,10 +213,9 @@ public class ClienteControl extends HttpServlet {
 											throw new Exception(
 													"ERRORE-ClienteControl-user-password: inserimento dati");
 									} else
-										throw new Exception(
-												"ERRORE-ClienteControl-user-dato:dati null.");
+										throw new Exception("ERRORE-ClienteControl-user-dato:dati null.");
 								}
-							}else if (action.equals("passwordRP")) {
+							} else if (action.equals("passwordRP")) {
 								redirectedPage = "/ModificaPassword.jsp";
 								String password = request.getParameter("password");
 								String password2 = request.getParameter("password2");
@@ -227,7 +228,8 @@ public class ClienteControl extends HttpServlet {
 								if (cv.passwordVal(inputs)) {
 									ClienteBean bean = (ClienteBean) request.getSession().getAttribute("clienteRP");
 									if (bean != null) {
-										modelCliente.doUpdate("password", EncryptionPassword.MD5(password), bean.getUsername());
+										modelCliente.doUpdate("password", EncryptionPassword.MD5(password),
+												bean.getUsername());
 										redirectedPage = "/LoginUser.jsp";
 									} else {
 										redirectedPage = "/RecuperaPassword.jsp";
@@ -235,7 +237,7 @@ public class ClienteControl extends HttpServlet {
 									}
 								} else
 									throw new Exception("ERRORE-ClienteControl-user-passwordRP: inserimento dati");
-							}else
+							} else
 								throw new Exception("ERRORE-ClienteControl-user: invalid action for user.");
 						}
 					} else

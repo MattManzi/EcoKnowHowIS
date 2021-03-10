@@ -51,3 +51,19 @@ function canellcaParametroPacchetto(id){
 		location.href="Pacchetto?action=remParam&id="+id;
 	}
 }
+
+//CLIENTI
+function storicoClienti(id){
+	var scelta=confirm("Sei sicuro di voler vedere lo storico del Cliente?");
+	if(scelta===true){
+		location.href="User?action=select&username="+id;
+	}
+}
+
+function cancellaClienti(id){
+	var scelta=confirm("Sei sicuro di voler rimuovere il Cliente?");
+	if(scelta===true){
+		location.href="User?action=delete&username="+id;
+	}
+}
+       

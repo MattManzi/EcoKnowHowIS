@@ -38,13 +38,13 @@ if (adminRoles == null || !adminRoles.booleanValue()) {
 				while(it.hasNext()){
 					MatriceBean bean=(MatriceBean) it.next();
 			%>
-			<tr> 
-				<td > <%=bean.getId()%> </td>
-				<td > <%=bean.getNome()%> </td>	
-				<td > <%=bean.getSottotitolo()%> </td>	
-				<td> <button class="bott_modifica" id="modifica" onclick="selectMatriceMod(<%=bean.getId()%>)">M</button></td>
-				<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaMatrice(<%=bean.getId()%>)">X</button></td>	
-			</tr>
+					<tr> 
+						<td > <%=bean.getId()%> </td>
+						<td > <%=bean.getNome()%> </td>	
+						<td > <%=bean.getSottotitolo()%> </td>	
+						<td> <button class="bott_modifica" id="modifica" onclick="selectMatriceMod(<%=bean.getId()%>)">M</button></td>
+						<td> <button class="bott_rimuovi" id="cancella" onclick="cancellaMatrice(<%=bean.getId()%>)">X</button></td>	
+					</tr>
 			<%	
 				}
 			}

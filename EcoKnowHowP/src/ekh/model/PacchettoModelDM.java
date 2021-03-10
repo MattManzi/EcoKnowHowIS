@@ -200,10 +200,10 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 		String selectSQL = "SELECT * FROM pacchetto WHERE tipo=?";
 
 		if (username != null && !username.equals("")) {
-			selectSQL += " AND username=" + username;
+			selectSQL += " AND username='" + username+"'";
 		}
 		if(idMatrice!=null && !idMatrice.equals("")) {
-			selectSQL += " AND idMatrice=" + idMatrice;
+			selectSQL += " AND idMatrice='" + idMatrice+"'";
 		}
 
 		try {
@@ -211,7 +211,6 @@ public class PacchettoModelDM implements ClassModel<PacchettoBean> {
 			preparedStatement = connection.prepareStatement(selectSQL);
 
 			preparedStatement.setString(1, tipo);
-			preparedStatement.setString(2, idMatrice);
 
 			System.out.println("PacchettoModelDM: doRetrieveByType:" + preparedStatement.toString());
 			ResultSet rs = preparedStatement.executeQuery();
