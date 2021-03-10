@@ -156,11 +156,9 @@ public class ClienteControl extends HttpServlet {
 									throw new Exception("ERRORE-ClienteControl-admin-select: username null");
 							} else if (action.equals("delete")) {
 								String username = request.getParameter("username");
-								System.out.println(username);
 								if (username != null) {
 									ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
 									pacchetti = modelPacchetto.doRetrieveForUser(username, "analitico", "");
-									System.out.println(pacchetti.size());
 									for (PacchettoBean p : pacchetti) {
 										modelPacchetto.doDelete(p.getId());
 									}
