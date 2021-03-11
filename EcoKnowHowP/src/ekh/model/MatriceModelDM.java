@@ -32,6 +32,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 				bean.setNome(rs.getString("nome"));	
 				bean.setSottotitolo(rs.getString("sottotitolo"));	
 				bean.setNota(rs.getString("nota"));	
+				bean.setModulo(rs.getString("modulo"));	
 			}
 		} finally {
 			try {
@@ -73,6 +74,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 				bean.setNome(rs.getString("nome"));	
 				bean.setSottotitolo(rs.getString("sottotitolo"));	
 				bean.setNota(rs.getString("nota"));	
+				bean.setModulo(rs.getString("modulo"));	
 				matrici.add(bean);
 			}
 
@@ -93,7 +95,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO matrice(nome, sottotitolo, nota) VALUES (?,?,?)";
+		String insertSQL="INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES (?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -102,6 +104,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 			preparedStatement.setString(1, bean.getNome());
 			preparedStatement.setString(2, bean.getSottotitolo());
 			preparedStatement.setString(3, bean.getNota());
+			preparedStatement.setString(4, bean.getModulo());
 
 			System.out.println("MatriceModelDM: doSave:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -201,6 +204,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 				bean.setNome(rs.getString("nome"));	
 				bean.setSottotitolo(rs.getString("sottotitolo"));	
 				bean.setNota(rs.getString("nota"));	
+				bean.setModulo(rs.getString("modulo"));
 				matrici.add(bean);
 			}
 

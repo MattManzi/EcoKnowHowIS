@@ -5,12 +5,14 @@ public class MatriceBean {
 	private String nome;
 	private String sottotitolo;
 	private String nota;
+	private String modulo;
 	
 	public MatriceBean() {
 		id=0;
 		nome = "";
 		sottotitolo = "";
 		nota = "";
+		modulo="";
 	}
 	
 	public MatriceBean(int id, String nome, String sottotitolo, String nota) {
@@ -52,6 +54,14 @@ public class MatriceBean {
 		this.nota = nota;
 	}
 	
+	public String getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(String modulo) {
+		this.modulo = modulo;
+	}
+
 	public boolean isEmpty() {
 		return id==0;
 	}

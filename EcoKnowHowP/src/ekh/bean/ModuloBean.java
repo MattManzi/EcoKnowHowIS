@@ -1,7 +1,10 @@
 package ekh.bean;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import ekh.model.ModuloModelDM;
 
@@ -328,6 +331,34 @@ public class ModuloBean {
 				hp.add(x);
 			}
 		}
+	}
+	
+	public void inizializza(String path) throws IOException {
+		readObiettivi(path);
+		if(tipo.equals("B")) {
+			readHp(path);
+		}
+	}
+	
+	public void readObiettivi(String path) throws IOException{
+		FileReader fr = new FileReader(path+"Modulo"+tipo+".txt");
+		Scanner in = new Scanner(fr);
+		
+		while (in.hasNextLine()) {
+			obiettivi.add(in.nextLine());
+		}
+		in.close();
+		fr.close();
+	}
+	public void readHp(String path) throws IOException{
+		FileReader fr = new FileReader(path+"HP.txt");
+		Scanner in = new Scanner(fr);
+		
+		while (in.hasNextLine()) {
+			hp.add(in.nextLine());
+		}
+		in.close();
+		fr.close();
 	}
 
 }

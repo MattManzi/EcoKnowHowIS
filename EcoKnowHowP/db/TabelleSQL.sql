@@ -38,7 +38,7 @@ CREATE TABLE matrice(
 	nome char(20) not null,
 	sottotitolo char(50) not null,
 	nota char(250) not null,
-	
+	modulo char(1) check(tipo in('A', 'B','C')),
 	PRIMARY KEY(id)
 );
 
@@ -59,7 +59,7 @@ CREATE TABLE pacchetto(
 	idMatrice int not null,
 	nome char(20) not null,
 	descrizione char(250) not null,
-	tipo char(9) check(tipo in('standard', 'analitico')),
+	
 	username char(20) not null,
 	contenuto mediumblob default null,
 	prezzo double default 0,
