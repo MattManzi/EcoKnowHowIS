@@ -1,6 +1,7 @@
 package ekh.control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.model.AmministratoreModelDM;
 import ekh.model.ClienteModelDM;
+import ekh.strategy.ClienteValidator;
+import ekh.support.EncryptionPassword;
 import ekh.support.SendEmail;
 
 @WebServlet("/RP")
@@ -47,7 +50,7 @@ public class RPControl extends HttpServlet {
 								request.getSession().setAttribute("adminRP", admin);
 								redirectedPage = "/VerificaCSRP.jsp";
 							}else
-								throw new Exception("ERRORE-RecuperaPasswordServlet: email admin non inviata");			
+								throw new Exception("ERRORE-RPControl-verifica: email admin non inviata");			
 						}else if(!cliente.isEmpty()) {		
 							cliente.setCodSicurezza(sm.getRandom()+"P");
 							boolean sendEmail = sm.recuperaPassword(cliente, null);
@@ -56,11 +59,11 @@ public class RPControl extends HttpServlet {
 								request.getSession().setAttribute("clienteRP", cliente);
 								redirectedPage = "/VerificaCSRP.jsp";
 							}else
-								throw new Exception("ERRORE-RecuperaPasswordServlet: email cliente non inviata");			
+								throw new Exception("ERRORE-RPControl-verifica: email cliente non inviata");			
 						}else 
-							throw new Exception("ERRORE-RecuperaPasswordServlet: email inesistente.");
+							throw new Exception("ERRORE-RPControl-verifica: email inesistente.");
 					}else
-						throw new Exception("ERRORE-RecuperaPasswordServlet: email null.");	
+						throw new Exception("ERRORE-RPControl-verifica: email null.");	
 				}else if (action.equals("sendEmail")) {
 					String user=request.getParameter("user");
 					if(user!=null) {
@@ -78,9 +81,9 @@ public class RPControl extends HttpServlet {
 									request.setAttribute("user", "admin");
 									redirectedPage = "/VerificaCSRP.jsp";
 								} else
-									throw new Exception("ERRORE-RecuperaPassowrdServlet: invio e-mail");
+									throw new Exception("ERRORE-RPControl-sendEmail: invio e-mail");
 							}else 
-								throw new Exception("ERRORE-RecuperaPassowrdServlet: utente null");
+								throw new Exception("ERRORE-RPControl-sendEmail: utente null");
 						}else if(user.equals("cliente")) {
 							ClienteBean bean = (ClienteBean) request.getSession().getAttribute("clienteRP");
 							if(bean!=null) {
@@ -95,13 +98,13 @@ public class RPControl extends HttpServlet {
 									request.setAttribute("user", "cliente");
 									redirectedPage = "/VerificaCSRP.jsp";
 								} else
-									throw new Exception("ERRORE-RecuperaPassowrdServlet: invio e-mail");
+									throw new Exception("ERRORE-RPControl-sendEmail: invio e-mail");
 							}else 
-								throw new Exception("ERRORE-RecuperaPassowrdServlet: utente null");
+								throw new Exception("ERRORE-RPControl-sendEmail: utente null");
 						}else
-							throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid user.");	
+							throw new Exception("ERRORE-RPControl-sendEmail: invalid user.");	
 					}else
-						throw new Exception("ERRORE-RecuperaPassowrdServlet: user null.");		
+						throw new Exception("ERRORE-RPControl-sendEmail: user null.");		
 				}else if(action.equals("codice")) {
 					String user=request.getParameter("user");					
 					if(user!=null) {
@@ -113,9 +116,9 @@ public class RPControl extends HttpServlet {
 									request.setAttribute("user", "admin");
 									redirectedPage="/ModificaPassword.jsp";
 								}else 
-									throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid codice");
+									throw new Exception("ERRORE-RPControl-codice: invalid codice");
 							}else
-								throw new Exception("ERRORE-RecuperaPassowrdServlet: admin empty.");
+								throw new Exception("ERRORE-RPControl-codice: admin empty.");
 						}else if(user.equals("cliente")) {
 							ClienteBean bean=(ClienteBean) request.getSession().getAttribute("clienteRP");
 							if(!bean.isEmpty()) {
@@ -123,17 +126,48 @@ public class RPControl extends HttpServlet {
 									request.setAttribute("user", "cliente");
 									redirectedPage="/ModificaPassword.jsp";
 								}else 
-									throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid codice");
+									throw new Exception("ERRORE-RPControl-codice: invalid codice");
 							}else
-								throw new Exception("ERRORE-RecuperaPassowrdServlet: cliente empty.");
+								throw new Exception("ERRORE-RPControl-codice: cliente empty.");
 						}else
-							throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid user.");	
+							throw new Exception("ERRORE-RPControl-codice: invalid user.");	
 					}else
-						throw new Exception("ERRORE-RecuperaPassowrdServlet: user null.");		
+						throw new Exception("ERRORE-RPControl-codice: user null.");		
+				}else if(action.equals("password")){
+					String user=request.getParameter("user");	
+					if(user!=null) {
+						String password=request.getParameter("password");
+						String password2=request.getParameter("password2");
+						
+						ArrayList<String> inputs = new ArrayList<String>();
+						inputs.add(password.trim());
+						inputs.add(password2.trim());
+						
+						ClienteValidator cv = new ClienteValidator();
+						if (cv.passwordVal(inputs)) {
+							redirectedPage="/LoginUser.jsp";
+							if(user.equals("admin")) {
+								AmministratoreBean bean=(AmministratoreBean) request.getSession().getAttribute("adminRP");
+								if(!bean.isEmpty()) {
+									modelAdmin.doUpdate("password", EncryptionPassword.MD5(password), bean.getUsername());
+								}else 
+									throw new Exception("ERRORE-RPControl-password: admin empty.");
+							}else if(user.equals("cliente")) {
+								ClienteBean bean=(ClienteBean) request.getSession().getAttribute("clienteRP");
+								if(!bean.isEmpty()) {
+									modelCliente.doUpdate("password", EncryptionPassword.MD5(password), bean.getUsername());
+								}else 
+									throw new Exception("ERRORE-RPControl-password: cliente empty.");
+							}else
+								throw new Exception("ERRORE-RP-password: invalid user.");		
+						}else
+							throw new Exception("ERRORE-RPControl-password: inserimento dati.");		
+					}else
+						throw new Exception("ERRORE-RPControl-password: user null.");		
 				}else
-					throw new Exception("ERRORE-RecuperaPassowrdServlet: invalid action.");		
+					throw new Exception("ERRORE-RPControl: invalid action.");		
 			} else
-				throw new Exception("ERRORE-RecuperaPassowrdServlet: action null.");
+				throw new Exception("ERRORE-RPControl: action null.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}		
