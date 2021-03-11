@@ -32,6 +32,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 				bean.setNome(rs.getString("nome"));	
 				bean.setSottotitolo(rs.getString("sottotitolo"));	
 				bean.setNota(rs.getString("nota"));	
+				bean.setModulo(rs.getString("modulo"));	
 			}
 		} finally {
 			try {
@@ -73,6 +74,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 				bean.setNome(rs.getString("nome"));	
 				bean.setSottotitolo(rs.getString("sottotitolo"));	
 				bean.setNota(rs.getString("nota"));	
+				bean.setModulo(rs.getString("modulo"));	
 				matrici.add(bean);
 			}
 
@@ -93,7 +95,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO matrice(nome, sottotitolo, nota) VALUES (?,?,?)";
+		String insertSQL="INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES (?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -102,6 +104,7 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 			preparedStatement.setString(1, bean.getNome());
 			preparedStatement.setString(2, bean.getSottotitolo());
 			preparedStatement.setString(3, bean.getNota());
+			preparedStatement.setString(4, bean.getModulo());
 
 			System.out.println("MatriceModelDM: doSave:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -175,4 +178,76 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 		}
 	}
 
+	public ArrayList<MatriceBean> doRetrieveByName(String nome) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
+
+		String selectSQL = "SELECT * FROM matrice WHERE nome=?";
+
+		
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, nome);
+			
+			System.out.println("MatriceModelDM: doRetrieveAll:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+
+			while (rs.next()) {
+				MatriceBean bean=new MatriceBean();
+				
+				bean.setId(rs.getInt("id"));	
+				bean.setNome(rs.getString("nome"));	
+				bean.setSottotitolo(rs.getString("sottotitolo"));	
+				bean.setNota(rs.getString("nota"));	
+				bean.setModulo(rs.getString("modulo"));
+				matrici.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return matrici;
+	}
+	
+	public ArrayList<String> getName() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<String> nomi = new ArrayList<String>();
+
+		String selectSQL = "SELECT nome FROM matrice GROUP BY nome";		
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			System.out.println("MatriceModelDM: doRetrieveAll:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+
+			while (rs.next()) {				
+				nomi.add(rs.getString("nome"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return nomi;
+	}
 }

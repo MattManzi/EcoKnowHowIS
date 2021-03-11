@@ -123,10 +123,14 @@ public class MatriceControl extends HttpServlet {
 						} else
 							throw new Exception("ERRORE-MatriceControl-admin: invalid action for admin.");
 					} else {
-						if (action.equals("visualizza")) {
-							ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
-							matrici = modelMatrice.doRetrieveAll("id");
-							request.setAttribute("matrici", matrici);
+						if(action.equals("nomi")) {
+							request.setAttribute("nomi", modelMatrice.getName());
+							redirectedPage = "/SceltaMatriceCliente.jsp";
+						}else if (action.equals("visualizza")) {
+							String nome = request.getParameter("nome");
+							if(nome!=null) {
+								request.setAttribute("matrici", modelMatrice.doRetrieveByName(nome));
+							}
 							redirectedPage = "/SceltaMatriceCliente.jsp";
 						} else if (action.equals("select")) {
 							request.getSession().removeAttribute("SelectMatrice");

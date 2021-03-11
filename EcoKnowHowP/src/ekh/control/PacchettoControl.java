@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
+import ekh.bean.ModuloBean;
 import ekh.bean.PacchettoBean;
 import ekh.bean.ParametroBean;
 import ekh.model.MatriceModelDM;
@@ -27,7 +28,8 @@ public class PacchettoControl extends HttpServlet {
 
 	PacchettoModelDM modelPacchetto = new PacchettoModelDM();
 	ParametroModelDM modelParametro = new ParametroModelDM();
-	MatriceModelDM modelMatrice= new MatriceModelDM();
+	MatriceModelDM modelMatrice = new MatriceModelDM();
+
 	public PacchettoControl() {
 		super();
 	}
@@ -126,7 +128,11 @@ public class PacchettoControl extends HttpServlet {
 									}
 									modelPacchetto.doSave(bean);
 									bean.stampContenuto(savePath + File.separator);
-									redirectedPage = "/GestionePacchettiAdmin.jsp";
+									if (admin != null) {
+										redirectedPage = "/GestionePacchettiAdmin.jsp";
+									} else {
+										redirectedPage = "/SceltaTipoPacchettoCliente.jsp";
+									}
 								} else {
 									redirectedPage = "/ComponiPacchetto.jsp";
 									throw new Exception("ERRORE-PacchettoControl-salva: pacchetto vuoto.");
@@ -156,7 +162,7 @@ public class PacchettoControl extends HttpServlet {
 										modelPacchetto.doUpdate(action, dato, pacchetto.getId());
 										request.getSession().removeAttribute("pacchetto");
 										request.getSession().setAttribute("pacchetto",
-												modelPacchetto.doRetrieveByKey(pacchetto.getId()));										
+												modelPacchetto.doRetrieveByKey(pacchetto.getId()));
 									} else
 										throw new Exception("ERRORE-PacchettoControl-admin-visualizza: dati null.");
 								} else
@@ -184,7 +190,7 @@ public class PacchettoControl extends HttpServlet {
 											} else {
 												pacchetto.remParametro(bean);
 											}
-											pacchetto.stampContenuto(savePath);
+											pacchetto.stampContenuto(savePath+ File.separator);
 											request.getSession().removeAttribute("pacchetto");
 											request.getSession().setAttribute("pacchetto", pacchetto);
 										} else
@@ -193,7 +199,7 @@ public class PacchettoControl extends HttpServlet {
 									} else
 										throw new Exception(
 												"ERRORE-PacchettoControl-admin-aggiungiPar/rimuoviPar: id Parametro null");
-								} else 
+								} else
 									throw new Exception(
 											"ERRORE-PacchettoControl-admin-aggiungiPar/rimuoviPar: pacchetto null");
 							} else if (action.equals("delete")) {
@@ -215,10 +221,13 @@ public class PacchettoControl extends HttpServlet {
 										bean.readContenuto();
 										redirectedPage = "/ModificaPacchettoAdmin.jsp";
 										request.getSession().setAttribute("pacchetto", bean);
-										request.getSession().setAttribute("matrice", modelMatrice.doRetrieveByKey(String.valueOf(bean.getIdMatrice())));
-										request.getSession().setAttribute("parametri", modelParametro.doRetrieveByMatrix(String.valueOf(bean.getIdMatrice())));
+										request.getSession().setAttribute("matrice",
+												modelMatrice.doRetrieveByKey(String.valueOf(bean.getIdMatrice())));
+										request.getSession().setAttribute("parametri",
+												modelParametro.doRetrieveByMatrix(String.valueOf(bean.getIdMatrice())));
 									} else
-										throw new Exception("ERRORE-PacchettoControl-admin-select: Pacchetto non trovata.");
+										throw new Exception(
+												"ERRORE-PacchettoControl-admin-select: Pacchetto non trovata.");
 								} else
 									throw new Exception("ERRORE-PacchettoControl-admin-select: id null.");
 							} else
@@ -254,15 +263,33 @@ public class PacchettoControl extends HttpServlet {
 								}
 							} else if (action.equals("select")) {
 								request.getSession().removeAttribute("SelectPacchetto");
-								String id = request.getParameter("id");
-								if (id != null) {
-									PacchettoBean bean=new PacchettoBean();
-									bean=modelPacchetto.doRetrieveByKey(id);
-									request.getSession().setAttribute("SelectPacchetto", bean);
-									redirectedPage = "/CompilaModuloCliente.jsp";
+								MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("SelectMatrice");
+								if (matrice != null) {
+									String id = request.getParameter("id");
+									if (id != null) {
+										PacchettoBean pacchetto = new PacchettoBean();
+										pacchetto = modelPacchetto.doRetrieveByKey(id);
+										request.getSession().setAttribute("SelectPacchetto", pacchetto);
+										
+										ModuloBean modulo = new ModuloBean();
+										modulo.setTipo(matrice.getModulo());
+										String SAVE_DIR = "txt";
+										String appPath = request.getServletContext().getRealPath("");
+										String savePath = appPath + SAVE_DIR;
+										File fileSaveDir = new File(savePath);
+										if (!fileSaveDir.exists()) {
+											fileSaveDir.mkdir();
+										}
+										modulo.inizializza(savePath+File.separator);
+										request.getSession().setAttribute("modulo", modulo);
+										redirectedPage = "/CompilaModuloCliente.jsp";
+									} else {
+										redirectedPage = "/SceltaPacchettoCliente.jsp";
+										throw new Exception("ERRORE-PacchettoControl-user: id null.");
+									}
 								} else {
-									redirectedPage = "/SceltaPacchettoCliente.jsp";
-									throw new Exception("ERRORE-PacchettoControl-user: id null.");
+									redirectedPage = "/SceltaMatriceCliente.jsp";
+									throw new Exception("ERRORE-PacchettoControl-user-select: matrice null");
 								}
 							} else
 								throw new Exception("ERRORE-PacchettoControl-user: invalid action for user");

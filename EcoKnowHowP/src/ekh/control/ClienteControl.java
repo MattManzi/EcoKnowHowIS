@@ -48,7 +48,7 @@ public class ClienteControl extends HttpServlet {
 				if (action.equals("inserimentoDati")) {
 					String nome = request.getParameter("nome");
 					String cognome = request.getParameter("cognome");
-					String funzioneAziendale = request.getParameter("funzioneAziendale");
+					String settore = request.getParameter("settore");
 					String telefono = request.getParameter("telefono");
 					String ragioneSociale = request.getParameter("ragioneSociale");
 					String via = request.getParameter("via");
@@ -63,12 +63,10 @@ public class ClienteControl extends HttpServlet {
 					String password = request.getParameter("password");
 					String password2 = request.getParameter("password2");
 
-					System.out.println(nome + " " + ragioneSociale);
 					ArrayList<String> inputs = new ArrayList<String>();
-
 					inputs.add(nome.trim());
 					inputs.add(cognome.trim());
-					inputs.add(funzioneAziendale.trim());
+					inputs.add(settore.trim());
 					inputs.add(ragioneSociale.trim());
 					inputs.add(comune.trim());
 					inputs.add(via.trim());
@@ -96,7 +94,7 @@ public class ClienteControl extends HttpServlet {
 
 							String indirizzo = via + ", " + civico + ", " + comune + ", " + cap;
 
-							ClienteBean bean = new ClienteBean(username, nome, cognome, funzioneAziendale, telefono,
+							ClienteBean bean = new ClienteBean(username, nome, cognome, settore, telefono,
 									ragioneSociale, indirizzo, ivaCF, pec, sdi, email, password, codSicurezza);
 
 							request.getSession().setAttribute("ClienteTemp", bean);

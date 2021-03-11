@@ -113,7 +113,7 @@ public class ClienteModelDM implements ClassModel<ClienteBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String insertSQL="INSERT INTO cliente(email, nome, cognome, settore, telefono, ragioneSociale, indirizzo, pIvaCF, pec, sdi, email, password, codSicurezza, attivo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String insertSQL="INSERT INTO cliente(username, nome, cognome, settore, telefono, ragioneSociale, indirizzo, pIvaCF, pec, sdi, email, password, codSicurezza, attivo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();

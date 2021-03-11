@@ -32,19 +32,19 @@
 	<div id="main">	
 		<div class="card">	
 			<div class="container">
-				<a href="<%=response.encodeURL("CreaPacchetto.jsp") %>" >Crea un nuovo pacchetto</a>
+				<a href="<%=response.encodeURL("AggiungiPacchetto.jsp") %>" >Crea un nuovo pacchetto</a>
 				<p>Inserisci i parametri all'interno del nuovo pacchetto</p>
 			</div>
 		</div>
 		<div class="card">	
 			<div class="container">
-				<a href="<%=response.encodeURL("PacchettoControl?action=visualizza&tipo=analitico") %>" >Pacchetti Analitici</a>
+				<a href="<%=response.encodeURL("Pacchetto?action=visualizza&tipo=analitico") %>" >Pacchetti Analitici</a>
 				<p>Seleziona un pacchetto creato per un precedente piano</p>
 			</div>
 		</div>
 		<div class="card">	
 			<div class="container">
-				<a href="<%=response.encodeURL("PacchettoControl?action=visualizza&tipo=standard") %>" >Pacchetti Standard</a>
+				<a href="<%=response.encodeURL("Pacchetto?action=visualizza&tipo=standard") %>" >Pacchetti Standard</a>
 				<p>Seleziona un pacchetto proposto da noi!</p>
 			</div>
 		</div>	

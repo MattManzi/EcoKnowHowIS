@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <%
-	Boolean userRoles = (Boolean) session.getAttribute("userRoles");
-	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("Utente");	
-	PacchettoBean pacchetto=(PacchettoBean) request.getAttribute("pacchetto");	
-	if(utente != null && userRoles != null && userRoles.booleanValue()) {
+	Boolean userRoles = (Boolean) session.getAttribute("userRoles");	
+	PacchettoBean pacchetto=null;
+	if(userRoles != null && userRoles.booleanValue()) {
+		pacchetto=(PacchettoBean) request.getAttribute("pacchettoDettagli");	
 		if(pacchetto==null){
-			response.sendRedirect("SceltaTipoPacchettoCliente.jsp");
+			response.sendRedirect("SelezionaPacchettoCliente.jsp");
 			return;
 		}
 	}else{
@@ -24,6 +24,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	un div per ogni parametro all'interno del pacchetto
 </body>
 </html>

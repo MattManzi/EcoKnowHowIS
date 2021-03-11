@@ -1,14 +1,14 @@
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Acqua', 'Acque di scarico in acque superficiali', 'Tabella 3 - Allegato 5 Parte III D.Lgs. N. 152 del 2006');
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Acqua', 'Acque di scarico in rete fognaria', 'Tabella 3 - Allegato 5 Parte III D.Lgs. N. 152 del 2006');
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Acqua', 'Acque di scarico su suolo', 'Tabella 4 - Allegato 5 Parte III D.Lgs. N. 152 del 2006');
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Acqua', 'Acque sotterranee (CSC)', 'Tabella 2 - Allegato 5 Titolo V Parte IV D.Lgs. N. 152 del 2006');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Acqua', 'Acque di scarico in acque superficiali', 'Tabella 3 - Allegato 5 Parte III D.Lgs. N. 152 del 2006', 'A');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Acqua', 'Acque di scarico in rete fognaria', 'Tabella 3 - Allegato 5 Parte III D.Lgs. N. 152 del 2006', 'A');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Acqua', 'Acque di scarico su suolo', 'Tabella 4 - Allegato 5 Parte III D.Lgs. N. 152 del 2006', 'A');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Acqua', 'Acque sotterranee (CSC)', 'Tabella 2 - Allegato 5 Titolo V Parte IV D.Lgs. N. 152 del 2006', 'A');
 
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Terra', 'Suolo', 'Tabella 1 - Col. A e B Allegato 5 Titolo V Parte IV D.Lgs. N. 152 del 2006');
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Terra', 'Terreni destinati allo spandimento', 'Allegato I A e II A D.Lgs. N. 99 del 1992');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Terra', 'Suolo', 'Tabella 1 - Col. A e B Allegato 5 Titolo V Parte IV D.Lgs. N. 152 del 2006', 'C');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Terra', 'Terreni destinati allo spandimento', 'Allegato I A e II A D.Lgs. N. 99 del 1992', 'C');
 
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Rifiuti', 'Rifiuti (classificazione)', 'Classificazione ai sensi del Reg. 1357 del 2004');
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Rifiuti', 'Rifiuti (ammissibilitÃ  in discarica)', 'D.Lgs. N. 36 del 2003');
-INSERT INTO matrice(nome, sottotitolo, nota) VALUES('Rifiuti', 'Rifiuti (ammissibilitÃ  a recupero)', 'DM. 05/02/1998');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Rifiuti', 'Rifiuti (classificazione)', 'Classificazione ai sensi del Reg. 1357 del 2004', 'B');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Rifiuti', 'Rifiuti (ammissibilitÃ  in discarica)', 'D.Lgs. N. 36 del 2003', 'B');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Rifiuti', 'Rifiuti (ammissibilitÃ  a recupero)', 'DM. 05/02/1998', 'B');
 
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(1,'pH', 'SAS_001', '5,5 - 9,5', 'Unità di pH');
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(1,'Temperatura (°C)', 'SAS_002', 'Variabile', '-');

@@ -23,7 +23,7 @@
 	<a href="<%=response.encodeURL("HomePage.jsp")%>" class="logo">EcoKnowHow</a>
 	<div id="main">
 		<fieldset>
-		<form name="formLogin" action="<%=response.encodeURL("LoginControl?action=user")%>" method="post">
+		<form name="formLogin" action="<%=response.encodeURL("Login?action=user")%>" method="post">
 			<label for="username">Username:</label> 
 			<input type="text" name="username" placeholder="enter username"><br> 
 			<label for="password">Password:</label> 

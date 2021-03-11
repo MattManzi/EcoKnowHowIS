@@ -4,14 +4,14 @@
 <html>
 <head>
 <title>Registrazione</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/script/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="./script/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script> 
 <script type="text/javascript" src="./script/RegistrazioneUser.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/script/funzioniAjax.js"></script>
+<script type="text/javascript" src="./script/funzioniAjax.js"></script>
 <link rel="stylesheet" href="/css/RegistrazioneUser.css" type="text/css">
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/jsp/HomePage.jsp" class="logo">EcoKnowHow</a>
+	<a href="<%=response.encodeURL("HomePage.jsp")%>" class="logo">EcoKnowHow</a>
 	<div>
 		<fieldset><legend>Registrazione</legend>
 			<form id="formRegistrazioneUser" name="formRegistrazioneUser" action="<%=response.encodeURL("User?action=inserimentoDati")%>" method="post">
@@ -25,11 +25,18 @@
 						<td><input type="text" name="cognome" maxlength="30"></td>	
 					</tr>
 					<tr>
-						<td><label for="funzioneAziendale">Funzione Aziendale:</label></td>	
-						<td><input type="text" name="funzioneAziendale" maxlength="50"></td>	
+						<td><label for="settore">Settore:</label></td>	
+						<td><select name="settore">
+							<option value="" autofocus="autofocus"></option>
+							<option value="Prova1">Prova1</option>
+							<option value="Prova2">Prova2</option>
+							<option value="Prova3">Prova3</option>
+							<option value="Prova4">Prova4</option>
+							<option value="Prova5">Prova5</option>
+						</select></td>	
 					</tr>
 					<tr>
-						<td><label for="telefono">telefono:</label></td>	
+						<td><label for="telefono">Telefono:</label></td>	
 						<td><input type="text" name="telefono" maxlength="10"></td>	
 					</tr>
 					<tr>

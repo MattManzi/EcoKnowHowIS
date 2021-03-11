@@ -2,13 +2,15 @@
     pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <%
 	Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
-	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("User");	
-	Collection<?> matrici=(Collection<?>) request.getAttribute("matrici"); 
+	Collection<?> matrici=null;
+	Collection<?> nomi=null;
 	
-	if(utente != null && userRoles != null && userRoles.booleanValue()) {
-		if(matrici==null){
-			response.sendRedirect(response.encodeRedirectURL("./MatriceControl?action=visualizza"));
-			return;
+	
+	if(userRoles != null && userRoles.booleanValue()) {
+		matrici=(Collection<?>) request.getAttribute("matrici"); 
+		nomi=(Collection<?>) request.getAttribute("nomi"); 
+		if(nomi==null){
+			response.sendRedirect(response.encodeRedirectURL("./Matrice?action=nomi"));
 		}
 	}else{
 		response.sendRedirect("LoginUser.jsp");
@@ -33,30 +35,24 @@ Servlet:
 <link href="css/SceltaMatriceUser.css" rel="stylesheet">
 </head>
 <body>
-	<!-- NAV -->
-	<div id="main">	
-	<div>
-		<%
-		if(matrici.size()>0){
-			Iterator<?> it = matrici.iterator();
-			while (it.hasNext()) {
-				MatriceBean bean=(MatriceBean) it.next();
-		%>		
-				
-				<div class="card">	
-					<div class="container">
-						<a href="<%=response.encodeURL("MatriceControl?action=select&id="+ bean.getId()) %>"><%=bean.getNome()%></a>
-						<h3><b><%=bean.getSottotitolo()%></b></h3>				
-						<p><%=bean.getNota()%></p>
-					</div>
-				</div>
-		<%
-			}
-		}
-		
-		%>	
+	<%@ include file="NavUser.jsp" %>
+	
+	<div id="main">
+		<div id="scelta">
+			Iterazione della collection nomi
+			nome:nomi
+			per ogni nome un <a></a> con href="Matrice?action=visualizza&nome="+nome
+		</div>
+		<div id="matrici">
+			Iterazione della collection matrici
+			se non è null è non è vuota
+			<div>sottotitolo, note			
+			<a></a> con href="Matrice?action=select&id="+id
+			</div>
+	
+		</div>	
 	</div>
-	</div>
-	<!-- FOO -->
+
+	<%@ include file="Footer.jsp" %>
 </body>
 </html>
