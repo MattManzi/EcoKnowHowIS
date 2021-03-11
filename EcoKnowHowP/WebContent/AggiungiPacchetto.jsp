@@ -40,7 +40,7 @@ if((adminRoles != null && adminRoles.booleanValue())
 								while(it.hasNext()){
 									MatriceBean bean=(MatriceBean) it.next();
 							%>
-									<option value="<%=bean.getId()%>" selected="selected"><%=bean.getNome()%> </option>
+									<option value="<%=bean.getId()%>" selected="selected"><%=bean.getSottotitolo()%> </option>
 							<%	}
 					
 							}%>

@@ -126,7 +126,11 @@ public class PacchettoControl extends HttpServlet {
 									}
 									modelPacchetto.doSave(bean);
 									bean.stampContenuto(savePath + File.separator);
-									redirectedPage = "/GestionePacchettiAdmin.jsp";
+									if(admin!=null) {
+										redirectedPage = "/GestionePacchettiAdmin.jsp";
+									}else {
+										redirectedPage = "/SceltaTipoPacchettoCliente.jsp";
+									}
 								} else {
 									redirectedPage = "/ComponiPacchetto.jsp";
 									throw new Exception("ERRORE-PacchettoControl-salva: pacchetto vuoto.");

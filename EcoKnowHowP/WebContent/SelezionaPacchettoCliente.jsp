@@ -2,9 +2,10 @@
     pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <%
 	Boolean userRoles = (Boolean) session.getAttribute("userRoles");
-	ClienteBean utente=(ClienteBean) request.getSession().getAttribute("User");	
-	Collection<?> pacchetti=(Collection<?>) request.getAttribute("pacchetti");	
-	if(utente != null && userRoles != null && userRoles.booleanValue()) {
+	Collection<?> pacchetti=null;
+	
+	if(userRoles != null && userRoles.booleanValue()) {
+		 pacchetti=(Collection<?>) request.getAttribute("pacchetti");	
 		if(pacchetti==null){
 			response.sendRedirect("SceltaTipoPacchettoCliente.jsp");
 			return;
@@ -37,9 +38,10 @@
 			%>
 				<div class="card">	
 					<div class="container">
-						<a href="<%=response.encodeURL("PacchettoControl?action=select&id="+ bean.getId()) %>"><%=bean.getNome()%></a>
+						<%=bean.getNome()%>/nome solo descrizione
 						<h3><b><%=bean.getDescrizione()%></b></h3>				
-						<a href="<%=response.encodeURL("PacchettoControl?action=select&id="+ bean.getId()) %>">Dettagli</a>
+						<a href="<%=response.encodeURL("Pacchetto?action=dettagli&id="+ bean.getId()) %>">Dettagli</a>
+						<a href="<%=response.encodeURL("Pacchetto?action=select&id="+ bean.getId()) %>">Seleziona</a>
 					</div>
 				</div>
 			<%

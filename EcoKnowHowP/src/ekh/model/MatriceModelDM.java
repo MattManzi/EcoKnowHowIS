@@ -175,4 +175,75 @@ public class MatriceModelDM implements ClassModel<MatriceBean> {
 		}
 	}
 
+	public ArrayList<MatriceBean> doRetrieveByName(String nome) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
+
+		String selectSQL = "SELECT * FROM matrice WHERE nome=?";
+
+		
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, nome);
+			
+			System.out.println("MatriceModelDM: doRetrieveAll:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+
+			while (rs.next()) {
+				MatriceBean bean=new MatriceBean();
+				
+				bean.setId(rs.getInt("id"));	
+				bean.setNome(rs.getString("nome"));	
+				bean.setSottotitolo(rs.getString("sottotitolo"));	
+				bean.setNota(rs.getString("nota"));	
+				matrici.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return matrici;
+	}
+	
+	public ArrayList<String> getName() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<String> nomi = new ArrayList<String>();
+
+		String selectSQL = "SELECT nome FROM matrice GROUP BY nome";		
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			System.out.println("MatriceModelDM: doRetrieveAll:" + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+
+			while (rs.next()) {				
+				nomi.add(rs.getString("nome"));
+			}
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return nomi;
+	}
 }

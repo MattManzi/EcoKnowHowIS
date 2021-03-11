@@ -13,7 +13,7 @@ CREATE TABLE cliente(
 	cognome char(30) not null, 
 	settore char(20) not null,
 	telefono char(10) not null,
-	ragioneSociale char(20) not null, 
+	ragioneSociale char(50) not null, 
 	indirizzo char(100) not null,
 	pIvaCF char(16) not null,
 	pec char(50) default null,
@@ -38,6 +38,7 @@ CREATE TABLE matrice(
 	nome char(20) not null,
 	sottotitolo char(50) not null,
 	nota char(250) not null,
+	
 	PRIMARY KEY(id)
 );
 

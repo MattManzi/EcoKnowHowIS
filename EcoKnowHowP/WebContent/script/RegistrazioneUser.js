@@ -7,7 +7,7 @@ $(document).ready(function() {
 	});
 	$.validator.addMethod('allLetter_val', function(value, element) {
 		return this.optional(element) || /^[A-Za-z]+(\s?[A-Za-z])*$/.test(value);
-	});	
+	});
 	$.validator.addMethod('phoneNumber_val', function(value, element) {
 		return this.optional(element) || /^\d{10}$/.test(value);
 	});
@@ -18,12 +18,12 @@ $(document).ready(function() {
 		return this.optional(element) || /^\w+(\s?\w+)*$/.test(value);
 	});
 	$.validator.addMethod('pIvaCF_val', function(value, element) {
-		return this.optional(element) || /(^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z])|(^[0-9]{11})$/.test(value);
-	});	
+		return this.optional(element) || /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$|(^[0-9]{11})$/.test(value);
+	});
 	$.validator.addMethod('password_val', function(value, element) {
 		return this.optional(element) || /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})/.test(value);
 	});
-	
+
 	$("#formRegistrazioneUser").validate({
 		rules: {
 			'nome': {
@@ -34,9 +34,8 @@ $(document).ready(function() {
 				required: true,
 				allLetter_val: true
 			},
-			'funzioneAziendale': {
-				required: true,
-				allLetter_val: true
+			'settore': {
+				required: true
 			},
 			'telefono': {
 				required: true,
@@ -100,9 +99,8 @@ $(document).ready(function() {
 				required: "Inserire un cognome.",
 				allLetter_val: "Cognome non valido."
 			},
-			'funzioneAziendale': {
-				required: "Inserire una Funzione Aziendale.",
-				allLetter_val: "Funzione Aziendale non valida."
+			'settore': {
+				required: "Selezionare un settore."
 			},
 			'telefono': {
 				required: "Inserire un numero di telefono.",

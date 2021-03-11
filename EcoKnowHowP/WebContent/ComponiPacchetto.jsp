@@ -84,7 +84,7 @@ function myFunction() {
 							</div>		
 				<%	}  
 				%>
-					<p> Prezzo:<%=pacchetto.calcolaPrezzo()%> Euro</p>
+					<p> Prezzo:<%=pacchetto.calcolaPrezzo()%> €</p>
 					<a href="<%=response.encodeURL("Pacchetto?action=salva")%>">Procedi</a>
 				<%		
 					}
@@ -93,8 +93,6 @@ function myFunction() {
 		</div>
 	</div>
 	
-	<footer class="footer">
-		<p>2020 Prova&copy;</p>
-	</footer>
+	<%@ include file="Footer.jsp" %>
 </body>
 </html>

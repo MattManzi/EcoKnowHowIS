@@ -20,12 +20,29 @@ Servlet Necessarie:
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
-
-		<footer class="footer">
-		<p>2020 Prova&copy;</p>
-	</footer>
+		nav
+		
+		<div id="main">
+			form 
+				primi input:
+				
+				da ragioneSocialeProd  //**Stessa Persona
+				a luogo
+				
+				secondi input
+				da nomeCampionatore
+				a note
+				
+				obiettivi
+				if(matrice.tipoModulo.equals(A)){
+					checkBox ?
+				}else if(matrice.tipoModulo.equals(B)){
+				
+				}else{
+				
+				}
+		</div>
+		
+		footer
 </body>
 </html>
