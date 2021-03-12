@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="NavAdmin.jsp" %>
-
-
-<%@ include file="Footer.jsp" %>	
+	<%@ include file="NavAdmin.jsp" %>
+	
+	
+	<%@ include file="Footer.jsp" %>	
 </body>
 </html>

@@ -1,31 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <%
-	AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
-Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
-Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
-ClienteBean user = (ClienteBean) request.getSession().getAttribute("User");
+Boolean adminRoles = (Boolean) session.getAttribute("adminRoles");
+Boolean userRoles = (Boolean) session.getAttribute("userRoles");
 PianoBean pianoAdmin = null;
 PianoBean piano = null;
+ArrayList<ParametroBean> parametri=null;
 Boolean key = false;
 
-if ((admin != null && adminRoles != null && adminRoles.booleanValue())
-		|| (user != null || userRoles != null && userRoles.booleanValue())) {
-	if(admin!=null){
-		pianoAdmin = (PianoBean) request.getSession().getAttribute("pianoAdmin");
-		if(pianoAdmin==null){
-			response.sendRedirect("./GestioneClientiAdmin.jsp");
-			return;
-		}else{
-			key = true;	
-		}
+if (adminRoles != null && adminRoles.booleanValue()){
+	pianoAdmin = (PianoBean) session.getAttribute("pianoAdmin");
+	if(pianoAdmin==null){
+		response.sendRedirect("./GestioneClientiAdmin.jsp");
+		return;
 	}else{
+		key = true;	
+		parametri=pianoAdmin.getContenuto();
+	}
+}else if(userRoles != null && userRoles.booleanValue()) {	
 		piano = (PianoBean) request.getAttribute("pianoAdmin");
 		if(piano==null){
 			response.sendRedirect("./GestioneClientiAdmin.jsp");
-			return;
+			return;	
+		}else{
+			parametri=piano.getContenuto();
 		}
-	}
 } else {
 	response.sendRedirect("./HomePage.jsp");
 	return;
@@ -62,8 +61,23 @@ Servlet Necessarie:
 <title>Insert title here</title>
 </head>
 <body>
-	<footer class="footer">
-		<p>2020 Prova&copy;</p>
-	</footer>
+	<%@ include file="NavAdmin.jsp" %>
+	
+	<div id="main" class="table">
+		<div id="parametri" class="cell">
+			<%
+				if(parametri!=null && parametri.size()>0){
+			%>		
+					
+			<%
+				}
+			%>
+		</div>
+		<div id="modulo" class="cell">
+		
+		</div>	
+	</div>
+	
+	<%@ include file="Footer.jsp" %>	
 </body>
 </html>
