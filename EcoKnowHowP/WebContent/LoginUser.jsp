@@ -13,10 +13,7 @@
 <html>
 
 <head>
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link href="../css/HomePage.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="css/Login.css" rel="stylesheet">
 <title>EcoKnowHow</title>
 </head>
 <body>
