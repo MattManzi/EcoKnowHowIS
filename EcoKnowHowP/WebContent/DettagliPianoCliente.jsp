@@ -6,6 +6,7 @@ Boolean userRoles = (Boolean) session.getAttribute("userRoles");
 PianoBean pianoAdmin = null;
 PianoBean piano = null;
 ArrayList<ParametroBean> parametri=null;
+ModuloBean modulo=null;
 Boolean key = false;
 
 if (adminRoles != null && adminRoles.booleanValue()){
@@ -16,6 +17,7 @@ if (adminRoles != null && adminRoles.booleanValue()){
 	}else{
 		key = true;	
 		parametri=pianoAdmin.getContenuto();
+		modulo=pianoAdmin.getModulo();
 	}
 }else if(userRoles != null && userRoles.booleanValue()) {	
 		piano = (PianoBean) request.getAttribute("pianoAdmin");
@@ -24,6 +26,7 @@ if (adminRoles != null && adminRoles.booleanValue()){
 			return;	
 		}else{
 			parametri=piano.getContenuto();
+			modulo=piano.getModulo();
 		}
 } else {
 	response.sendRedirect("./HomePage.jsp");
@@ -67,14 +70,20 @@ Servlet Necessarie:
 		<div id="parametri" class="cell">
 			<%
 				if(parametri!=null && parametri.size()>0){
+					for(ParametroBean p:parametri){
 			%>		
-					
+					<div class="param">
+						<h3><%=p.getSku() %></h3>
+						<h3><%=p.getNome() %></h3>
+						<h3><%=p.getPrezzo() %></h3>
+					</div>	
 			<%
+					}
 				}
 			%>
 		</div>
 		<div id="modulo" class="cell">
-		
+			
 		</div>	
 	</div>
 	
