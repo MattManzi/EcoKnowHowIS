@@ -13,8 +13,9 @@
 	<section class="banner clearfix">	
 		<div class="contenitore_card">
 			<div class="table-cell">
+			
 				<div class="card">
-					<a href="<%=response.encodeURL("ChiSiamo.jsp")%>">Crea il Piano</a>
+					<a href="<%=response.encodeURL("SceltaMatriceCliente.jsp")%>">Crea il Piano</a>
 					<p>Some text</p>
 					<p>Some text</p>
 				</div>
@@ -35,6 +36,7 @@
 			</div>
 		</div>
 	</section>
+	
 	<%@ include file="Footer.jsp" %>
 </body>
 </html>

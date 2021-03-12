@@ -38,8 +38,9 @@ function menu() {
 			<%}else{%>				 
 				<a href=><%=user.getUsername()%></a> 	
 			<%}%>
-			<a href="<%=response.encodeURL("SceltaMatriceCliente.jsp")%>">Crea il tuo Piano</a>
 			<a href="<%=response.encodeURL("ChiSiamo.jsp")%>">Chi Siamo?</a>	
+			<a href="<%=response.encodeURL("SceltaMatriceCliente.jsp")%>">Crea il tuo Piano</a>
+			
 		</div>									
 	</header>
 </body>

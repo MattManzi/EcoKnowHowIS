@@ -25,6 +25,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@ include file="NavUser.jsp" %>
 	<h1>SelezionaPacchetto</h1>
 	
 	<div id="main">	
@@ -51,5 +52,6 @@
 	
 		</div>
 	</div>
+		<%@ include file="Footer.jsp" %>
 </body>
 </html>
