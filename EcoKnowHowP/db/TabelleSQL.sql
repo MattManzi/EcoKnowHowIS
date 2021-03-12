@@ -38,7 +38,7 @@ CREATE TABLE matrice(
 	nome char(20) not null,
 	sottotitolo char(50) not null,
 	nota char(250) not null,
-	modulo char(1) check(tipo in('A', 'B','C')),
+	modulo char(1) check(modulo in('A', 'B','C')),
 	PRIMARY KEY(id)
 );
 

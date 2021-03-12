@@ -31,8 +31,6 @@
 	</div>
 	
 	
-		<footer class="footer">
-		<p>2020 Prova&copy;</p>
-	</footer>
+<%@ include file="Footer.jsp" %>
 </body>
 </html>

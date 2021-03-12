@@ -124,7 +124,7 @@ public class MatriceControl extends HttpServlet {
 							throw new Exception("ERRORE-MatriceControl-admin: invalid action for admin.");
 					} else {
 						if(action.equals("nomi")) {
-							request.setAttribute("nomi", modelMatrice.getName());
+							request.getSession().setAttribute("nomi", modelMatrice.getName());
 							redirectedPage = "/SceltaMatriceCliente.jsp";
 						}else if (action.equals("visualizza")) {
 							String nome = request.getParameter("nome");
