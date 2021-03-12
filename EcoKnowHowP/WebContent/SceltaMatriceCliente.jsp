@@ -8,7 +8,7 @@
 	
 	if(userRoles != null && userRoles.booleanValue()) {
 		matrici=(Collection<?>) request.getAttribute("matrici"); 
-		nomi=(Collection<?>) request.getAttribute("nomi"); 
+		nomi=(Collection<?>) session.getAttribute("nomi"); 
 		if(nomi==null){
 			response.sendRedirect(response.encodeRedirectURL("./Matrice?action=nomi"));
 		}
@@ -31,7 +31,7 @@ Servlet:
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>Scelta Matrice</title>
 <link href="css/SceltaMatriceUser.css" rel="stylesheet">
 </head>
 <body>
@@ -39,16 +39,45 @@ Servlet:
 	
 	<div id="main">
 		<div id="scelta">
-			Iterazione della collection nomi
-			nome:nomi
-			per ogni nome un <a></a> con href="Matrice?action=visualizza&nome="+nome
-		</div>
-		<div id="matrici">
-			Iterazione della collection matrici
-			se non è null è non è vuota
-			<div>sottotitolo, note			
-			<a></a> con href="Matrice?action=select&id="+id
+
+		<%if(nomi != null && nomi.size()>0){
+				Iterator<?> it=nomi.iterator();
+				while(it.hasNext()){
+					String bean=(String) it.next();		
+			%>
+			<div class="nome">
+				<a class="nome_matrice" href="Matrice?action=visualizza&nome=<%=bean%>"><%=bean %> </a>
 			</div>
+			<%		}
+				}%>
+		</div>
+		
+		<div id="matrici">
+		
+		<% if(matrici != null && matrici.size() > 0){
+			Iterator<?> it=matrici.iterator();
+			while(it.hasNext()){
+				MatriceBean matrice=(MatriceBean) it.next();
+				%>
+
+				<div class=card>
+				
+					<h4><%=matrice.getSottotitolo() %></h4>
+					<h4><%=matrice.getNota() %></h4>
+					<a href="Matrice?action=select&id=<%=matrice.getId()%>" >Seleziona</a>
+				
+				</div>
+
+
+
+				<%		}
+					}else{%>
+				<div id="matrici">					
+					<h2 class="non_selezione">Seleziona una Matrice per vedere le sue categorie</h2>
+				</div>
+			
+			<%	
+				}%>
 	
 		</div>	
 	</div>

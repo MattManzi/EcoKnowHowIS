@@ -13,12 +13,14 @@
 <html>
 
 <head>
+<link href="css/Template.css" rel="stylesheet">
 <link href="css/Login.css" rel="stylesheet">
 <title>EcoKnowHow</title>
 </head>
 <body>
+
+	<div class="canvas">
 	<a href="<%=response.encodeURL("HomePage.jsp")%>" class="logo">EcoKnowHow</a>
-	<div id="main">
 		<fieldset>
 		<form name="formLogin" action="<%=response.encodeURL("Login?action=user")%>" method="post">
 			<label for="username">Username:</label> 
@@ -37,8 +39,6 @@
 		%>
 		</fieldset>
 	</div>
-		<footer class="footer">
-		<p>2020 Prova&copy;</p>
-	</footer>
+	<%@ include file="Footer.jsp" %>
 </body>
 </html>
