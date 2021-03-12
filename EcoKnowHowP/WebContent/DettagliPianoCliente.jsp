@@ -83,7 +83,14 @@ Servlet Necessarie:
 			%>
 		</div>
 		<div id="modulo" class="cell">
-			
+			<%
+				if(modulo!=null){
+			%>		
+				
+			<%
+					
+				}
+			%>
 		</div>	
 	</div>
 	
