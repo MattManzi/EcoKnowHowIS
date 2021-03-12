@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="ekh.bean.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 
 <%
@@ -56,6 +56,9 @@ function mod(form, input) {
 			<h1>Modifica Pacchetto</h1>		
 			<div id="nomeMatrice">
 				<p>Matrice di Riferimento: <%=matrice.getNome()%></p>
+			</div>	
+			<div id="nomeMatrice">
+				<p>Matrice di Riferimento: <%=matrice.getSottotitolo()%></p>
 			</div>		
 			<div id="nome">
 				<p>Nome: <%=pacchetto.getNome() %></p>

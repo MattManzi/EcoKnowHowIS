@@ -108,7 +108,50 @@ Servlet Necessarie:
 					<td><input type="text" name="note"></td>
 				</tr>
 			</table>
-			<table id="info3">
+			<%
+				if(modulo.getTipo().equals("B") && hp!=null && hp.size()>0){
+			%>
+					<table id="info3">
+						<tr>
+							<td colspan="2" class="dato">CODICE CER (attribuito dal produttore in base all’origine/provenienza del rifiuto):</td>
+							<td><input type="text" name="cer"></td>
+						</tr>
+						<tr>
+							<td class="dato">Stato Fisico:</td>
+							<td colspan="2">
+							<input type="radio" id="snp" name="statoFisico" value="Solido non polverulento">
+							<label for="snp">Solido non polverulento</label>
+							<input type="radio" id="sp" name="statoFisico" value="Solido polverulento">
+							<label for="sp">Solido polverulento</label>
+							<input type="radio" id="fpa" name="statoFisico" value="Fangoso palabile">
+							<label for="fpa">Fangoso palabile</label>
+							<input type="radio" id="fpo" name="statoFisico" value="Fangoso pompabile">
+							<label for="fpo">Fangoso pompabile</label>
+							<input type="radio" id="liq" name="statoFisico" value="Liquido">
+							<label for="liq">Liquido</label></td>
+						</tr>
+						<tr>
+							<td colspan="2" class="dato">Descrizione del processo produttivo che ha originato il rifiuto (riportare una breve descrizione delle materie prime e del processo di lavorazione):</td>
+							<td><input type="text" name="descrizione"></td>
+						</tr>					
+					</table>
+					<table id="info4">
+			<%
+					for(String s:hp){
+						String[] x=s.split(";");
+			%>
+						<tr>
+							<td><input type="checkbox" name="obiettivi" value="<%=x[0] %>"><%=x[1] %></td>
+							<td><%=x[0] %></td>
+							<td><input type="text" name="<%=x[0]%> %>"></td>
+						</tr>
+			<%		}
+			%>				
+					</table>
+			<%
+				}
+			%>
+			<table id="info5">
 				<tr class="hr">
 					<th>Obiettivo dell’analisi: </th>
 				</tr>			
@@ -123,25 +166,8 @@ Servlet Necessarie:
 						}
 					}
 				%>
-			</table>		
-			<%
-				if(hp!=null && hp.size()>0){
-			%>
-					<table id="info4">
-			<%
-					for(String s:hp){
-			%>
-						<tr>
-							<td><input type="checkbox" name="obiettivi" value="<%=s %>"><%=s %></td>
-						</tr>
-			<%		}
-			%>				
-					</table>
-			<%
-				}
-			%>
-					
-			<div id="info5">
+			</table>					
+			<div id="info6">
 				<p>CLICCANDO SU CONFERMA IL COMMITTENTE E/O IL PRODUTTORE, AI SENSI DEL DPR 445/2000 ART. 76, DICHIARA SOTTO LA PROPRIA RESPONSABILITÀ DICHIARA CHE:</p>
 				
 				<p>- IL CAMPIONE CONSEGNATO È RAPPRESENTATIVA DELL’INTERA MATRICE OGGETTO DI INDAGINE.<br>
