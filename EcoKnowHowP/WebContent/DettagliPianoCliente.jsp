@@ -22,20 +22,20 @@ if (adminRoles != null && adminRoles.booleanValue()){
 		modulo=pianoAdmin.getModulo();
 		obiettivi=modulo.getObiettivi();
 		if(modulo.getTipo().equals("B")){
-			hp=modulo.getHp();
+			hp=((ModuloAvanzatoBean)modulo).getHp();
 		}
 	}
 }else if(userRoles != null && userRoles.booleanValue()) {	
-		piano = (PianoBean) request.getAttribute("pianoAdmin");
+		piano = (PianoBean) request.getAttribute("piano");
 		if(piano==null){
-			response.sendRedirect("./GestioneClientiAdmin.jsp");
+			response.sendRedirect("./StoricoCliente.jsp");
 			return;	
 		}else{
 			parametri=piano.getContenuto();
 			modulo=piano.getModulo();
 			obiettivi=modulo.getObiettivi();
 			if(modulo.getTipo().equals("B")){
-				hp=modulo.getHp();
+				hp=((ModuloAvanzatoBean)modulo).getHp();
 			}
 		}
 } else {
@@ -43,35 +43,12 @@ if (adminRoles != null && adminRoles.booleanValue()){
 	return;
 }
 
-/*
-Lista con tutti i parametri selezionati dal cliente e i dati inseriti nel modulo.
-Il Cliente qui potrà solo scaricare il referto.
-L'admin potrà modificare il prezzo e lo stato; caricare/scaricare il referto; scaricare la SDS.
-
-if(key){
-	stato modificabile
-	input per il prezzo
-	button dlSDS
-}
-
-if(piano.getReferto){
-	button dlReferto
-}else{
-	button ulReferto
-}
-
-Servlet Necessarie:
-	PianoControl?action=dlReferto - OK x
-	PianoControl?action=ulReferto - OK x
-	PianoControl?action=dlSDS - OK x
-	PianoControl?action=prezzo - X
-	PianoControl?action=stato - X
-*/
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Insert title here</title>
+
 </head>
 <body>
 	<%@ include file="NavAdmin.jsp" %>
@@ -83,17 +60,17 @@ Servlet Necessarie:
 		<div class="table">
 			<div id="parametri" class="cell">
 				<%
-					if(parametri!=null && parametri.size()>0){
-						for(ParametroBean p:parametri){
+				if(parametri!=null && parametri.size()>0){
+					for(ParametroBean p:parametri){
 				%>		
-						<div class="param">
-							<h3><%=p.getSku() %></h3>
-							<h3><%=p.getNome() %></h3>
-							<h3><%=p.getPrezzo() %></h3>
-						</div>	
+					<div class="param">
+						<h3><%=p.getSku() %></h3>
+						<h3><%=p.getNome() %></h3>
+						<h3><%=p.getPrezzo() %></h3>
+					</div>	
 				<%
-						}
 					}
+				}
 				%>
 			</div>
 			<div id="modulo" class="cell">
@@ -149,66 +126,82 @@ Servlet Necessarie:
 						<td colspan="2" class="dato">Quantità campione in consegna al laboratorio<br>prelevato all’atto del campionamento:</td>
 						<td><%=modulo.getQuantitaCampione() %></td>
 					</tr>
-					<tr>
-						<td colspan="2" class="dato">Occorre inserire delle particolari note sul rapporto di prova?<br>Esempio modalità di campionamento.</td>
-						<td><%=modulo.getNote() %></td>
-					</tr>
+					<tr>	
+							<td>Note sul rapporto di prova:</td>
+						<%
+							if(key){
+								if(modulo.getRapporto()){
+							%>		
+									<td><a href="">Download</a></td>	
+							<%
+								}else{
+							%>		
+									<td>Nessuna File Caricato</td>	
+							<%	
+								}										
+							}else{
+							%>																
+								<td><a href="">Upload</a></td>	
+							<%
+							}	
+						%>
+						</tr>
 				</table>
 				<%
-					if(modulo.getTipo().equals("B") && hp!=null && hp.size()>0){
+				if(modulo.getTipo().equals("B") && hp!=null && hp.size()>0){
 				%>	
-						<table>
-							<tr>
-								<td>Codice CER:</td>
-								<td><%=modulo.getCer()%></td>
-							</tr>
-							<tr>
-								<td>Stato Fisico:</td>
-								<td><%=modulo.getStatoFisico()%></td>
-							</tr>
-							<tr>
-								<td>Descrizione del processo produttivo:</td>
-								<td><%=modulo.getDescrizione()%></td>
-							</tr>
+					<table>
+						<tr>
+							<td>Codice CER:</td>
+							<td><%=((ModuloAvanzatoBean)modulo).getCer()%></td>
+						</tr>
+						<tr>
+							<td>Stato Fisico:</td>
+							<td><%=((ModuloAvanzatoBean)modulo).getStatoFisico()%></td>
+						</tr>
+						<tr>
+							<td>Descrizione del processo produttivo:</td>
+							<td><%=((ModuloAvanzatoBean)modulo).getDescrizione()%></td>
+						</tr>
+						<tr>	
+							<td>Schede Dati di Sicurezza:</td>
+						<%
+							if(key){
+								if(pianoAdmin.isSchedaDS()){
+							%>		
+									<td><a href="">Download</a></td>	
 							<%
-								if(key){
-							%>
-									<tr>	
-										<td>Schede Dati di Sicurezza:</td>
-										<%
-											if(pianoAdmin.isSchedaDS()){
-										%>		
-												<td><a href="">Download</a></td>	
-										<%
-											}else{
-										%>		
-												<td>Nessuna File Caricato</td>	
-										<%	
-											}
-										%>
-									</tr>
+								}else{
+							%>		
+									<td>Nessuna File Caricato</td>	
+							<%	
+								}										
+							}else{
+							%>																
+								<td><a href="">Upload</a></td>	
 							<%
-								}
-							%>
-						</table>
-						<table>
+							}	
+						%>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<th>HP: </th>
+						</tr>
+						<%
+						for(String s:hp){
+							String[] x=s.split(";");							
+						%>		
 							<tr>
-								<th>HP: </th>
+								<td><%=x[0] %></td>
+								<td><%=x[1] %></td>
 							</tr>
-					<%
-							for(String s:hp){
-								String[] x=s.split(";");							
-					%>		
-								<tr>
-									<td><%=x[0] %></td>
-									<td><%=x[1] %></td>
-								</tr>
-					<%		
-							}
-					%>				
-						</table>
+						<%		
+						}
+						%>				
+					</table>
 				<%
-					}
+				}
 				%>
 				<table>
 					<tr>
@@ -222,14 +215,17 @@ Servlet Necessarie:
 									<td><%=s %></td>
 								</tr>
 					<%
-							}
 						}
+					}				
 					%>
 				</table>
+				<%						
+				}				
+				%>
 			</div>	
 		</div>
 	</div>
-	
+	<br><br><br><br><br>
 	<%@ include file="Footer.jsp" %>	
 </body>
 </html>

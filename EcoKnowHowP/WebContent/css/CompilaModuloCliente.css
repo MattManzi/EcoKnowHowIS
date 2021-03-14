@@ -10,7 +10,7 @@
 }
 
 form{
-	width: 45%;
+	width: 50%;
 	margin:auto;	
 }
 
@@ -20,10 +20,13 @@ table{
 }
 
 #info1{
-	box-shadow:10px  10px 5px #dedede, -5px 0px 5px #dedede, 0px 0px 0px #dedede, -10px  10px 5px #dedede;
+	box-shadow:10px 10px 5px #dedede, -5px 0px 5px #dedede, 0px 0px 0px #dedede, -10px  10px 5px #dedede;
 }
-#info2, #info3, #info4, #info5{
-	box-shadow:10px  10px 5px #dedede, 0px 0px 0px #dedede, 0px 0px 0px #dedede, -10px  10px 5px #dedede;
+#info2, #info3, #info4{
+	box-shadow:10px 0px 5px #dedede, 0px 0px 0px #dedede, 0px 0px 0px fuchsia, -10px  10px 5px #dedede;
+}
+#info5{
+	box-shadow:10px 10px 5px #dedede, 0px 0px 0px #dedede, 0px 0px 0px #dedede, -10px  10px 5px #dedede;
 }
 
 th{
@@ -54,6 +57,18 @@ input[type=text], input[type=date]{
 	height: 100%;
 }
 
+#info3 input[type=radio]{
+	display: inline-block;
+}
+
+#info3 input[type=file]{
+	height: 100%;
+}
+
+#info4 td{
+	padding-left: 1%;
+}
+
 #info5 p{
 	width: 95%;
 	margin: auto;
@@ -61,6 +76,9 @@ input[type=text], input[type=date]{
 	padding-top: 20px;
 }
 
+#info5 td{
+	padding-left: 1%;
+}
 #conferma {
 	width: 40%;
 	margin: auto;
@@ -73,9 +91,16 @@ input[type=text], input[type=date]{
 	height: 100%;
 }
 
-#conferma input[type=submit]{
+#conferma input[type=button]{
 	height: 100%;
 }
 
 
+#formCompilaModulo label.error{
+	color: #f33;
+}
 
+
+.invalid{
+	border-color: red;
+}

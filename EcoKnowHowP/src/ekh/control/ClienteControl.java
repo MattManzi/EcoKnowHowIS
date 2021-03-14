@@ -104,7 +104,7 @@ public class ClienteControl extends HttpServlet {
 							if (sendEmail) {
 								redirectedPage = "/VerificaCSRegistrazione.jsp";
 							} else
-								throw new Exception("ERRORE-ClienteControl-inserimentoDati: invio e-mMail");
+								throw new Exception("ERRORE-ClienteControl-inserimentoDati: invio e-mail");
 						} else
 							throw new Exception("ERRORE-ClienteControl-inserimentoDati: email/username esistente.");
 					} else

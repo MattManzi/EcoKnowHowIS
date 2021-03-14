@@ -12,7 +12,7 @@ CREATE TABLE cliente(
 	nome char(30) not null,
 	cognome char(30) not null, 
 	settore char(20) not null,
-	telefono char(10) not null,
+	telefono char(15) not null,
 	ragioneSociale char(50) not null, 
 	indirizzo char(100) not null,
 	pIvaCF char(16) not null,
@@ -82,7 +82,8 @@ CREATE TABLE piano(
 CREATE TABLE info(
 	id int not null,
 	anno char(4) not null,
-	idPiano char(4) not null
+	idPiano char(4) not null,
+	PRIMARY KEY(id)
 );
 
 insert into info(id, anno, idPiano) value(1,'2021','0001');

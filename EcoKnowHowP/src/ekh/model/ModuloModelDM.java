@@ -94,6 +94,7 @@ public class ModuloModelDM {
 
 				preparedStatement.executeUpdate();
 				connection.commit();
+				fis.close();
 			} catch (FileNotFoundException e) {
 				System.out.println(e);
 			} catch (IOException e) {

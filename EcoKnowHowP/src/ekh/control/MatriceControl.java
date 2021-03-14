@@ -23,8 +23,8 @@ public class MatriceControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	MatriceModelDM modelMatrice = new MatriceModelDM();
-	ParametroModelDM modelParametro= new ParametroModelDM();
-	
+	ParametroModelDM modelParametro = new ParametroModelDM();
+
 	public MatriceControl() {
 		super();
 	}
@@ -53,10 +53,9 @@ public class MatriceControl extends HttpServlet {
 								if (jsp.equals("pacchetto")) {
 									redirectedPage = "/AggiungiPacchetto.jsp";
 								} else
-									throw new Exception("ERRORE-MatriceControl-admin-visualizza: invalid jsp.");
+									throw new Exception("ERRORE-MatriceControl-visualizza: invalid jsp.");
 							}
-						} else if (action.equals("nome") || action.equals("sottotitolo")
-								|| action.equals("nota")) {
+						} else if (action.equals("nome") || action.equals("sottotitolo") || action.equals("nota")) {
 							MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("matrice");
 							if (matrice != null) {
 								String dato = request.getParameter("dato");
@@ -85,9 +84,9 @@ public class MatriceControl extends HttpServlet {
 								if (!bean.isEmpty()) {
 									redirectedPage = "/ModificaMatriceAdmin.jsp";
 									request.getSession().setAttribute("matrice", bean);
-								} else 
+								} else
 									throw new Exception("ERRORE-MatriceControl-admin-select: Matrice non trovata.");
-							} else 
+							} else
 								throw new Exception("ERRORE-MatriceControl-admin-select: id null.");
 						} else if (action.equals("aggiungi")) {
 							String nome = request.getParameter("nome");
@@ -112,23 +111,23 @@ public class MatriceControl extends HttpServlet {
 						} else if (action.equals("delete")) {
 							String id = request.getParameter("id");
 							if (id != null) {
-							ArrayList<ParametroBean> parametri=new ArrayList<ParametroBean>();
-							parametri=modelParametro.doRetrieveByMatrix(id);
-							for(ParametroBean bean:parametri) {
-								modelParametro.doDelete(String.valueOf(bean.getId()));
-							}
+								ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();
+								parametri = modelParametro.doRetrieveByMatrix(id);
+								for (ParametroBean bean : parametri) {
+									modelParametro.doDelete(String.valueOf(bean.getId()));
+								}
 								modelMatrice.doDelete(id);
 							} else
 								throw new Exception("ERRORE-MatriceControl-admin-delete: id null");
 						} else
 							throw new Exception("ERRORE-MatriceControl-admin: invalid action for admin.");
 					} else {
-						if(action.equals("nomi")) {
+						if (action.equals("nomi")) {
 							request.getSession().setAttribute("nomi", modelMatrice.getName());
 							redirectedPage = "/SceltaMatriceCliente.jsp";
-						}else if (action.equals("visualizza")) {
+						} else if (action.equals("visualizzaMatrici")) {
 							String nome = request.getParameter("nome");
-							if(nome!=null) {
+							if (nome != null) {
 								request.setAttribute("matrici", modelMatrice.doRetrieveByName(nome));
 							}
 							redirectedPage = "/SceltaMatriceCliente.jsp";

@@ -9,33 +9,30 @@ import java.util.Scanner;
 import ekh.model.ModuloModelDM;
 
 public class ModuloBean {
-	private String tipo;
-	private String ragioneSocialeProd;
-	private String sedeLegaleProd;
-	private String pIvaProd;
-	private String telefonoProd;
-	private String emailProd;
-	private String ragioneSocialeCom;
-	private String sedeLegaleCom;
-	private String pIvaCom;
-	private String telefonoCom;
-	private String emailCom;
-	private String data;
-	private String luogo;
-	private String nomeCampionatore;
-	private String cognomeCampionatore;
-	private String norma;
-	private String quantitaCampione;
-	private String note;
-	private ArrayList<String> obiettivi;
-	private String dataConferma;
-	// moduloAvanzato
-	private ArrayList<String> hp;
-	private String cer;
-	private String statoFisico;
-	private String descrizione;
-
+	protected String tipo;
+	protected String ragioneSocialeProd;
+	protected String sedeLegaleProd;
+	protected String pIvaProd;
+	protected String telefonoProd;
+	protected String emailProd;
+	protected String ragioneSocialeCom;
+	protected String sedeLegaleCom;
+	protected String pIvaCom;
+	protected String telefonoCom;
+	protected String emailCom;
+	protected String data;
+	protected String luogo;
+	protected String nomeCampionatore;
+	protected String cognomeCampionatore;
+	protected String norma;
+	protected String quantitaCampione;
+	protected boolean rapporto;
+	protected ArrayList<String> obiettivi;
+	protected String dataConferma;
+	
 	public ModuloBean() {
+		obiettivi=new ArrayList<String>();
+		rapporto=false;
 	}
 
 	public String getTipo() {
@@ -182,12 +179,12 @@ public class ModuloBean {
 		this.quantitaCampione = quantitaCampione;
 	}
 
-	public String getNote() {
-		return note;
+	public boolean getRapporto() {
+		return rapporto;
 	}
 
-	public void setNote(String note) {
-		this.note = note;
+	public void setRapporto(Boolean rapporto) {
+		this.rapporto = rapporto;
 	}
 
 	public ArrayList<String> getObiettivi() {
@@ -197,39 +194,7 @@ public class ModuloBean {
 	public void setObiettivi(ArrayList<String> obiettivi) {
 		this.obiettivi = obiettivi;
 	}
-
-	public ArrayList<String> getHp() {
-		return hp;
-	}
-
-	public void setHp(ArrayList<String> hp) {
-		this.hp = hp;
-	}
-
-	public String getCer() {
-		return cer;
-	}
-
-	public void setCer(String cer) {
-		this.cer = cer;
-	}
-
-	public String getStatoFisico() {
-		return statoFisico;
-	}
-
-	public void setStatoFisico(String statoFisico) {
-		this.statoFisico = statoFisico;
-	}
-
-	public String getDescrizione() {
-		return descrizione;
-	}
-
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-
+	
 	public String getDataConferma() {
 		return dataConferma;
 	}
@@ -238,38 +203,14 @@ public class ModuloBean {
 		this.dataConferma = dataConferma;
 	};
 
-	public void stampModuloBase(int id) {
+	public void stampModulo(int id) {
 		String str = "";
 		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
 				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
 				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
-				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n" + note + "\n" + dataConferma
-				+ "\n" + " \n" + " \n" + " \n";
+				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n"+ dataConferma+"\n"+rapporto+"\n";
 
 		for (String i : obiettivi) {
-			str = str + "Obiettivo:" + i + "\n";
-		}
-		try {
-			ModuloModelDM.updateFile(id, str);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	public void stampModuloAvanzato(int id) {
-		String str = "";
-		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
-				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
-				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
-				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n" + note + "\n" + dataConferma
-				+ "\n" + cer + "\n" + statoFisico + "\n" + descrizione + "\n";
-
-		for (String i : obiettivi) {
-			str = str + i + ";";
-		}
-		str = str + "\n";
-
-		for (String i : hp) {
 			str = str + i + ";";
 		}
 		str = str + "\n";
@@ -309,56 +250,37 @@ public class ModuloBean {
 		cognomeCampionatore = dati[14];
 		norma = dati[15];
 		quantitaCampione = dati[16];
-		note = dati[17];
-		dataConferma = dati[18];
-		cer = dati[19];
-		statoFisico = dati[20];
-		descrizione = dati[21];
-		String oStr=dati[22];
-		String hStr=dati[23];
+		dataConferma = dati[17];
+		if(dati[18].equals("true")) {
+			rapporto=true;
+		}else {
+			rapporto=false;
+		}
+		String oStr=dati[19];
 		
 		String[] o=oStr.split(";");
-		String[] h=hStr.split(";");
 		
 		if(o.length>0) {
 			for(String x:o) {
 				obiettivi.add(x);
 			}
 		}
-		
-		if(h.length>0) {
-			for(String x:h) {
-				hp.add(x);
-			}
-		}
 	}
 	
 	public void inizializza(String path) throws IOException {
 		readObiettivi(path);
-		if(tipo.equals("B")) {
-			readHp(path);
-		}
 	}
 	
 	public void readObiettivi(String path) throws IOException{
+		obiettivi.clear();
 		FileReader fr = new FileReader(path+"Modulo"+tipo+".txt");
 		Scanner in = new Scanner(fr);
 		
 		while (in.hasNextLine()) {
 			obiettivi.add(in.nextLine());
 		}
-		in.close();
-		fr.close();
-	}
-	public void readHp(String path) throws IOException{
-		FileReader fr = new FileReader(path+"HP.txt");
-		Scanner in = new Scanner(fr);
 		
-		while (in.hasNextLine()) {
-			hp.add(in.nextLine());
-		}
 		in.close();
 		fr.close();
 	}
-
 }

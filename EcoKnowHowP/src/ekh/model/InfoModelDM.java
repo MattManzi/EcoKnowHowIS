@@ -62,7 +62,7 @@ public class InfoModelDM {
 		}
 	}
 	
-	public void setIdPiano(String oldID, String newID) throws SQLException {
+	public void setIdPiano(int oldID, int newID) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -71,8 +71,8 @@ public class InfoModelDM {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
 
-			preparedStatement.setString(1, newID);
-			preparedStatement.setString(2, oldID);
+			preparedStatement.setString(1, String.valueOf(newID));
+			preparedStatement.setString(2, String.valueOf(oldID));
 
 			System.out.println("InfoModelDM: setAnno:" + preparedStatement.toString());
 			preparedStatement.executeUpdate();

@@ -2,7 +2,7 @@ package ekh.strategy;
 
 import java.util.regex.Pattern;
 
-public class ValidatorAlphaNumeric implements InputVal{
+public class ValidatorSDI implements InputVal{
 	@Override
 	public boolean valida(String str, int n) {
 		return validaEmail(str, n);

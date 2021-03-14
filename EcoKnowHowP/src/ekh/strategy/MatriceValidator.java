@@ -6,7 +6,7 @@ public class MatriceValidator {
 	public boolean aggiuntaVal(ArrayList<String> inputs) {
 		InputValidator validator=new InputValidator();
 		try {
-			validator.setValidatorStrategy(new ValidatorAlphaNumeric());	
+			validator.setValidatorStrategy(new ValidatorSDI());	
 			validator.setString(inputs.get(0)); //Nome
 			if(!validator.validator(20))
 				throw new Exception("ERRORE-MatriceValidator-aggiuntaVal: Nome");
@@ -31,7 +31,7 @@ public class MatriceValidator {
 		int n=0;
 		try {
 			if (dato.equals("nome") || dato.equals("sottotitolo") || dato.equals("nota")) {
-				validator.setValidatorStrategy(new ValidatorAlphaNumeric());
+				validator.setValidatorStrategy(new ValidatorSDI());
 				if(dato.equals("nome")) {
 					n=20;
 				}else if(dato.equals("sottotitolo")) {

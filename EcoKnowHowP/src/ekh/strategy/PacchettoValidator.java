@@ -6,7 +6,7 @@ public class PacchettoValidator {
 	public boolean aggiuntaVal(ArrayList<String> inputs) {
 		InputValidator validator=new InputValidator();
 		try {
-			validator.setValidatorStrategy(new ValidatorAlphaNumeric());	
+			validator.setValidatorStrategy(new ValidatorSDI());	
 			validator.setString(inputs.get(1)); //Nome
 			if(!validator.validator(30))
 				throw new Exception("ERRORE-AggiuntaPacchettoValidator: Nome");

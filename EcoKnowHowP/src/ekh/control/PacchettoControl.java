@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
+import ekh.bean.ModuloAvanzatoBean;
 import ekh.bean.ModuloBean;
 import ekh.bean.PacchettoBean;
 import ekh.bean.ParametroBean;
@@ -269,9 +270,15 @@ public class PacchettoControl extends HttpServlet {
 									if (id != null) {
 										PacchettoBean pacchetto = new PacchettoBean();
 										pacchetto = modelPacchetto.doRetrieveByKey(id);
-										request.getSession().setAttribute("SelectPacchetto", pacchetto);
+										pacchetto.readContenuto();
+										request.getSession().setAttribute("SelectPacchetto", pacchetto);									
 										
-										ModuloBean modulo = new ModuloBean();
+										ModuloBean modulo=null;
+										if(matrice.getModulo().equals("B")) {
+											modulo=new ModuloAvanzatoBean();
+										}else {
+											modulo=new ModuloBean();
+										}
 										modulo.setTipo(matrice.getModulo());
 										String SAVE_DIR = "txt";
 										String appPath = request.getServletContext().getRealPath("");
@@ -287,10 +294,7 @@ public class PacchettoControl extends HttpServlet {
 										redirectedPage = "/SceltaPacchettoCliente.jsp";
 										throw new Exception("ERRORE-PacchettoControl-user: id null.");
 									}
-								} else {
-									redirectedPage = "/SceltaMatriceCliente.jsp";
-									throw new Exception("ERRORE-PacchettoControl-user-select: matrice null");
-								}
+								} 
 							} else
 								throw new Exception("ERRORE-PacchettoControl-user: invalid action for user");
 						}

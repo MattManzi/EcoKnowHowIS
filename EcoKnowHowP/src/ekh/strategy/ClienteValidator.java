@@ -18,7 +18,12 @@ public class ClienteValidator {
 			if(inputs.get(3)==null || inputs.get(3).equals("") || inputs.get(3).length()>50)	// RagioneSociale
 				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: Ragione Sociale");
 			
-
+			if(inputs.get(5)==null || inputs.get(5).equals("") || inputs.get(5).length()>40)	// Via
+				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: Via");
+			
+			if(inputs.get(6)==null || inputs.get(6).equals("") || inputs.get(6).length()>10)	// Civico
+				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: Civico");
+			
 			validator.setValidatorStrategy(new ValidatorAllLetter());
 			validator.setString(inputs.get(0)); // Nome
 			if (!validator.validator(30))
@@ -32,31 +37,24 @@ public class ClienteValidator {
 			if (!validator.validator(30))
 				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: Comune");
 
-			validator.setValidatorStrategy(new ValidatorAlphaNumeric());
-			validator.setString(inputs.get(5)); // Via
-			if (!validator.validator(40))
-				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: Via");
-
-			validator.setString(inputs.get(6)); // Civico
-			if (!validator.validator(10))
-				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: Civico");
-
-			validator.setString(inputs.get(8)); // SDI
-			if (!validator.validator(6))
-				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: SDI");
-
 			validator.setValidatorStrategy(new ValidatorPIvaCF());
 			validator.setString(inputs.get(7)); // pIva o CF
 			if (!validator.validator(inputs.get(7).length()))
 				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: PIVA CF");
 
+			validator.setValidatorStrategy(new ValidatorSDI());
+			validator.setString(inputs.get(8)); // SDI
+			if (!validator.validator(6))
+				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: SDI");
+			
 			validator.setValidatorStrategy(new ValidatorNumber());
 			validator.setString(inputs.get(9)); // CAP
 			if (!validator.validator(5))
 				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: CAP");
 
+			validator.setValidatorStrategy(new ValidatorPhone());
 			validator.setString(inputs.get(10)); // Telefono
-			if (!validator.validator(inputs.get(10).length()))
+			if (!validator.validator(0))
 				throw new Exception("ERRORE-ClienteValidator-registrazioneVal: Telefono");
 
 			validator.setValidatorStrategy(new ValidatorEmail());
@@ -121,7 +119,7 @@ public class ClienteValidator {
 					n = 50;
 				}
 			} else if (dato.equals("via") || dato.equals("civico") || dato.equals("sdi")) {
-				validator.setValidatorStrategy(new ValidatorAlphaNumeric());
+				validator.setValidatorStrategy(new ValidatorSDI());
 				if (dato.equals("via")) {
 					n = 40;
 				} else if (dato.equals("civico")) {

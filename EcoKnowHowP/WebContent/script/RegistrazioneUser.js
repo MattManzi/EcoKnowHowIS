@@ -9,13 +9,13 @@ $(document).ready(function() {
 		return this.optional(element) || /^[A-Za-z]+(\s?[A-Za-z])*$/.test(value);
 	});
 	$.validator.addMethod('phoneNumber_val', function(value, element) {
-		return this.optional(element) || /^\d{10}$/.test(value);
+		return this.optional(element) || /^\d{8,15}$/.test(value);
 	});
 	$.validator.addMethod('cap_val', function(value, element) {
 		return this.optional(element) || /^\d{5}$/.test(value);
 	});
-	$.validator.addMethod('alphaNumeric_val', function(value, element) {
-		return this.optional(element) || /^\w+(\s?\w+)*$/.test(value);
+	$.validator.addMethod('sdi_val', function(value, element) {
+		return this.optional(element) || /^\w+$/.test(value);
 	});
 	$.validator.addMethod('pIvaCF_val', function(value, element) {
 		return this.optional(element) || /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$|(^[0-9]{11})$/.test(value);
@@ -45,12 +45,10 @@ $(document).ready(function() {
 				required: true
 			},
 			'via': {
-				required: true,
-				alphaNumeric_val: true
+				required: true
 			},
 			'civico': {
-				required: true,
-				alphaNumeric_val: true
+				required: true
 			},
 			'cap': {
 				required: true,
@@ -69,7 +67,7 @@ $(document).ready(function() {
 			},
 			'sdi': {
 				required: true,
-				alphaNumeric_val: true
+				sdi_val: true
 			},
 			'email': {
 				required: true,
@@ -110,12 +108,10 @@ $(document).ready(function() {
 				required: "Inserire una Ragione Sociale."
 			},
 			'via': {
-				required: "Inserire una via.",
-				alphaNumeric_val: "Via non valida."
+				required: "Inserire una via."
 			},
 			'civico': {
-				required: "Inserire un civico.",
-				alphaNumeric_val: "Civico non valido."
+				required: "Inserire un civico."
 			},
 			'cap': {
 				required: "Inserire un CAP.",
@@ -131,7 +127,7 @@ $(document).ready(function() {
 			},
 			'sdi': {
 				required: "Inserire un SDI.",
-				alphaNumeric_val: "SDI non valido."
+				sdi_val: "SDI non valido."
 			},
 			'pec': {
 				email_val: "PEC non valida."

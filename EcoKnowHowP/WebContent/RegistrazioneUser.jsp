@@ -37,7 +37,7 @@
 					</tr>
 					<tr>
 						<td><label for="telefono">Telefono:</label></td>	
-						<td><input type="text" name="telefono" maxlength="10"></td>	
+						<td><input type="text" name="telefono" maxlength="15"></td>	
 					</tr>
 					<tr>
 						<td><label for="ragioneSociale">Ragione Sociale:</label></td>	

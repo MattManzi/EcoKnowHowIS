@@ -20,7 +20,7 @@ public class PianoBean {
 		id = 0;
 		username =  "";
 		prezzo = 0;
-		stato =  "";
+		stato =  "inAttesa";
 		referto=false;
 		schedaDS=false;
 		contenuto=new ArrayList<ParametroBean>();
@@ -128,6 +128,7 @@ public class PianoBean {
 	public void stampContenuto(String path){
 		String str="";
 		for(ParametroBean i:contenuto) {
+			System.out.println(i.getNome()+";"+i.getSku()+";"+i.getPrezzo());
 			str=str+i.getNome()+";"+i.getSku()+";"+i.getPrezzo()+"\n";
 		}
 		try {

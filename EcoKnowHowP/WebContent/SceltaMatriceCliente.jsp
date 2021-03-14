@@ -46,7 +46,7 @@ Servlet:
 					String bean=(String) it.next();		
 			%>
 			<div class="nome">
-				<a class="nome_matrice" href="Matrice?action=visualizza&nome=<%=bean%>"><%=bean %> </a>
+				<a class="nome_matrice" href="<%=response.encodeURL("Matrice?action=visualizzaMatrici&nome="+bean) %>"><%=bean %> </a>
 			</div>
 			<%		}
 				}%>
@@ -64,7 +64,7 @@ Servlet:
 				
 					<h4><%=matrice.getSottotitolo() %></h4>
 					<h4><%=matrice.getNota() %></h4>
-					<a href="Matrice?action=select&id=<%=matrice.getId()%>" >Seleziona</a>
+					<a href="<%=response.encodeURL("Matrice?action=select&id="+matrice.getId()) %>" >Seleziona</a>
 				
 				</div>
 
