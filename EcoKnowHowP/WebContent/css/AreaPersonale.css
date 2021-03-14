@@ -1,0 +1,20 @@
+@charset "ISO-8859-1";
+
+.hidden{
+	visibility: hidden;
+}
+
+.show{
+	visibility:visible;
+}
+.contenitore{
+	margin: 10% ;
+	margin-left: 10%;
+	text-align: center;
+	
+}
+.canvas{
+	margin-top: 10%;
+	border: 2px solid #add8e6;
+	border-radius: 5px; 
+}
