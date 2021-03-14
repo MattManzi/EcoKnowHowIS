@@ -36,7 +36,7 @@ function menu() {
 			<%if (user == null){%>
 				<a href="<%=response.encodeURL("LoginUser.jsp")%>">Login</a>					
 			<%}else{%>				 
-				<a href=><%=user.getUsername()%></a> 	
+				<a href="AreaPersonaleCliente.jsp"><%=user.getUsername()%></a> 	
 			<%}%>
 			<a href="<%=response.encodeURL("ChiSiamo.jsp")%>">Chi Siamo?</a>	
 			<a href="<%=response.encodeURL("SceltaMatriceCliente.jsp")%>">Crea il tuo Piano</a>

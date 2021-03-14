@@ -25,30 +25,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<link href="css/SceltaMatriceUser.css" rel="stylesheet">
+<title>Scelta tipo di Pacchetto</title>
 </head>
 <body>
-<!-- NAV -->
-	<div id="main">	
-		<div class="card">	
+	<%@ include file="NavUser.jsp" %>
+	<div id="pacchetti">	
+		<div class="pacchetto">	
 			<div class="container">
-				<a href="<%=response.encodeURL("AggiungiPacchetto.jsp") %>" >Crea un nuovo pacchetto</a>
+				<a class="tipo" href="<%=response.encodeURL("AggiungiPacchetto.jsp") %>" >Crea un pacchetto</a>
 				<p>Inserisci i parametri all'interno del nuovo pacchetto</p>
 			</div>
 		</div>
-		<div class="card">	
+		<div class="pacchetto">	
 			<div class="container">
-				<a href="<%=response.encodeURL("Pacchetto?action=visualizza&tipo=analitico") %>" >Pacchetti Analitici</a>
+				<a class="tipo" href="<%=response.encodeURL("Pacchetto?action=visualizza&tipo=analitico") %>" >Pacchetti Analitici</a>
 				<p>Seleziona un pacchetto creato per un precedente piano</p>
 			</div>
 		</div>
-		<div class="card">	
+		<div class="pacchetto">	
 			<div class="container">
-				<a href="<%=response.encodeURL("Pacchetto?action=visualizza&tipo=standard") %>" >Pacchetti Standard</a>
-				<p>Seleziona un pacchetto proposto da noi!</p>
+				<a class="tipo" href="<%=response.encodeURL("Pacchetto?action=visualizza&tipo=standard") %>" >Pacchetti Standard</a>
+				<p>Seleziona un pacchetto proposto da noi, appositamente per voi!</p>
 			</div>
 		</div>	
 	</div>
-	<!-- FOO -->
+	<%@ include file="Footer.jsp" %>
 </body>
 </html>
