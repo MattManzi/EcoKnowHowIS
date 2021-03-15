@@ -3,62 +3,58 @@ div#main{
 	margin: auto;
 	margin-top:150px;
 }
-#top{
-	width: 80%;
-	margin: auto;
-}
 
-fieldset{
+h1{
 	text-align: center;
-	box-shadow:10px  10px 5px #dedede, 0px 0px 5px #dedede,0 0px 5px #dedede, -10px  10px 5px #dedede;
-	border: none;
-}
-
-form{
-	width: 80%;
-	margin: auto;
-	text-align: center;
-	padding: 5px 0 15px 0;
-}
-
-form label{
-	display: block;
-	margin-bottom: 5px;
 	font-family: sans-serif;	
 }
 
+p{
+	text-align: center;
+	font-family: sans-serif;	
+}
 
-input[type=text], input[type=password]{
-	width: 70%;
-	display: block;
-	margin: auto;
+form{
+	width: 100%;
+	margin:auto;
+}
+
+input[type=text],input[type=password]{
+	width: 60%;
+	margin:auto;
   	padding: 12px;
   	border: 1px solid #ccc;
   	border-radius: 4px;
+  	display: block;
+  	margin-top: 10px;
 }
 
 input[type=submit]{
-	width: 50%;
-	display: block;
-	margin: auto;	
+	width: 30%;
+	margin:auto;
 	background-color: #4CAF50;
   	color: white;
   	padding: 12px 20px;
   	border: none;
   	border-radius: 4px;
   	cursor: pointer;
+	display: block;
+	margin-top: 10px;
 }
 
 input[type=submit]:hover {
   background-color: #45a049;
 }
 
-fieldset a, fieldset a:visited{
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+a, a:visited{
 	color: black;
 	padding: 5px 0;
 }
 
-fieldset a:hover{
+a:hover{
 	font-size: 101%;
 }
-

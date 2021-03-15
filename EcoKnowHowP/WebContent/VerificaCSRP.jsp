@@ -9,16 +9,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<link href="css/Verifica.css" rel="stylesheet">
+<title>Reimpostazione password</title>
 </head>
 <body>
-<h1>VerificaCodice</h1>
-	<p>Inserire il codice ricevuto via email.</p>
-	<form name="formVerificaCodiceRP" action="<%=response.encodeURL("RP?action=codice&user="+user) %>" method="post">
-		<input type="text" name="codice">
-		<input type="submit" value="verifica">
-	</form>	
-	<p>Non hai ricevuto l'e-mail? <a href="<%=response.encodeURL("RP?action=sendEmail&user="+user) %>">Invia codice</a></p>
-	
+	<div id="main">
+		<h1>VerificaCodice</h1>
+		<p>Inserire il codice ricevuto via email.</p>
+		<form name="formVerificaCodiceRP" action="<%=response.encodeURL("RP?action=codice&user="+user) %>" method="post">
+			<input type="text" name="codice" placeholder="Codice:">
+			<input type="submit" value="verifica">
+		</form>	
+		<p>Non hai ricevuto l'e-mail? <a href="<%=response.encodeURL("RP?action=sendEmail&user="+user) %>">Invia codice</a></p>
+	</div>
 </body>
 </html>

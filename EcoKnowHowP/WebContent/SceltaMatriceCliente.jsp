@@ -59,26 +59,20 @@ Servlet:
 			while(it.hasNext()){
 				MatriceBean matrice=(MatriceBean) it.next();
 				%>
-
-				<div class=card>
-				
+				<div class=card>				
 					<h4><%=matrice.getSottotitolo() %></h4>
 					<h4><%=matrice.getNota() %></h4>
 					<a href="<%=response.encodeURL("Matrice?action=select&id="+matrice.getId()) %>" >Seleziona</a>
-				
 				</div>
 
-
-
-				<%		}
-					}else{%>
+		<%		}
+			}else{%>
 				<div id="matrici">					
 					<h2 class="non_selezione">Seleziona una Matrice per vedere le sue categorie</h2>
-				</div>
-			
+				</div>			
 			<%	
-				}%>
-	
+			}
+			%>	
 		</div>	
 	</div>
 

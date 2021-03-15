@@ -1,11 +1,7 @@
-#main{
-	width: 70%;
-	margin: auto;
-	height: 60%;
-	padding-top:5%; 
+div#main{
+	padding-top: 90px;
+	padding-bottom: 90px;
 }
-
-
 
 .card {
 	display:inline-block;
@@ -26,10 +22,11 @@
 .container {
  	padding: 2px 16px;
 }
+
 #scelta{padding-left: 25px;}
 
- .nome{  display: inline-block;
-  }
+.nome{  display: inline-block; }
+
 .nome_matrice {
  display: inline-block;
  text-align: center;
@@ -56,9 +53,10 @@
 #matrici{
 	border:3px solid #add8e6;
 	border-radius: 3%;
+	width: 20%;
 }
 
- #pacchetti{
+#pacchetti{
 	width: 100%;
 	margin: auto;
 	height: 50%;

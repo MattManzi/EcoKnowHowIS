@@ -2,8 +2,8 @@
     pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
 <!DOCTYPE html>
 <html>
-<head>
-<title>Insert title here</title>
+<head><link href="css/Login.css" rel="stylesheet">
+<title>Verifica Account</title>
 </head>
 <body>
 	<h1>VerificaCodice</h1>

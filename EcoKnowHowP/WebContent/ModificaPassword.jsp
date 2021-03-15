@@ -9,15 +9,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<link href="css/Verifica.css" rel="stylesheet">
+<title>Reimpostazione password</title>
 </head>
 <body>
-	<!-- Questa pagina viene usata per il cambio password dall'area personale e per il cambio password in seguito ad un recupera password  -->
-	<h1>ModificaPassword</h1>
-	<form name="formModificaPassword" action="<%=response.encodeURL("RP?action=password&user="+user) %>" method="post">
-		<input type="password" name="password">
-		<input type="password" name="password2">
-		<input type="submit" value="Conferma">
-	</form>
+	<div id="main">
+		<h1>ModificaPassword</h1>
+		<form name="formModificaPassword" action="<%=response.encodeURL("RP?action=password&user="+user) %>" method="post">
+			<input type="password" name="password" placeholder="Nuova Password:">
+			<input type="password" name="password2" placeholder="Conferma Password:">
+			<input type="submit" value="Conferma">
+		</form>
+	</div>
 </body>
 </html>
