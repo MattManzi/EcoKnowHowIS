@@ -9,6 +9,9 @@
 <body>
 	<%@ include file="NavAdmin.jsp" %>
 	
+	<div>
+		<p>inserimento bottoni in un secondo momento </p>
+	</div>
 	
 	<%@ include file="Footer.jsp" %>	
 </body>
