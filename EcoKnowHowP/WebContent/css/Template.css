@@ -13,10 +13,6 @@ body{background: #F0F8FF;}
 .invisibile{display: none;}
 
 	
-div#main{
-	margin-top: 85px;
-}
-
 .footer{position: fixed; left: 0; bottom: 0;   width: 100%; background: #ADD8E6; color: #000; color:white; text-align: center; margin-top: 150px;}
 
 .nav a.icon {
@@ -28,7 +24,6 @@ div#main{
 	.nav.responsive a {float: none; display: block; text-align: left;}
 	.invisibile{display: block;}
 }
-
 
 .clearfix:after {
 	visibility: hidden;

@@ -25,7 +25,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/SceltaMatriceUser.css" rel="stylesheet">
+<link href="css/SceltaTipoPacchetto.css" rel="stylesheet">
 <title>Scelta tipo di Pacchetto</title>
 </head>
 <body>

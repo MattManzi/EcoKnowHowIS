@@ -38,48 +38,50 @@ Servlet:
 	<%@ include file="NavUser.jsp" %>
 	
 	<div id="main">
-		<div id="scelta">
-
-		<%if(nomi != null && nomi.size()>0){
-				Iterator<?> it=nomi.iterator();
-				while(it.hasNext()){
-					String nome=(String) it.next();		
-			%>
-			<div class="nome">
-				<a class="nome_matrice" href="<%=response.encodeURL("Matrice?action=visualizzaMatrici&nome="+nome) %>"><%=nome %> </a>
-			</div>
-			<%		}
-				}%>
-		</div>
-		
-		<div id="matrici">
-		
-		<% if(matrici != null && matrici.size() > 0){
-			Iterator<?> it=matrici.iterator();
-			while(it.hasNext()){
-				MatriceBean matrice=(MatriceBean) it.next();
-				%>
-
-				<div class=card>
-				
-					<h4><%=matrice.getSottotitolo() %></h4>
-					<h4><%=matrice.getNota() %></h4>
-					<a href="<%=response.encodeURL("Matrice?action=select&id="+matrice.getId()) %>" >Seleziona</a>
-				
-				</div>
-
-
-
-				<%		}
-					}else{%>
-				<div id="matrici">					
-					<h2 class="non_selezione">Seleziona una Matrice per vedere le sue categorie</h2>
-				</div>
-			
-			<%	
-				}%>
+		<div class="container ">
+			<div id="scelta">
 	
-		</div>	
+			<%if(nomi != null && nomi.size()>0){
+					Iterator<?> it=nomi.iterator();
+					while(it.hasNext()){
+						String nome=(String) it.next();		
+				%>
+				<div class="nome">
+					<a class="nome_matrice" href="<%=response.encodeURL("Matrice?action=visualizzaMatrici&nome="+nome) %>"><%=nome %> </a>
+				</div>
+				<%		}
+					}%>
+			</div>
+			
+			<div id="matrici">
+
+				<% if(matrici != null && matrici.size() > 0){
+					Iterator<?> it=matrici.iterator();
+					while(it.hasNext()){
+						MatriceBean matrice=(MatriceBean) it.next();
+						%>
+		
+						<div class=card>
+						
+							<h4><%=matrice.getSottotitolo() %></h4>
+							<h4><%=matrice.getNota() %></h4>
+							<a href="<%=response.encodeURL("Matrice?action=select&id="+matrice.getId()) %>" >Seleziona</a>
+						
+						</div>
+		
+		
+		
+						<%		}
+							}else{%>
+						
+							<h2 class="non_selezione">Seleziona una Matrice per vedere le sue categorie</h2>
+	
+					
+					<%	
+						}%>
+				
+			</div>
+		</div>		
 	</div>
 
 	<%@ include file="Footer.jsp" %>

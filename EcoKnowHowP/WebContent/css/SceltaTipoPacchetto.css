@@ -1,0 +1,40 @@
+@charset "ISO-8859-1";
+
+ #pacchetti{
+ 	text-align: center;
+	width: 100%;
+	margin: auto;
+	height: 50%;
+	padding-top:5%; 
+	padding-left:10%;
+	padding-right:10%
+}
+
+.pacchetto {
+	display:inline-block;
+  	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+ 	transition: 0.3s;
+  	border-radius: 4px;
+	width:300px;
+ 	height: 150px;
+ 	margin:130px 85px;
+ 	text-align: center;
+ 	background-color: #ADD8E6;
+ 
+}
+
+.container {
+ 	padding: 2px 16px;
+}
+.tipo{
+	text-decoration: none;
+	font-size: 30px
+}
+
+p{
+	font-size: 20px
+}
+
+.pacchetto:hover {
+  	box-shadow: 0 10px 20px 0 #29858f;
+} 
