@@ -3,12 +3,22 @@
 <!DOCTYPE html>
 <%
 Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
-Collection<?> matrici=(Collection<?>) request.getAttribute("matrici");
 Boolean userRoles = (Boolean) request.getSession().getAttribute("userRoles");
-if((adminRoles != null && adminRoles.booleanValue()) 
-		|| (userRoles!= null && userRoles.booleanValue())){
+Collection<?> matrici=null;
+MatriceBean matrice=null;
+boolean key=false;
+
+if(adminRoles != null && adminRoles.booleanValue()){
+	matrici=(Collection<?>) request.getAttribute("matrici");
 	if(matrici == null){
 		response.sendRedirect(response.encodeRedirectURL("./Matrice?action=visualizza&jsp=pacchetto"));
+		return;
+	}
+	key=true;
+}else if(userRoles!= null && userRoles.booleanValue()){
+	matrice=(MatriceBean) session.getAttribute("SelectMatrice");
+	if(matrice == null){
+		response.sendRedirect("/SceltaMatriceCliente.jsp");
 		return;
 	}
 }else{
@@ -22,7 +32,7 @@ if((adminRoles != null && adminRoles.booleanValue())
 <title>Aggiungi Pacchetto</title>
 </head>
 <body>
-	<%if(adminRoles != null){%>
+	<%if(key){%>
 		<%@ include file="NavAdmin.jsp" %>
 	<%}else{%>
 		<%@ include file="NavUser.jsp" %>
@@ -30,11 +40,14 @@ if((adminRoles != null && adminRoles.booleanValue())
 
 	<div class="canvas">
 		<h1>Aggiungi Pacchetto </h1>	
-		<form action="Pacchetto?action=crea" method="post">
+		<form action="<%=response.encodeURL("Pacchetto?action=crea")%>" method="post">
 			<table id="tableMatriciAdmin">
 				<tr>
 					<td><label for="idMatrice">Matrice:</label></td>	
-					<td><select name="idMatrice" >		
+					<%
+					if(key){
+					%>	
+					<td><select name="idMatrice">		
 							<%if(matrici != null && matrici.size()>0){
 								Iterator<?> it=matrici.iterator();
 								while(it.hasNext()){
@@ -44,8 +57,15 @@ if((adminRoles != null && adminRoles.booleanValue())
 							<%	}
 					
 							}%>
-						</select>
-					</td>
+						</select></td>
+					
+					<% 
+					}else{
+					%>
+					<td><%=matrice.getSottotitolo()%></td>					
+					<%
+					}
+					%>
 				</tr>		
 				<tr>
 					<td><label for="nome">Nome:</label></td>	

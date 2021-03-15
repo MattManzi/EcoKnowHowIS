@@ -57,7 +57,18 @@ public class PacchettoControl extends HttpServlet {
 					if (action.equals("crea") || action.equals("salva") || action.equals("componi")) {
 						if (action.equals("crea")) {
 							request.getSession().removeAttribute("creaPacchetto");
-							String idMatrice = request.getParameter("idMatrice");
+							String idMatrice=null;
+							if(admin!=null) {
+								idMatrice = request.getParameter("idMatrice");
+							}else {
+								MatriceBean matrice=(MatriceBean) request.getSession().getAttribute("SelectMatrice");
+								if(matrice!=null) {
+									idMatrice=String.valueOf(matrice.getId());
+								}else {
+									redirectedPage = "/SceltaMatriceCliente.jsp";
+									throw new Exception("ERRORE-PacchettoControl-crea: matrice null");
+								}
+							}
 							String nome = request.getParameter("nome");
 							String descrizione = request.getParameter("descrizione");
 							String tipo = "";
