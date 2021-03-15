@@ -7,8 +7,8 @@ INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Terra', 'Suolo', 'T
 INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Terra', 'Terreni destinati allo spandimento', 'Allegato I A e II A D.Lgs. N. 99 del 1992', 'C');
 
 INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Rifiuti', 'Rifiuti (classificazione)', 'Classificazione ai sensi del Reg. 1357 del 2004', 'B');
-INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Rifiuti', 'Rifiuti (ammissibilitÃ  in discarica)', 'D.Lgs. N. 36 del 2003', 'B');
-INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Rifiuti', 'Rifiuti (ammissibilitÃ  a recupero)', 'DM. 05/02/1998', 'B');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Rifiuti', 'Rifiuti (ammissibilità  in discarica)', 'D.Lgs. N. 36 del 2003', 'B');
+INSERT INTO matrice(nome, sottotitolo, nota, modulo) VALUES('Rifiuti', 'Rifiuti (ammissibilità  a recupero)', 'DM. 05/02/1998', 'B');
 
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(1,'pH', 'SAS_001', '5,5 - 9,5', 'Unità di pH');
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(1,'Temperatura (°C)', 'SAS_002', 'Variabile', '-');
@@ -248,3 +248,53 @@ INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(4,'
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(4,'Amianto', 'AS_088', 'Da definire', 'µg/l');
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(4,'Acido paraftlaico', 'AS_089', '37000', 'µg/l');
 INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(4,'Acrilammide', 'AS_090', '0,1', 'µg/l');
+
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'Endrin', 'AS_082', '0,1', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'Sommatoria Fitofarmaci (da 82 a 91)', 'AS_083', '0,5', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'Sommatoria PCDD, PCDF (T.E.)', 'AS_084', '4*10-6', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'PCB', 'AS_085', '0,01', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'Idrocarb. leggeri (c≤12) come n-esano', 'AS_086', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'Idrocarb. pesanti (c>12) come n-esano', 'AS_087', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'Amianto', 'AS_088', 'Da definire', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'Acido paraftlaico', 'AS_089', '37000', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(5,'Acrilammide', 'AS_090', '0,1', 'µg/l');
+
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'Endrin', 'AS_082', '0,1', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'Sommatoria Fitofarmaci (da 82 a 91)', 'AS_083', '0,5', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'Sommatoria PCDD, PCDF (T.E.)', 'AS_084', '4*10-6', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'PCB', 'AS_085', '0,01', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'Idrocarb. leggeri (c≤12) come n-esano', 'AS_086', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'Idrocarb. pesanti (c>12) come n-esano', 'AS_087', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'Amianto', 'AS_088', 'Da definire', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'Acido paraftlaico', 'AS_089', '37000', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(6,'Acrilammide', 'AS_090', '0,1', 'µg/l');
+
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'Endrin', 'AS_082', '0,1', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'Sommatoria Fitofarmaci (da 82 a 91)', 'AS_083', '0,5', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'Sommatoria PCDD, PCDF (T.E.)', 'AS_084', '4*10-6', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'PCB', 'AS_085', '0,01', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'Idrocarb. leggeri (c≤12) come n-esano', 'AS_086', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'Idrocarb. pesanti (c>12) come n-esano', 'AS_087', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'Amianto', 'AS_088', 'Da definire', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'Acido paraftlaico', 'AS_089', '37000', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(7,'Acrilammide', 'AS_090', '0,1', 'µg/l');
+
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'Endrin', 'AS_082', '0,1', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'Sommatoria Fitofarmaci (da 82 a 91)', 'AS_083', '0,5', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'Sommatoria PCDD, PCDF (T.E.)', 'AS_084', '4*10-6', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'PCB', 'AS_085', '0,01', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'Idrocarb. leggeri (c≤12) come n-esano', 'AS_086', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'Idrocarb. pesanti (c>12) come n-esano', 'AS_087', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'Amianto', 'AS_088', 'Da definire', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'Acido paraftlaico', 'AS_089', '37000', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(8,'Acrilammide', 'AS_090', '0,1', 'µg/l');
+
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'Endrin', 'AS_082', '0,1', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'Sommatoria Fitofarmaci (da 82 a 91)', 'AS_083', '0,5', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'Sommatoria PCDD, PCDF (T.E.)', 'AS_084', '4*10-6', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'PCB', 'AS_085', '0,01', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'Idrocarb. leggeri (c≤12) come n-esano', 'AS_086', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'Idrocarb. pesanti (c>12) come n-esano', 'AS_087', '350', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'Amianto', 'AS_088', 'Da definire', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'Acido paraftlaico', 'AS_089', '37000', 'µg/l');
+INSERT INTO parametro(idMatrice, nome, sku, limiteEmissione, uMisura) VALUES(9,'Acrilammide', 'AS_090', '0,1', 'µg/l');

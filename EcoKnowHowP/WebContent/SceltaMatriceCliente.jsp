@@ -43,10 +43,10 @@ Servlet:
 		<%if(nomi != null && nomi.size()>0){
 				Iterator<?> it=nomi.iterator();
 				while(it.hasNext()){
-					String bean=(String) it.next();		
+					String nome=(String) it.next();		
 			%>
 			<div class="nome">
-				<a class="nome_matrice" href="<%=response.encodeURL("Matrice?action=visualizzaMatrici&nome="+bean) %>"><%=bean %> </a>
+				<a class="nome_matrice" href="<%=response.encodeURL("Matrice?action=visualizzaMatrici&nome="+nome) %>"><%=nome %> </a>
 			</div>
 			<%		}
 				}%>

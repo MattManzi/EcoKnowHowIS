@@ -12,9 +12,8 @@ LocalDate today = LocalDate.now();
 if(userRoles != null && userRoles.booleanValue()) {
 	modulo=(ModuloBean)session.getAttribute("modulo");
 	if(modulo!=null){
-		if(modulo.getTipo().equals("B")){
-			modulo=(ModuloAvanzatoBean)session.getAttribute("modulo");
-			hp=((ModuloAvanzatoBean)modulo).getHp();
+		if(modulo.checkTipo()){
+			hp=modulo.getHp();
 		}
 		obiettivi=modulo.getObiettivi();
 	}else{
@@ -127,7 +126,7 @@ function funRO(value) {
 				</tr>
 			</table>
 			<%
-				if(modulo.getTipo().equals("B") && hp!=null && hp.size()>0){
+				if(modulo.checkTipo() && hp!=null && hp.size()>0){
 			%>
 					<table id="info3">
 						<tr class="hr">
@@ -168,9 +167,9 @@ function funRO(value) {
 						String[] x=s.split(";");
 			%>
 						<tr>
-							<td style="width: 55%;"><input type="checkbox" name="hp" value="<%=x[0] %>"> <%=x[1] %></td>
+							<td style="width: 55%;"><input type="checkbox" name="hp" value="<%=x[0]%>"> <%=x[1]%></td>
 							<td style="width: 10%;"><%=x[0] %></td>
-							<td style="width: 35%;"><input type="text" name="<%=x[0]%> %>"></td>
+							<td style="width: 35%;"><input type="text" name="<%=x[0]%>"></td>
 						</tr>
 			<%		}
 			%>				

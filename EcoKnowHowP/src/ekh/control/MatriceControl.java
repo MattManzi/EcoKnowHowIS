@@ -31,6 +31,10 @@ public class MatriceControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		String redirectedPage = "/HomePage.jsp";
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
 		AmministratoreBean admin = (AmministratoreBean) request.getSession().getAttribute("Admin");
@@ -42,109 +46,116 @@ public class MatriceControl extends HttpServlet {
 					|| (user != null || userRoles != null && !userRoles.booleanValue())) {
 				String action = request.getParameter("action");
 				if (action != null) {
-					if (admin != null) {
-						redirectedPage = "/GestioneMatriciAdmin.jsp";
-						if (action.equals("visualizza")) {
-							ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
-							matrici = modelMatrice.doRetrieveAll("id");
-							request.setAttribute("matrici", matrici);
-							String jsp = request.getParameter("jsp");
-							if (jsp != null) {
-								if (jsp.equals("pacchetto")) {
-									redirectedPage = "/AggiungiPacchetto.jsp";
-								} else
-									throw new Exception("ERRORE-MatriceControl-visualizza: invalid jsp.");
+					if (action.equals("visualizza")) {
+						ArrayList<MatriceBean> matrici = new ArrayList<MatriceBean>();
+						matrici = modelMatrice.doRetrieveAll("id");
+						request.setAttribute("matrici", matrici);
+						String jsp = request.getParameter("jsp");
+						if (jsp != null) {
+							if (jsp.equals("pacchetto")) {
+								redirectedPage = "/AggiungiPacchetto.jsp";
+							} else
+								throw new Exception("ERRORE-MatriceControl-visualizza: invalid jsp.");
+						}else {
+							if(admin!=null) {
+								redirectedPage = "/GestioneMatriciAdmin.jsp";
 							}
-						} else if (action.equals("nome") || action.equals("sottotitolo") || action.equals("nota")) {
-							MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("matrice");
-							if (matrice != null) {
-								String dato = request.getParameter("dato");
-								if (dato != null) {
-									MatriceValidator mv = new MatriceValidator();
-									if (mv.modificaMatriceVal(action, dato)) {
-										modelMatrice.doUpdate(action, dato, String.valueOf(matrice.getId()));
-										redirectedPage = "/ModificaMatriceAdmin.jsp";
-										request.getSession().removeAttribute("matrice");
-										request.getSession().setAttribute("matrice",
-												modelMatrice.doRetrieveByKey(String.valueOf(matrice.getId())));
+						}
+					}else {
+						if (admin != null) {
+							redirectedPage = "/GestioneMatriciAdmin.jsp";
+							if (action.equals("nome") || action.equals("sottotitolo") || action.equals("nota")) {
+								MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("matrice");
+								if (matrice != null) {
+									String dato = request.getParameter("dato");
+									if (dato != null) {
+										MatriceValidator mv = new MatriceValidator();
+										if (mv.modificaMatriceVal(action, dato)) {
+											modelMatrice.doUpdate(action, dato, String.valueOf(matrice.getId()));
+											redirectedPage = "/ModificaMatriceAdmin.jsp";
+											request.getSession().removeAttribute("matrice");
+											request.getSession().setAttribute("matrice",
+													modelMatrice.doRetrieveByKey(String.valueOf(matrice.getId())));
+										} else
+											throw new Exception(
+													"ERRORE-MatriceControl-admin-nome/sottotitolo/nota: inserimento dati.");
 									} else
 										throw new Exception(
-												"ERRORE-MatriceControl-admin-nome/sottotitolo/nota: inserimento dati.");
+												"ERRORE-MatriceControl-admin-nome/sottotitolo/nota: dati null.");
 								} else
-									throw new Exception(
-											"ERRORE-MatriceControl-admin-nome/sottotitolo/nota: dati null.");
-							} else
-								throw new Exception("ERRORE-MatriceControl-admin-nome/sottotitolo/nota: Matrice null");
-						} else if (action.equals("select")) {
-							request.getSession().removeAttribute("matrice");
-							String id = request.getParameter("id");
-							if (id != null) {
-								MatriceBean bean = new MatriceBean();
-								bean = modelMatrice.doRetrieveByKey(id);
-								if (!bean.isEmpty()) {
-									redirectedPage = "/ModificaMatriceAdmin.jsp";
-									request.getSession().setAttribute("matrice", bean);
+									throw new Exception("ERRORE-MatriceControl-admin-nome/sottotitolo/nota: Matrice null");
+							} else if (action.equals("select")) {
+								request.getSession().removeAttribute("matrice");
+								String id = request.getParameter("id");
+								System.out.println(id);
+								if (id != null) {
+									MatriceBean matrice = new MatriceBean();
+									matrice = modelMatrice.doRetrieveByKey(id);
+									if (!matrice.isEmpty()) {
+										redirectedPage = "/ModificaMatriceAdmin.jsp";
+										request.getSession().setAttribute("matrice", matrice);
+									} else
+										throw new Exception("ERRORE-MatriceControl-admin-select: Matrice non trovata.");
 								} else
-									throw new Exception("ERRORE-MatriceControl-admin-select: Matrice non trovata.");
+									throw new Exception("ERRORE-MatriceControl-admin-select: id null.");
+							} else if (action.equals("aggiungi")) {
+								String nome = request.getParameter("nome");
+								String sottotitolo = request.getParameter("sottotitolo");
+								String nota = request.getParameter("nota");
+	
+								ArrayList<String> inputs = new ArrayList<String>();
+								inputs.add(nome);
+								inputs.add(sottotitolo);
+								inputs.add(nota);
+	
+								MatriceValidator mv = new MatriceValidator();
+	
+								if (mv.aggiuntaVal(inputs)) {
+									MatriceBean bean = new MatriceBean();
+									bean.setNome(nome);
+									bean.setSottotitolo(sottotitolo);
+									bean.setNota(nota);
+									modelMatrice.doSave(bean);
+								} else
+									throw new Exception("ERRORE-MatriceControl-admin-aggiungi: inserimento dati.");
+							} else if (action.equals("delete")) {
+								String id = request.getParameter("id");
+								if (id != null) {
+									ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();
+									parametri = modelParametro.doRetrieveByMatrix(id);
+									for (ParametroBean bean : parametri) {
+										modelParametro.doDelete(String.valueOf(bean.getId()));
+									}
+									modelMatrice.doDelete(id);
+								} else
+									throw new Exception("ERRORE-MatriceControl-admin-delete: id null");
 							} else
-								throw new Exception("ERRORE-MatriceControl-admin-select: id null.");
-						} else if (action.equals("aggiungi")) {
-							String nome = request.getParameter("nome");
-							String sottotitolo = request.getParameter("sottotitolo");
-							String nota = request.getParameter("nota");
-
-							ArrayList<String> inputs = new ArrayList<String>();
-							inputs.add(nome);
-							inputs.add(sottotitolo);
-							inputs.add(nota);
-
-							MatriceValidator mv = new MatriceValidator();
-
-							if (mv.aggiuntaVal(inputs)) {
-								MatriceBean bean = new MatriceBean();
-								bean.setNome(nome);
-								bean.setSottotitolo(sottotitolo);
-								bean.setNota(nota);
-								modelMatrice.doSave(bean);
-							} else
-								throw new Exception("ERRORE-MatriceControl-admin-aggiungi: inserimento dati.");
-						} else if (action.equals("delete")) {
-							String id = request.getParameter("id");
-							if (id != null) {
-								ArrayList<ParametroBean> parametri = new ArrayList<ParametroBean>();
-								parametri = modelParametro.doRetrieveByMatrix(id);
-								for (ParametroBean bean : parametri) {
-									modelParametro.doDelete(String.valueOf(bean.getId()));
+								throw new Exception("ERRORE-MatriceControl-admin: invalid action for admin.");
+						} else {
+							if (action.equals("nomi")) {
+								request.getSession().setAttribute("nomi", modelMatrice.getName());
+								redirectedPage = "/SceltaMatriceCliente.jsp";
+							} else if (action.equals("visualizzaMatrici")) {
+								String nome = request.getParameter("nome");
+								if (nome != null) {
+									request.setAttribute("matrici", modelMatrice.doRetrieveByName(nome));
 								}
-								modelMatrice.doDelete(id);
-							} else
-								throw new Exception("ERRORE-MatriceControl-admin-delete: id null");
-						} else
-							throw new Exception("ERRORE-MatriceControl-admin: invalid action for admin.");
-					} else {
-						if (action.equals("nomi")) {
-							request.getSession().setAttribute("nomi", modelMatrice.getName());
-							redirectedPage = "/SceltaMatriceCliente.jsp";
-						} else if (action.equals("visualizzaMatrici")) {
-							String nome = request.getParameter("nome");
-							if (nome != null) {
-								request.setAttribute("matrici", modelMatrice.doRetrieveByName(nome));
-							}
-							redirectedPage = "/SceltaMatriceCliente.jsp";
-						} else if (action.equals("select")) {
-							request.getSession().removeAttribute("SelectMatrice");
-							String id = request.getParameter("id");
-							if (id != null) {
-								MatriceBean bean = modelMatrice.doRetrieveByKey(id);
-								if (!bean.isEmpty()) {
-									request.getSession().setAttribute("SelectMatrice", bean);
-									redirectedPage = "/SceltaTipoPacchettoCliente.jsp";
+								redirectedPage = "/SceltaMatriceCliente.jsp";
+							} else if (action.equals("select")) {
+								request.getSession().removeAttribute("SelectMatrice");
+								String id = request.getParameter("id");
+								if (id != null) {
+									MatriceBean bean = modelMatrice.doRetrieveByKey(id);
+									if (!bean.isEmpty()) {
+										request.getSession().setAttribute("SelectMatrice", bean);
+										redirectedPage = "/SceltaTipoPacchettoCliente.jsp";
+									} else
+										throw new Exception("ERRORE-MatriceControl-user-select: matrice non trovata.");
 								} else
-									throw new Exception("ERRORE-MatriceControl-user-select: matrice non trovata.");
+									throw new Exception("ERRORE-MatriceControl-user-select: idMatrice null.");
 							} else
-								throw new Exception("ERRORE-MatriceControl-user-select: idMatrice null.");
-						} else
-							throw new Exception("ERRORE-MatriceControl-user: invalid action for user.");
+								throw new Exception("ERRORE-MatriceControl-user: invalid action for user.");
+						}
 					}
 				} else
 					throw new Exception("ERRORE-MatriceControl: action null");

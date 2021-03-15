@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
-import ekh.bean.ModuloAvanzatoBean;
 import ekh.bean.ModuloBean;
 import ekh.bean.PacchettoBean;
 import ekh.bean.PianoBean;
@@ -35,10 +34,10 @@ import ekh.support.SendEmail;
 public class PianoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int BUFFER_SIZE = 4096;
-	
+
 	PianoModelDM modelPiano = new PianoModelDM();
 	PacchettoModelDM modelPacchetto = new PacchettoModelDM();
-	InfoModelDM modelInfo=new InfoModelDM();
+	InfoModelDM modelInfo = new InfoModelDM();
 	SchedaSicurezzaModelDM model = new SchedaSicurezzaModelDM();
 
 	public PianoControl() {
@@ -47,6 +46,10 @@ public class PianoControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		String redirectedPage = "/HomePage.jsp";
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
@@ -183,10 +186,6 @@ public class PianoControl extends HttpServlet {
 											.getAttribute("SelectPacchetto");
 									ModuloBean modulo = (ModuloBean) request.getSession().getAttribute("modulo");
 									if (pacchetto != null && modulo != null) {
-										if (modulo.getTipo().equals("B")) {
-											modulo = (ModuloAvanzatoBean) request.getSession()
-													.getAttribute("modulo");
-										}
 										ArrayList<String> produttoreInputs = new ArrayList<String>();
 										ArrayList<String> committenteInputs = new ArrayList<String>();
 										ArrayList<String> datiInputs = new ArrayList<String>();
@@ -239,23 +238,27 @@ public class PianoControl extends HttpServlet {
 										datiInputs.add(quantitaCampione);
 
 										String[] obInput = request.getParameterValues("obiettivi");
-										for(String o:obInput) {
+										for (String o : obInput) {
 											obiettivi.add(o);
 										}
-										
+
 										String cer = null;
 										String statoFisico = null;
 										String descrizione = null;
 
 										String[] hpInput = null;
-										if (modulo.getTipo().equals("B")) {
+										if (modulo.checkTipo()) {
 											cer = request.getParameter("cer");
 											statoFisico = request.getParameter("statoFisico");
 											descrizione = request.getParameter("descrizione");
 											hpInput = request.getParameterValues("hp");
-
+											
 											for(String h:hpInput) {
-												hp.add(h);
+												hp.add(request.getParameter(h));
+												System.out.println(h+" "+request.getParameter(h));
+											}
+											for(int i=0; i<hp.size();i++) {
+												hp.set(i, hpInput[i]+"-"+hp.get(i));
 											}
 											datiBInputs.add(cer);
 											datiBInputs.add(statoFisico);
@@ -269,7 +272,8 @@ public class PianoControl extends HttpServlet {
 												|| (check != null && check.equals("true"))
 														&& pv.dati3PianoVal(datiInputs)
 														&& pv.obiettiviPianoVal(obiettivi, modulo)
-														&& ((modulo.getTipo().equals("B") && pv.hpPianoVal(hp, (ModuloAvanzatoBean)modulo))
+														&& ((modulo.getTipo().equals("B")
+																&& pv.hpPianoVal(hp, modulo))
 																|| !modulo.getTipo().equals("B"))) {
 											modulo.setRagioneSocialeProd(ragioneSocialeProd);
 											modulo.setSedeLegaleProd(sedeLegaleProd);
@@ -295,26 +299,26 @@ public class PianoControl extends HttpServlet {
 											modulo.setNorma(norma);
 											modulo.setQuantitaCampione(quantitaCampione);
 
-											if (modulo.getTipo().equals("B")) {
-												((ModuloAvanzatoBean) modulo).setCer(cer);
-												((ModuloAvanzatoBean) modulo).setStatoFisico(statoFisico);
-												((ModuloAvanzatoBean) modulo).setDescrizione(descrizione);
-												((ModuloAvanzatoBean) modulo).setHp(hp);
+											if (modulo.checkTipo()) {
+												modulo.setCer(cer);
+												modulo.setStatoFisico(statoFisico);
+												modulo.setDescrizione(descrizione);
+												modulo.setHp(hp);
 											}
-											
+
 											modulo.setObiettivi(obiettivi);
-											
-										}else {
+
+										} else {
 											redirectedPage = "/CompilaModuloCliente.jsp";
 											throw new Exception("ERRORE-PianoControl-user-crea: inserimento Dati.");
 										}
 										
-										PianoBean piano=new PianoBean();
+										PianoBean piano = new PianoBean();
 										piano.generaId();
 										piano.setContenuto(pacchetto.getContenuto());
 										piano.setUsername(user.getUsername());
 										piano.setPrezzo(pacchetto.calcolaPrezzo());
-										
+
 										String SAVE_DIR = "uploadTemp";
 										String appPath = request.getServletContext().getRealPath("");
 										String savePath = appPath + SAVE_DIR;
@@ -323,13 +327,15 @@ public class PianoControl extends HttpServlet {
 										if (!fileSaveDir.exists()) {
 											fileSaveDir.mkdir();
 										}
-										
+
 										modelPiano.doSave(piano);
-										piano.stampContenuto(savePath+File.separator);
-										modulo.stampModulo(piano.getId());
-										modelInfo.setIdPiano(piano.getId()-1, piano.getId());
-										SendEmail sm=new SendEmail();
-										boolean sendEmail=sm.confermaPiano(user);
+										piano.stampContenuto(savePath + File.separator);
+										modulo.stampModulo(piano.getId());										
+										
+										modelInfo.setIdPiano(piano.getId());
+										
+										SendEmail sm = new SendEmail();
+										boolean sendEmail = sm.confermaPiano(user);
 										if (sendEmail) {
 											redirectedPage = "/StoricoCliente.jsp";
 										} else

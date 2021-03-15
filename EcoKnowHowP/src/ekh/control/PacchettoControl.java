@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import ekh.bean.AmministratoreBean;
 import ekh.bean.ClienteBean;
 import ekh.bean.MatriceBean;
-import ekh.bean.ModuloAvanzatoBean;
 import ekh.bean.ModuloBean;
 import ekh.bean.PacchettoBean;
 import ekh.bean.ParametroBean;
@@ -37,6 +36,10 @@ public class PacchettoControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		String redirectedPage = "/HomePage.jsp";
 
 		Boolean adminRoles = (Boolean) request.getSession().getAttribute("adminRoles");
@@ -237,19 +240,19 @@ public class PacchettoControl extends HttpServlet {
 						} else {
 							/* Funzioni action per user - INIZIO */
 							if (action.equals("visualizza")) {
-								MatriceBean bean = (MatriceBean) request.getSession().getAttribute("SelectMatrice");
-								if (bean != null) {
+								MatriceBean matrice = (MatriceBean) request.getSession().getAttribute("SelectMatrice");
+								if (matrice != null) {
 									String tipo = request.getParameter("tipo");
 									if (tipo != null) {
 										if (tipo.equals("standard") || tipo.equals("analitico")) {
 											ArrayList<PacchettoBean> pacchetti = new ArrayList<PacchettoBean>();
 											if (tipo.equals("standard")) {
 												pacchetti = modelPacchetto.doRetrieveForUser("", tipo,
-														String.valueOf(bean.getId()));
+														String.valueOf(matrice.getId()));
 											} else {
 												String username = user.getUsername();
 												pacchetti = modelPacchetto.doRetrieveForUser(username, tipo,
-														String.valueOf(bean.getId()));
+														String.valueOf(matrice.getId()));
 											}
 											redirectedPage = "/SelezionaPacchettoCliente.jsp";
 											request.setAttribute("pacchetti", pacchetti);
@@ -273,12 +276,7 @@ public class PacchettoControl extends HttpServlet {
 										pacchetto.readContenuto();
 										request.getSession().setAttribute("SelectPacchetto", pacchetto);									
 										
-										ModuloBean modulo=null;
-										if(matrice.getModulo().equals("B")) {
-											modulo=new ModuloAvanzatoBean();
-										}else {
-											modulo=new ModuloBean();
-										}
+										ModuloBean modulo=new ModuloBean();
 										modulo.setTipo(matrice.getModulo());
 										String SAVE_DIR = "txt";
 										String appPath = request.getServletContext().getRealPath("");
@@ -289,7 +287,7 @@ public class PacchettoControl extends HttpServlet {
 										}
 										modulo.inizializza(savePath+File.separator);
 										request.getSession().setAttribute("modulo", modulo);
-										redirectedPage = "/CompilaModuloCliente.jsp";
+										redirectedPage = "/CompilaModuloCliente.jsp";									
 									} else {
 										redirectedPage = "/SceltaPacchettoCliente.jsp";
 										throw new Exception("ERRORE-PacchettoControl-user: id null.");

@@ -179,7 +179,6 @@ public class PacchettoBean {
 		
 		String parametri=new String(bt);
 		String[] param=parametri.split("\n");
-		
 		for(String id:param) {
 			try {
 				contenuto.add(model.doRetrieveByKey(id));

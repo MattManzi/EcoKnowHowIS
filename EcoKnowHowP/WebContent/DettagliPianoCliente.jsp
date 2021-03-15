@@ -21,8 +21,8 @@ if (adminRoles != null && adminRoles.booleanValue()){
 		parametri=pianoAdmin.getContenuto();
 		modulo=pianoAdmin.getModulo();
 		obiettivi=modulo.getObiettivi();
-		if(modulo.getTipo().equals("B")){
-			hp=((ModuloAvanzatoBean)modulo).getHp();
+		if(modulo.checkTipo()){
+			hp=modulo.getHp();
 		}
 	}
 }else if(userRoles != null && userRoles.booleanValue()) {	
@@ -34,8 +34,8 @@ if (adminRoles != null && adminRoles.booleanValue()){
 			parametri=piano.getContenuto();
 			modulo=piano.getModulo();
 			obiettivi=modulo.getObiettivi();
-			if(modulo.getTipo().equals("B")){
-				hp=((ModuloAvanzatoBean)modulo).getHp();
+			if(modulo.checkTipo()){
+				hp=modulo.getHp();
 			}
 		}
 } else {
@@ -148,20 +148,20 @@ if (adminRoles != null && adminRoles.booleanValue()){
 						</tr>
 				</table>
 				<%
-				if(modulo.getTipo().equals("B") && hp!=null && hp.size()>0){
+				if(modulo.checkTipo() && hp!=null && hp.size()>0){
 				%>	
 					<table>
 						<tr>
 							<td>Codice CER:</td>
-							<td><%=((ModuloAvanzatoBean)modulo).getCer()%></td>
+							<td><%=modulo.getCer()%></td>
 						</tr>
 						<tr>
 							<td>Stato Fisico:</td>
-							<td><%=((ModuloAvanzatoBean)modulo).getStatoFisico()%></td>
+							<td><%=modulo.getStatoFisico()%></td>
 						</tr>
 						<tr>
 							<td>Descrizione del processo produttivo:</td>
-							<td><%=((ModuloAvanzatoBean)modulo).getDescrizione()%></td>
+							<td><%=modulo.getDescrizione()%></td>
 						</tr>
 						<tr>	
 							<td>Schede Dati di Sicurezza:</td>
@@ -190,7 +190,7 @@ if (adminRoles != null && adminRoles.booleanValue()){
 						</tr>
 						<%
 						for(String s:hp){
-							String[] x=s.split(";");							
+							String[] x=s.split("-");							
 						%>		
 							<tr>
 								<td><%=x[0] %></td>

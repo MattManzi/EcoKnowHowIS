@@ -9,30 +9,38 @@ import java.util.Scanner;
 import ekh.model.ModuloModelDM;
 
 public class ModuloBean {
-	protected String tipo;
-	protected String ragioneSocialeProd;
-	protected String sedeLegaleProd;
-	protected String pIvaProd;
-	protected String telefonoProd;
-	protected String emailProd;
-	protected String ragioneSocialeCom;
-	protected String sedeLegaleCom;
-	protected String pIvaCom;
-	protected String telefonoCom;
-	protected String emailCom;
-	protected String data;
-	protected String luogo;
-	protected String nomeCampionatore;
-	protected String cognomeCampionatore;
-	protected String norma;
-	protected String quantitaCampione;
-	protected boolean rapporto;
-	protected ArrayList<String> obiettivi;
-	protected String dataConferma;
+	private String tipo;
+	private String ragioneSocialeProd;
+	private String sedeLegaleProd;
+	private String pIvaProd;
+	private String telefonoProd;
+	private String emailProd;
+	private String ragioneSocialeCom;
+	private String sedeLegaleCom;
+	private String pIvaCom;
+	private String telefonoCom;
+	private String emailCom;
+	private String data;
+	private String luogo;
+	private String nomeCampionatore;
+	private String cognomeCampionatore;
+	private String norma;
+	private String quantitaCampione;
+	private boolean rapporto;
+	private ArrayList<String> obiettivi;
+	private String dataConferma;
+	
+	private ArrayList<String> hp;
+	private String cer;
+	private String statoFisico;
+	private String descrizione;
+	private boolean schedaDS;
 	
 	public ModuloBean() {
 		obiettivi=new ArrayList<String>();
+		hp=new ArrayList<String>();
 		rapporto=false;
+		schedaDS=false;
 	}
 
 	public String getTipo() {
@@ -203,17 +211,71 @@ public class ModuloBean {
 		this.dataConferma = dataConferma;
 	};
 
+	
+	
+	public ArrayList<String> getHp() {
+		return hp;
+	}
+
+	public void setHp(ArrayList<String> hp) {
+		this.hp = hp;
+	}
+
+	public String getCer() {
+		return cer;
+	}
+
+	public void setCer(String cer) {
+		this.cer = cer;
+	}
+
+	public String getStatoFisico() {
+		return statoFisico;
+	}
+
+	public void setStatoFisico(String statoFisico) {
+		this.statoFisico = statoFisico;
+	}
+
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	public boolean isSchedaDS() {
+		return schedaDS;
+	}
+
+	public void setSchedaDS(boolean schedaDS) {
+		this.schedaDS = schedaDS;
+	}
+
+	public void setRapporto(boolean rapporto) {
+		this.rapporto = rapporto;
+	}
+
 	public void stampModulo(int id) {
 		String str = "";
 		str = str + tipo + "\n" + ragioneSocialeProd + "\n" + ragioneSocialeCom + "\n" + sedeLegaleProd + "\n"
 				+ sedeLegaleCom + "\n" + pIvaProd + "\n" + pIvaCom + "\n" + telefonoProd + "\n" + telefonoCom + "\n"
 				+ emailProd + "\n" + emailCom + "\n" + data + "\n" + luogo + "\n" + nomeCampionatore + "\n"
-				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n"+ dataConferma+"\n"+rapporto+"\n";
+				+ cognomeCampionatore + "\n" + norma + "\n" + quantitaCampione + "\n"+ dataConferma
+				+ "\n" + cer + "\n" + statoFisico + "\n" + descrizione + "\n"+rapporto+ "\n"+schedaDS+ "\n";
 
 		for (String i : obiettivi) {
 			str = str + i + ";";
 		}
 		str = str + "\n";
+
+		if(checkTipo()) {
+			for (String i : hp) {
+				str = str + i + ";";
+			}
+			str = str + "\n";
+		}
 		try {
 			ModuloModelDM.updateFile(id, str);
 		} catch (SQLException e) {
@@ -251,29 +313,53 @@ public class ModuloBean {
 		norma = dati[15];
 		quantitaCampione = dati[16];
 		dataConferma = dati[17];
-		if(dati[18].equals("true")) {
-			rapporto=true;
-		}else {
-			rapporto=false;
-		}
-		String oStr=dati[19];
 		
-		String[] o=oStr.split(";");
+		String oStr=dati[23];
+		
+		String[] o=oStr.split(";"); 
 		
 		if(o.length>0) {
 			for(String x:o) {
 				obiettivi.add(x);
 			}
 		}
+		if(checkTipo()) {
+			cer = dati[18];
+			statoFisico = dati[19];
+			descrizione = dati[20];
+			if(dati[21].equals("true")) {
+				rapporto=true;
+			}else {
+				rapporto=false;
+			}
+			if(dati[22].equals("true")) {
+				schedaDS=true;
+			}else {
+				schedaDS=false;
+			}
+			
+			String hStr=dati[24];
+			String[] h=hStr.split(";"); 
+
+			if(h.length>0) {
+				for(String x:h) {
+					hp.add(x);
+				}
+			}
+		}
 	}
 	
 	public void inizializza(String path) throws IOException {
 		readObiettivi(path);
+		if(checkTipo()) {
+			readHp(path);
+		}
 	}
 	
 	public void readObiettivi(String path) throws IOException{
 		obiettivi.clear();
 		FileReader fr = new FileReader(path+"Modulo"+tipo+".txt");
+		
 		Scanner in = new Scanner(fr);
 		
 		while (in.hasNextLine()) {
@@ -282,5 +368,21 @@ public class ModuloBean {
 		
 		in.close();
 		fr.close();
+	}
+	
+	public void readHp(String path) throws IOException{
+		hp.clear();
+		FileReader fr = new FileReader(path+"HP.txt");
+		Scanner in = new Scanner(fr);
+		
+		while (in.hasNextLine()) {
+			hp.add(in.nextLine());
+		}
+		in.close();
+		fr.close();
+	}
+	
+	public boolean checkTipo() {
+		return tipo.equals("B");
 	}
 }

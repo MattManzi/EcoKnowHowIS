@@ -8,8 +8,8 @@ ClienteBean userLog = (ClienteBean) session.getAttribute("User");
 Collection<?> piani = null;
 ClienteBean cliente = null;
 Collection<?> clienti = (Collection<?>) request.getAttribute("clienti");
-if ((admin_p != null && adminRoles != null && adminRoles.booleanValue())
-		|| (userLog != null || userRoles != null && userRoles.booleanValue())) {
+if ((adminRoles != null && adminRoles.booleanValue())
+		|| (userRoles != null && userRoles.booleanValue())) {
 	if (admin_p != null) {
 		cliente = (ClienteBean) session.getAttribute("cliente");
 		if (cliente == null) {
@@ -23,6 +23,7 @@ if ((admin_p != null && adminRoles != null && adminRoles.booleanValue())
 			}
 		}
 	} else {
+		cliente = (ClienteBean) session.getAttribute("User");
 		piani = (Collection<?>) request.getAttribute("piani");
 		if (piani == null) {
 			response.sendRedirect(response.encodeRedirectURL("./Piano?action=pianiCliente&username=" + userLog.getUsername()));
@@ -49,8 +50,8 @@ if ((admin_p != null && adminRoles != null && adminRoles.booleanValue())
 	<%}%>
 	
 	<div class="canvas">
-		<h4>Nome:<%=userLog.getNome()%></h4>
-		<h4>Cognome:<%=userLog.getCognome()%></h4>
+		<h4>Nome:<%=cliente.getNome()%></h4>
+		<h4>Cognome:<%=cliente.getCognome()%></h4>
 		<table id="tableMatriciAdmin">
 			<tr>
 				<th>ID</th>

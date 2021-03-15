@@ -2,7 +2,6 @@ package ekh.strategy;
 
 import java.util.ArrayList;
 
-import ekh.bean.ModuloAvanzatoBean;
 import ekh.bean.ModuloBean;
 
 public class PianoValidator {
@@ -113,15 +112,17 @@ public class PianoValidator {
 		return false;		
 	}
 	
-	public boolean hpPianoVal(ArrayList<String> input, ModuloAvanzatoBean modulo) {	
+	public boolean hpPianoVal(ArrayList<String> input, ModuloBean modulo) {	
 		try {
 			ArrayList<String> hp=new ArrayList<String>();
 			hp=modulo.getHp();
 			
 			int i=0;
 			for(String s:input) {
+				String[] split1=s.split("-");
 				for(String h:hp) {
-					if(s.equals(h)) {
+					String[] split2=h.split(";");
+					if(split1[0].equals(split2[0])) {
 						i++;
 					}
 				}
@@ -130,7 +131,7 @@ public class PianoValidator {
 			if(input.size()==i) {
 				return true;
 			}else 
-				throw new Exception("ERRORE-PianoValidator-hpPianoVal: obiettivi");
+				throw new Exception("ERRORE-PianoValidator-hpPianoVal: hp");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}		
