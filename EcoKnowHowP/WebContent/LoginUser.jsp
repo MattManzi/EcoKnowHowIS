@@ -13,32 +13,24 @@
 <html>
 
 <head>
-<link href="css/Template.css" rel="stylesheet">
 <link href="css/Login.css" rel="stylesheet">
 <title>EcoKnowHow</title>
 </head>
 <body>
 
-	<div class="canvas">
-	<a href="<%=response.encodeURL("HomePage.jsp")%>" class="logo">EcoKnowHow</a>
+	<div id="main">
+		<div id="top">
+			<a href="<%=response.encodeURL("HomePage.jsp") %>" class="logo"><img alt="EcoKnowHow" src="./img/logo.png" width="100%" height="100%"></a>
+		</div>
 		<fieldset>
 		<form name="formLogin" action="<%=response.encodeURL("Login?action=user")%>" method="post">
-			<label for="username">Username:</label> 
-			<input type="text" name="username" placeholder="enter username"><br> 
-			<label for="password">Password:</label> 
-			<input type="password" name="password" placeholder="enter password"><br>
-			<a href="<%=response.encodeURL("RecuperaPassword.jsp") %>">Recupera Password</a><br>
+			<input type="text" name="username" placeholder="Username:"><br> 
+			<input type="password" name="password" placeholder="Password:"><br>
 			<input type="submit" value="Login">
 		</form>
-		<label for="registrati">Non hai un account?</label>
-		<a id="registrati" href="<%=response.encodeURL("RegistrazioneUser.jsp") %>">Registrati ora</a>
-		<%if(msg!=null){%>	
-			<p id="error"><%=msg%></p>
-		<%
-		}
-		%>
+		<a href="<%=response.encodeURL("RecuperaPassword.jsp") %>">Password dimenticata</a><br><br>
+		<label for="registrati">Non hai un account? </label><a id="registrati" href="<%=response.encodeURL("RegistrazioneUser.jsp") %>">Registrati ora</a>
 		</fieldset>
 	</div>
-	<%@ include file="Footer.jsp" %>
 </body>
 </html>

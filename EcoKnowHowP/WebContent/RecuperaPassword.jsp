@@ -3,15 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<link href="css/Verifica.css" rel="stylesheet">
+<title>Reimpostazione password</title>
 </head>
 <body>
-	<!-- In questa pagina verrà chiesto all'utente di inserire la propria email -->
-	<h1>Recupero Password</h1>
-	
-	<form name="formEmail" action="<%=response.encodeURL("RP?action=verifica") %>" method="post"> 
-		<input type="text" name="email">
-		<input type="submit" value="Invia Email">	
-	</form>
+	<div id="main">
+		<h1>Recupero Password</h1>		
+		<form name="formEmail" action="<%=response.encodeURL("RP?action=verifica") %>" method="post"> 
+			<input type="text" name="email" placeholder="E-mail">
+			<input type="submit" value="Invia Email">	
+		</form>
+	</div>
 </body>
 </html>
