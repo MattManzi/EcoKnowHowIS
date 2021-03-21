@@ -1,11 +1,18 @@
-<<<<<<< HEAD
+
 #main{
 	padding-top: 85px;
 	padding-bottom: 100px;
-=======
-div#main{
-	padding-top: 90px;
-	padding-bottom: 90px;
+}
+
+.container {
+	
+ 	width: 60%;
+ 	margin: auto;
+ 	margin-top: 100px;
+}
+
+#scelta{
+	padding-left: 10%;
 }
 
 .card {
@@ -17,41 +24,19 @@ div#main{
  	height: 250px;
  	margin:55px;
  	text-align: center;
- 	background-color: #ADD8E6
+ 	background-color: #ADD8E6;
 }
 
 .card:hover {
   	box-shadow: 0 10px 20px 0 #29858f;
->>>>>>> branch 'main' of https://github.com/MattManzi/EcoKnowHowIS.git
 }
 
-.container {
- 	width: 60%;
- 	margin: auto;
- 	margin-top: 100px;
-}
-<<<<<<< HEAD
-=======
 
-#scelta{padding-left: 25px;}
->>>>>>> branch 'main' of https://github.com/MattManzi/EcoKnowHowIS.git
 
-<<<<<<< HEAD
-#scelta{
-	padding-left: 5%;
-}
-
- .nome{  
- 	display: inline-block;
-  }
-  
-  .nome_matrice {
-=======
 .nome{  display: inline-block; }
 
 .nome_matrice {
  display: inline-block;
->>>>>>> branch 'main' of https://github.com/MattManzi/EcoKnowHowIS.git
  text-align: center;
  white-space: nowrap;
  color: #FFFFFF;
@@ -76,33 +61,10 @@ div#main{
 #matrici{
 	text-align:center;
 	border:3px solid #add8e6;
-	border-radius: 3%;
-<<<<<<< HEAD
-=======
-	width: 20%;
-}
-
-#pacchetti{
->>>>>>> branch 'main' of https://github.com/MattManzi/EcoKnowHowIS.git
+	border-radius: 15px;
 	width: 100%;
-
 }
 
-.card {
-	display:inline-block;
-  	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
- 	transition: 0.3s;
-  	border-radius: 4px;
-	width:400px;
- 	height: 250px;
- 	margin:50px;
- 	text-align: center;
- 	background-color: #ADD8E6
-}
-
-.card:hover {
-  	box-shadow: 0 10px 20px 0 #29858f;
-}
 @media (max-width: 767px) {
 	.card{width: 80%; margin: auto;}	
 

@@ -12,10 +12,6 @@ body{background: #F0F8FF;}
 .active {background-color: #99CBFF;}
 .invisibile{display: none;}
 
-<<<<<<< HEAD
-	
-=======
->>>>>>> branch 'main' of https://github.com/MattManzi/EcoKnowHowIS.git
 .footer{position: fixed; left: 0; bottom: 0;   width: 100%; background: #ADD8E6; color: #000; color:white; text-align: center; margin-top: 150px;}
 
 .nav a.icon {
