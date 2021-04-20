@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*"%>
+    pageEncoding="UTF-8" import="ekh.bean.*, java.util.*, ekh.control.*"%>
 <!DOCTYPE html>
 <html>
 <head>
